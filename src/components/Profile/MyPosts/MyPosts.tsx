@@ -1,7 +1,7 @@
 import React, {KeyboardEvent, ChangeEvent} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {PostsType, updateNewPostText} from "../../../Redux/State";
+import {PostsType} from "../../../Redux/State";
 
 
 type MyPostsPropsType = {

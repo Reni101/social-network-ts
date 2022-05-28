@@ -1,20 +1,21 @@
 import React from 'react';
-import state, {subscribe} from "./Redux/State"
+import {store} from "./Redux/State"
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {addPost, RootStateType, updateNewPostText} from "./Redux/State"
+import {RootStateType} from "./Redux/State"
 
 const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
-        <App state={state} addPost={addPost} updateNewPostText={updateNewPostText}/>,
+        <App state={store.getState()} addPost={store.addPost.bind(store)} // bind привязывает контекст вызова!!
+             updateNewPostText={store.updateNewPostText.bind(store)}/>,
         document.getElementById('root')
     );
 
 }
 
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState());
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree)
 
