@@ -10,7 +10,7 @@ export type StoreType = {
     subscribe: (observer: (state: RootStateType) => void) => void
 }
 
-export let store: StoreType = {
+export const store: StoreType = {
     _state: {
         profilePage: {
             postsData: [
