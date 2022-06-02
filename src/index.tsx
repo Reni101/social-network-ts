@@ -7,8 +7,11 @@ import {RootStateType} from "./Redux/State"
 
 const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
-        <App state={store.getState()} addPost={store.addPost.bind(store)} // bind привязывает контекст вызова!!
-             updateNewPostText={store.updateNewPostText.bind(store)}/>,
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)} // bind привязывает контекст вызова!!
+
+          /*   updateNewPostText={store.updateNewPostText.bind(store)}*/
+
+        />,
         document.getElementById('root')
     );
 

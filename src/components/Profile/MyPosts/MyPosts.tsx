@@ -1,14 +1,15 @@
 import React, {KeyboardEvent, ChangeEvent} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {PostsType} from "../../../Redux/State";
+import {ActionsTypes, PostsType} from "../../../Redux/State";
 
 
 type MyPostsPropsType = {
     postsData: Array<PostsType>
-    addPost: () => void
     newPostText: string
-    updateNewPostText: (newText: string) => void
+    /*addPost: () => void
+    updateNewPostText: (newText: string) => void*/
+    dispatch:(action:ActionsTypes)=>void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -19,7 +20,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
         const addPost = () => {
             if (newPostElement.current) {
-                props.addPost()
+                props.dispatch({type: "ADD-POST"})
 
 
             }
@@ -31,7 +32,8 @@ const MyPosts = (props: MyPostsPropsType) => {
         }
         const onPostChange = () => {
             if (newPostElement.current) {
-                props.updateNewPostText(newPostElement.current.value)
+                let text = newPostElement.current.value;
+                props.dispatch({type: "UPDATE-NEW-POST-TEXT",newText:text})
 
             }
         }
