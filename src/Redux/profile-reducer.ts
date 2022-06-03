@@ -1,10 +1,10 @@
 import {v1} from "uuid";
-import {AddPostActionType, PostsType, UpdateNewPostTextPostActionType} from "./State";
+import {ActionsTypes, AddPostActionType, PostsType, ProfilePageType, UpdateNewPostTextPostActionType} from "./State";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
 
-const ProfileReducer = (state: any, action: any) => {
+const ProfileReducer = (state: ProfilePageType, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
             let newPost: PostsType = {

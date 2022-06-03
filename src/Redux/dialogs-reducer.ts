@@ -1,11 +1,11 @@
 import {v1} from "uuid";
-import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./State";
+import {ActionsTypes, DialogsPageType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./State";
 
 const UPDATE_NEW_MESSAGES_BODY = "UPDATE-NEW-MESSAGES-BODY";
 const SEND_MESSAGES = "SEND-MESSAGES";
 
 
-const DialogsReducer = (state: any, action: any) => {
+const DialogsReducer = (state: DialogsPageType, action: ActionsTypes) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGES_BODY :
             state.newMessagesBody = action.body;

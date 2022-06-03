@@ -73,7 +73,7 @@ export const store: StoreType = {
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer
     },
-    dispatch(action) {
+    dispatch(action:ActionsTypes) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(action) // надо допилить
