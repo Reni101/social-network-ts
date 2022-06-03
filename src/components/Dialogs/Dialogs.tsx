@@ -1,25 +1,40 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import styleDi from './Dialogs.module.css'
 import DialogItem from "./Dialogitem/Dialogs";
 import Message from "./MessageItem/Dialogs";
-import {DialogsPageType} from "../../Redux/State";
+import {
+    ActionsTypes,
+    DialogsPageType,
+    sendMessageCreator,
+    StoreType,
+    UppdateNewMessageBodyCreator
+} from "../../Redux/State";
 
 
-type DialogsPropsType= {
-    state:DialogsPageType
+type DialogsPropsType = {
+    state: DialogsPageType
+    /*dispatch:(action:ActionsTypes)=>void*/
+    store: StoreType
 }
 
 
-const Dialogs = (props:DialogsPropsType) => {
-
+const Dialogs = (props: DialogsPropsType) => {
 
 
     const mapDialogsItem = props.state.dialogsData.map((e) => {
-        return <DialogItem name={e.name} id={e.id}/>
+        return <DialogItem name={e.name} id={e.id} key={e.id}/>
     })
-    const mapMessage = props.state.messagesData.map((e) => {
-        return <Message message={e.message} id={e.id}/>
+    const mapMessageElement = props.state.messagesData.map((e) => {
+        return <Message message={e.message} id={e.id} key={e.id}/>
     })
+
+    const onSendMessageClick = () => {
+        props.store.dispatch(sendMessageCreator())
+    }
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.target.value
+        props.store.dispatch(UppdateNewMessageBodyCreator(body))
+    }
 
     return (
         <div className={styleDi.dialogs}>
@@ -29,7 +44,15 @@ const Dialogs = (props:DialogsPropsType) => {
             </div>
 
             <div className={styleDi.messages}>
-                {mapMessage}
+                <div> {mapMessageElement} </div>
+                <div><textarea placeholder="Enter your message"
+                               onChange={onNewMessageChange}
+                               value={props.state.newMessagesBody}
+                ></textarea>
+                </div>
+                <div>
+                    <button onClick={onSendMessageClick}>SEND</button>
+                </div>
             </div>
         </div>
     )

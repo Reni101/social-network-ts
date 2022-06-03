@@ -1,7 +1,7 @@
 import React, {KeyboardEvent, ChangeEvent} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {ActionsTypes, addPostActionCreator, PostsType, UppdateNewPostActionCreator} from "../../../Redux/State";
+import {ActionsTypes, addPostCreator, PostsType, UppdateNewPostCreator} from "../../../Redux/State";
 
 
 
@@ -21,7 +21,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
         const addPost = () => {
             if (newPostElement.current) {
-                props.dispatch(addPostActionCreator())
+                props.dispatch(addPostCreator())
 
 
             }
@@ -34,7 +34,7 @@ const MyPosts = (props: MyPostsPropsType) => {
         const onPostChange = () => {
             if (newPostElement.current) {
                 let text = newPostElement.current.value;
-                let action = UppdateNewPostActionCreator(text)
+                let action = UppdateNewPostCreator(text)
                 props.dispatch(action)
 
             }
@@ -48,7 +48,10 @@ const MyPosts = (props: MyPostsPropsType) => {
                         <textarea ref={newPostElement}
                                   onKeyDown={pressEnterHandler}
                                   onChange={onPostChange}
-                                  value={props.newPostText}/>
+                                  value={props.newPostText}
+                                  placeholder="Create post"
+                        />
+
                     </div>
                     <div>
                         <button onClick={addPost}> Add post</button>
