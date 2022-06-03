@@ -1,5 +1,8 @@
 import {v1} from "uuid";
 
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_POST = "ADD-POST";
+
 
 export type StoreType = {
     _state: RootStateType
@@ -28,7 +31,7 @@ export const store: StoreType = {
 
                 {id: v1(), message: "My first post", likeCount: 0},
             ],
-            newPostText: "Privet Chubaka",
+            newPostText: "Введите текст",
 
         },
         dialogsPage: {
@@ -90,6 +93,13 @@ export const store: StoreType = {
 
 
 }
+
+export const addPostActionCreator = ():AddPostActionType => ({type: ADD_POST})
+
+export const UppdateNewPostActionCreator = (text: string):UppdateNewPostTextPostActionType => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text,
+ })
 
 
 export type PostsType = {
