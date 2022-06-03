@@ -1,15 +1,15 @@
 import React, {KeyboardEvent, ChangeEvent} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {ActionsTypes, addPostCreator, PostsType, UppdateNewPostCreator} from "../../../Redux/State";
+import {ActionsTypes, PostsType} from "../../../Redux/State";
+import {addPostCreator, UpdateNewPostCreator} from "../../../Redux/profile-reducer";
 
 
 
 type MyPostsPropsType = {
     postsData: Array<PostsType>
     newPostText: string
-    /*addPost: () => void
-    updateNewPostText: (newText: string) => void*/
+
     dispatch:(action:ActionsTypes)=>void
 }
 
@@ -34,7 +34,7 @@ const MyPosts = (props: MyPostsPropsType) => {
         const onPostChange = () => {
             if (newPostElement.current) {
                 let text = newPostElement.current.value;
-                let action = UppdateNewPostCreator(text)
+                let action = UpdateNewPostCreator(text)
                 props.dispatch(action)
 
             }

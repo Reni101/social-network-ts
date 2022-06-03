@@ -5,15 +5,13 @@ import Message from "./MessageItem/Dialogs";
 import {
     ActionsTypes,
     DialogsPageType,
-    sendMessageCreator,
     StoreType,
-    UppdateNewMessageBodyCreator
 } from "../../Redux/State";
+import {sendMessageCreator, UpdateNewMessageBodyCreator} from "../../Redux/dialogs-reducer";
 
 
 type DialogsPropsType = {
     state: DialogsPageType
-    /*dispatch:(action:ActionsTypes)=>void*/
     store: StoreType
 }
 
@@ -33,7 +31,7 @@ const Dialogs = (props: DialogsPropsType) => {
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
-        props.store.dispatch(UppdateNewMessageBodyCreator(body))
+        props.store.dispatch(UpdateNewMessageBodyCreator(body))
     }
 
     return (

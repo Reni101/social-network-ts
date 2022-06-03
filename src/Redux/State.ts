@@ -1,9 +1,8 @@
 import {v1} from "uuid";
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_MESSAGES_BODY = "UPDATE-NEW-MESSAGES-BODY";
-const SEND_MESSAGES = "SEND-MESSAGES";
 
 
 export type StoreType = {
@@ -19,21 +18,21 @@ export type StoreType = {
 export type ActionsTypes =
     AddPostActionType
     | SendMessageActionType
-    | UppdateNewPostTextPostActionType
-    | UppdateNewMessageBodyActionType
+    | UpdateNewPostTextPostActionType
+    | UpdateNewMessageBodyActionType
 
-type AddPostActionType = {
+export type AddPostActionType = {
     type: "ADD-POST"
     //newPostText?: string
 }
-type UppdateNewPostTextPostActionType = {
+export type UpdateNewPostTextPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
-type SendMessageActionType = {
+export type SendMessageActionType = {
     type: "SEND-MESSAGES"
 }
-type UppdateNewMessageBodyActionType = {
+export type UpdateNewMessageBodyActionType = {
     type: "UPDATE-NEW-MESSAGES-BODY";
     body: string
 }
@@ -74,64 +73,14 @@ export const store: StoreType = {
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer
     },
-    /* _addPost() {
-         let newPost: PostsType = {
-             id: v1(),
-             message: this._state.profilePage.newPostText,
-             likeCount: 0,
-
-         };
-         this._state.profilePage.postsData.push(newPost);
-         this._state.profilePage.newPostText = "";
-         this._callSubscriber(this._state);
-     },
-     _updateNewPostText(newText: string) {
-         this._state.profilePage.newPostText = newText
-         this._callSubscriber(this._state);
-     },*/
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost: PostsType = {
-                id: v1(),
-                message: this._state.profilePage.newPostText,
-                likeCount: 0,
-
-            };
-            this._state.profilePage.postsData.push(newPost);
-            this._state.profilePage.newPostText = "";
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_MESSAGES_BODY) {
-            this._state.dialogsPage.newMessagesBody = action.body;
-            this._callSubscriber(this._state);
-        } else if (action.type === SEND_MESSAGES) {
-            let body: string = this._state.dialogsPage.newMessagesBody;
-            this._state.dialogsPage.messagesData.push({id: v1(), message: body})
-            this._state.dialogsPage.newMessagesBody = "";
-            this._callSubscriber(this._state);
-
-        }
-
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(action) // надо допилить
+        this._callSubscriber(this._state);
     },
 
-
 }
-
-
-export const addPostCreator = (): AddPostActionType => ({type: ADD_POST})
-export const UppdateNewPostCreator = (text: string): UppdateNewPostTextPostActionType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text,
-})
-
-export const sendMessageCreator = (): SendMessageActionType => ({type: SEND_MESSAGES})
-export const UppdateNewMessageBodyCreator = (body: string): UppdateNewMessageBodyActionType => ({
-    type: UPDATE_NEW_MESSAGES_BODY,
-    body: body,
-})
-
 
 export type PostsType = {
     id: string
