@@ -6,7 +6,7 @@ import {
     ActionsTypes,
     DialogsPageType,
     StoreType,
-} from "../../Redux/State";
+} from "../../Redux/Store";
 import {sendMessageCreator, UpdateNewMessageBodyCreator} from "../../Redux/dialogs-reducer";
 
 

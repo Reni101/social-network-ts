@@ -65,7 +65,7 @@ export const store: StoreType = {
         sidebar: {}
 
     },
-    _callSubscriber(a: RootStateType) {
+    _callSubscriber(a: any) {
     },
     getState() {
         return this._state

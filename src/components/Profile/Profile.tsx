@@ -3,7 +3,7 @@ import contentIMG from "../../img/content .jpg";
 import styleP from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes, ProfilePageType} from "../../Redux/State";
+import {ActionsTypes, ProfilePageType} from "../../Redux/Store";
 
 type ProfilePropsType = {
     state: ProfilePageType
