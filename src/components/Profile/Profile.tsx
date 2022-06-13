@@ -4,6 +4,7 @@ import styleP from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ActionsTypes, ProfilePageType} from "../../Redux/Store";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
     state: ProfilePageType
@@ -23,7 +24,7 @@ const Profile = (props: ProfilePropsType) => {
             <img className={styleP.contentIMG} src={contentIMG}/>
 
             <ProfileInfo/>
-            <MyPosts postsData={props.state.postsData}
+            <MyPostsContainer postsData={props.state.postsData}
                      dispatch={props.dispatch}
                 /*addPost={props.addPost}
                 updateNewPostText={props.updateNewPostText}*/

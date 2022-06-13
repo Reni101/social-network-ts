@@ -8,9 +8,10 @@ import {addPostCreator, UpdateNewPostCreator} from "../../../Redux/profile-reduc
 type MyPostsPropsType = {
     postsData: Array<PostsType>
     newPostText: string
-    updateNewPostText:()=>void
-    dispatch: (action: ActionsTypes) => void
+    updateNewPostText: (text: string) => void
+    addPost: () =>void
 }
+
 
 const MyPosts = (props: MyPostsPropsType) => {
         const mapPost = props.postsData.map((e) => {
@@ -18,29 +19,22 @@ const MyPosts = (props: MyPostsPropsType) => {
         })
         let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-        const addPost = () => {
+        const addPostHandler = () => {
             if (newPostElement.current) {
-                props.dispatch(addPostCreator())
-
+                props.addPost()
             }
         }
         const pressEnterHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
             if (e.key === "Enter") {
-                addPost()
+                addPostHandler()
             }
         }
-        const onPostChange = () => {
-
-
+        const onPostChangeHandler = () => {
             if (newPostElement.current) {
                 let text = newPostElement.current.value;
                 props.updateNewPostText(text)
-               /* let action = UpdateNewPostCreator(text)
-                props.dispatch(action)*/
-
             }
         }
-
         return (
             <div className={styleMP.item}>
                 My posts
@@ -48,14 +42,14 @@ const MyPosts = (props: MyPostsPropsType) => {
                     <div>
                         <textarea ref={newPostElement}
                                   onKeyDown={pressEnterHandler}
-                                  onChange={onPostChange}
+                                  onChange={onPostChangeHandler}
                                   value={props.newPostText}
                                   placeholder="Create post"
                         />
 
                     </div>
                     <div>
-                        <button onClick={addPost}> Add post</button>
+                        <button onClick={addPostHandler}> Add post</button>
                     </div>
 
                 </div>
