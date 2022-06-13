@@ -8,7 +8,7 @@ type MyPostsPropsType = {
     postsData: Array<PostsType>
     newPostText: string
     updateNewPostText: (text: string) => void
-    addPost: () =>void
+    addPost: () => void
 }
 
 

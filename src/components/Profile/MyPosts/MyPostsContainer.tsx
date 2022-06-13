@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionsTypes, PostsType} from "../../../Redux/Store";
+
 import {addPostCreator, UpdateNewPostCreator} from "../../../Redux/profile-reducer";
 import MyPosts from "./MyPosts";
 

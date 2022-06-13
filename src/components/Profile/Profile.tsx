@@ -4,6 +4,7 @@ import styleP from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {RootStateType} from "../../Redux/Store";
 
 type ProfilePropsType = {
     store:any

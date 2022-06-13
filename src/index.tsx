@@ -8,8 +8,7 @@ import {RootStateType} from "./Redux/Store"
 const rerenderEntireTree = (state: any) => { //fixed!
 
     ReactDOM.render(
-        <App state={store.getState()} dispatch={store.dispatch.bind(store)}
-            store={store}
+        <App store={store}
 
             // bind привязывает контекст вызова!!
 
@@ -22,7 +21,7 @@ const rerenderEntireTree = (state: any) => { //fixed!
 
 rerenderEntireTree(store.getState());
 
-store.subscribe(()=> {
+store.subscribe(() => {
     let state = store.getState()
     rerenderEntireTree(state);
 })
