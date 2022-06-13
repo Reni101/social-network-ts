@@ -1,8 +1,25 @@
 import {v1} from "uuid";
-import {ActionsTypes, DialogsPageType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./Store";
+import {
+    ActionsTypes,
+    SendMessageActionType,
+    UpdateNewMessageBodyActionType
+} from "./Store";
 
 const UPDATE_NEW_MESSAGES_BODY = "UPDATE-NEW-MESSAGES-BODY";
 const SEND_MESSAGES = "SEND-MESSAGES";
+type messages = {
+    id: string
+    message: string
+};
+type dialogs = {
+    id: string
+    name: string
+};
+type InitialStateType = {
+    messagesData: Array<messages>
+    dialogsData: Array<dialogs>
+    newMessagesBody: string
+};
 
 let initialState = {
     messagesData: [
@@ -21,7 +38,7 @@ let initialState = {
 }
 
 
-const DialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+const DialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGES_BODY :
             state.newMessagesBody = action.body;

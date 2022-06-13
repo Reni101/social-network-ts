@@ -9,11 +9,11 @@ import {ActionsTypes, RootStateType, StoreType} from "./Redux/Store";
 
 
 type AppPropsType = {
-    state: RootStateType
+    state: any //fixed!
     /*addPost:()=>void
     updateNewPostText:(newText:string)=>void*/
     dispatch: (action: ActionsTypes) => void
-    store:StoreType
+    store:any //fixed!
 }
 
 const App = (props: AppPropsType) => {

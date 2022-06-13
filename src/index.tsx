@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import {RootStateType} from "./Redux/Store"
 
-const rerenderEntireTree = (state: RootStateType) => {
+const rerenderEntireTree = (state: any) => { //fixed!
 
     ReactDOM.render(
         <App state={store.getState()} dispatch={store.dispatch.bind(store)}
