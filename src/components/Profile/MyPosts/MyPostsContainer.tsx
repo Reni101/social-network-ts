@@ -5,25 +5,25 @@ import MyPosts from "./MyPosts";
 
 
 type MyPostsPropsType = {
-    postsData: Array<PostsType>
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    store:any
 }
 
 const MyPostsContainer = (props: MyPostsPropsType) => {
 
+    let state= props.store.getState()
+
     const addPost = () => {
-        props.dispatch(addPostCreator())
+        props.store.dispatch(addPostCreator()) //
     }
     const onPostChange = (text: string) => {
         let action = UpdateNewPostCreator(text)
-        props.dispatch(action)
+        props.store.dispatch(action)
 
     }
 
 
-    return (<MyPosts postsData={props.postsData}
-                     newPostText={props.newPostText}
+    return (<MyPosts postsData={state.profilePage.postsData}
+                     newPostText={state.profilePage.newPostText}
                      addPost={addPost}
                      updateNewPostText={onPostChange}/>)
 
