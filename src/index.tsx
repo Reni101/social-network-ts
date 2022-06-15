@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {RootStateType} from "./Redux/Store"
-import StoreContext from "./StoreContext";
+import StoreContext from './StoreContext';
 
 const rerenderEntireTree = (state: any) => { //fixed!
 

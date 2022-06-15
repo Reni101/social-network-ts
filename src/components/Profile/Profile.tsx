@@ -7,7 +7,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {RootStateType} from "../../Redux/Store";
 
 type ProfilePropsType = {
-    store:any
+    store?: any
 }
 
 
@@ -21,9 +21,7 @@ const Profile = (props: ProfilePropsType) => {
             <img className={styleP.contentIMG} src={contentIMG}/>
 
             <ProfileInfo/>
-            <MyPostsContainer
-                     store={props.store}
-            />
+            <MyPostsContainer/>
 
         </div>
     );

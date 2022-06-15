@@ -8,7 +8,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 type AppPropsType = {
-    store: any
+    store?: any
 }
 
 
@@ -20,15 +20,8 @@ const App = (props: AppPropsType) => {
 
                 <Header/>
                 <Navbar/>
-                <Route path="/profile" render={() => <Profile
-                    store={props.store}
-
-                />}/>
-                <Route path="/dialogs" render={() => <DialogsContainer
-                    store={props.store}
-
-
-                />}/>
+                <Route path="/profile" render={() => <Profile/>}/>
+                <Route path="/dialogs" render={() => <DialogsContainer/>}/>
 
             </div>
         </BrowserRouter>
