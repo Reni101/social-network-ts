@@ -4,17 +4,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {RootStateType} from "./Redux/Store"
+import StoreContext from "./StoreContext";
 
 const rerenderEntireTree = (state: any) => { //fixed!
 
     ReactDOM.render(
-        <App store={store}
-
-            // bind привязывает контекст вызова!!
-
-        />,
-        document.getElementById('root')
-    );
+        <StoreContext.Provider value={store}>
+            <App />
+        </StoreContext.Provider>
+        , document.getElementById('root')
+    )
+    ;
 
 }
 
