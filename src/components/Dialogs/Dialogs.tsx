@@ -7,7 +7,7 @@ import DialogItem from "./Dialogitem/DialogsItem";
 
 
 type DialogsPropsType = {
-    state:DialogsPageType
+    dialogsPage:DialogsPageType
     UpdateNewMessageBody: (body: string) => void
     sendMessage: () => void
 }
@@ -16,10 +16,10 @@ type DialogsPropsType = {
 const Dialogs = (props: DialogsPropsType) => {
 
 
-    const mapDialogsItem = props.state.dialogsData.map(e => {
+    const mapDialogsItem = props.dialogsPage.dialogsData.map(e => {
         return <DialogItem name={e.name} id={e.id} key={e.id}/>
     })
-    const mapMessageElement = props.state.messagesData.map(e => {
+    const mapMessageElement = props.dialogsPage.messagesData.map(e => {
         return <Message message={e.message} id={e.id} key={e.id}/>
     })
 
@@ -44,7 +44,7 @@ const Dialogs = (props: DialogsPropsType) => {
                 <div> {mapMessageElement} </div>
                 <div><textarea placeholder="Enter your message"
                                onChange={onNewMessageChange}
-                               value={props.state.newMessagesBody}
+                               value={props.dialogsPage.newMessagesBody}
                 ></textarea>
                 </div>
                 <div>

@@ -7,6 +7,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
+
 type AppPropsType = {
     store?: any
 }
@@ -21,7 +22,7 @@ const App = (props: AppPropsType) => {
                 <Header/>
                 <Navbar/>
                 <Route path="/profile" render={() => <Profile/>}/>
-                <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                <Route path="/dialogs" render={() => <DialogsContainer />}/>
 
             </div>
         </BrowserRouter>

@@ -3,15 +3,16 @@ import {store} from "./Redux/Redux-store"
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {RootStateType} from "./Redux/Store"
-import StoreContext from './StoreContext';
+import {Provider} from "react-redux";
+
+
 
 const rerenderEntireTree = (state: any) => { //fixed!
 
     ReactDOM.render(
-        <StoreContext.Provider value={store}>
-            <App />
-        </StoreContext.Provider>
+        <Provider store={store}>
+            <App/>
+        </Provider>
         , document.getElementById('root')
     )
     ;

@@ -7,7 +7,6 @@ const ADD_POST = "ADD-POST";
 
 let initialState = {
     postsData: [
-
         {id: v1(), message: "My first post", likeCount: 0},
     ],
     newPostText: "",
@@ -15,6 +14,7 @@ let initialState = {
 }
 
 const ProfileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+    debugger
     switch (action.type) {
         case ADD_POST:
             let newPost: PostsType = {
