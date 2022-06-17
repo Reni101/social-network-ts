@@ -38,16 +38,23 @@ let initialState = {
 }
 
 
-const DialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
+const DialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+
     switch (action.type) {
-        case UPDATE_NEW_MESSAGES_BODY :
-            state.newMessagesBody = action.body;
-            return state;
-        case SEND_MESSAGES :
+        case UPDATE_NEW_MESSAGES_BODY : {
+            return {...state, newMessagesBody: action.body}
+
+        }
+
+        case SEND_MESSAGES : {
             let body: string = state.newMessagesBody;
-            state.messagesData.push({id: v1(), message: body})
-            state.newMessagesBody = "";
-            return state;
+            return {
+                ...state,
+                messagesData: [...state.messagesData, {id: v1(), message: body}],
+                newMessagesBody: ""
+            }
+        }
+
         default:
             return state
     }

@@ -12,5 +12,7 @@ const reducers: any = combineReducers({
     }
 );
 
+
 export const store = createStore(reducers);
+
 
