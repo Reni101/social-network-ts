@@ -26,6 +26,9 @@ const Navbar: React.FC = () => {
             <div className={styleN.item}>
                 <NavLink to="/setting" activeClassName={styleN.active}>Setting</NavLink>
             </div>
+            <div className={styleN.item}>
+                <NavLink to="/users" activeClassName={styleN.active}>Users</NavLink>
+            </div>
             <Sidebar/>
         </nav>
     );
