@@ -1,4 +1,4 @@
-import {UsersType} from "./users-reducer";
+import {UserType} from "./users-reducer";
 
 export type StoreType = {
     _state: RootStateType
@@ -26,7 +26,7 @@ export type UnfollowActionType = {
 }
 export type Set_usersActionType = {
     type: "SET USERS"
-    users: Array<UsersType>
+    users: Array<UserType>
 }
 
 export type AddPostActionType = {
@@ -70,7 +70,7 @@ export type DialogsPageType = {
 export type SidebarType = {}
 
 export type StateTypeUsers = {
-    users: Array<UsersType>
+    users: Array<UserType>
 }
 
 

@@ -5,7 +5,7 @@ import profileReducer from "./profile-reducer";
 import UsersReducer from "./users-reducer";
 
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
         sidebar: sidebarReducer,
@@ -14,6 +14,6 @@ const reducers = combineReducers({
 );
 
 
-export const store = createStore(reducers);
+export const store = createStore(rootReducer);
 
 

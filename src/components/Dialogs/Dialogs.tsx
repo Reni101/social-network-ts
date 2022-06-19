@@ -7,14 +7,13 @@ import DialogItem from "./Dialogitem/DialogsItem";
 
 
 type DialogsPropsType = {
-    dialogsPage:DialogsPageType
+    dialogsPage: DialogsPageType
     UpdateNewMessageBody: (body: string) => void
     sendMessage: () => void
 }
 
 
 const Dialogs = (props: DialogsPropsType) => {
-    debugger
 
 
     const mapDialogsItem = props.dialogsPage.dialogsData.map(e => {

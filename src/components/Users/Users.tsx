@@ -1,12 +1,12 @@
 import React from 'react';
-import {UsersType} from "../../Redux/users-reducer";
+import {UserType} from "../../Redux/users-reducer";
 import {v1} from "uuid";
 
 type UsersPropsType = {
-    users:Array<UsersType>
+    users:Array<UserType>
     follow:(id:string)=>void
     unFollow:(id:string)=>void
-    setUsers:(users:Array<UsersType>) => void
+    setUsers:(users:Array<UserType>) => void
 }
 
 const Users = (props: UsersPropsType) => {
