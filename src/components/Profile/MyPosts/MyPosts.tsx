@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, ChangeEvent} from 'react';
+import React, {KeyboardEvent} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import {PostsType} from "../../../Redux/Store";

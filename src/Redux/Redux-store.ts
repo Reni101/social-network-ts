@@ -5,7 +5,7 @@ import profileReducer from "./profile-reducer";
 import UsersReducer from "./users-reducer";
 
 
-const reducers: any = combineReducers({
+const reducers = combineReducers({
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
         sidebar: sidebarReducer,

@@ -1,7 +1,7 @@
+import {UsersType} from "./users-reducer";
 
 export type StoreType = {
     _state: RootStateType
-
     getState: () => RootStateType
     _callSubscriber: (a: RootStateType) => void
     subscribe: (observer: (state: RootStateType) => void) => void
@@ -12,9 +12,27 @@ export type ActionsTypes =
     | SendMessageActionType
     | UpdateNewPostTextPostActionType
     | UpdateNewMessageBodyActionType
+    | FollowActionType
+    | UnfollowActionType
+    | Set_usersActionType
+
+export type FollowActionType = {
+    type: "FOLLOW"
+    userID: string
+}
+export type UnfollowActionType = {
+    type: "UNFOLLOW"
+    userID: string
+}
+export type Set_usersActionType = {
+    type: "SET USERS"
+    users: Array<UsersType>
+}
 
 export type AddPostActionType = {
-    type: "ADD-POST"
+    type: "ADD-POST",
+
+
 }
 export type UpdateNewPostTextPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
@@ -50,10 +68,18 @@ export type DialogsPageType = {
     newMessagesBody: string
 }
 export type SidebarType = {}
+
+export type StateTypeUsers = {
+    users: Array<UsersType>
+}
+
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
+    usersPage:StateTypeUsers
+
 }
 
 

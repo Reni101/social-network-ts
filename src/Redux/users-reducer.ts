@@ -1,10 +1,13 @@
 import {v1} from "uuid";
+import {ActionsTypes, FollowActionType, Set_usersActionType, StateTypeUsers, UnfollowActionType} from "./Store";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET USERS"
 
-let initialState: StateType = {
+
+
+let initialState: StateTypeUsers = {
     users: [
        ]
 }
@@ -17,11 +20,9 @@ export type UsersType = {
     status: string,
     location: { city: string, country: string }
 }
-type StateType = {
-    users: Array<UsersType>
-}
 
-const UsersReducer = (state: StateType = initialState, action: any) => {
+
+const UsersReducer = (state: StateTypeUsers = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case FOLLOW: {
             debugger
@@ -46,9 +47,9 @@ const UsersReducer = (state: StateType = initialState, action: any) => {
     }
 };
 
-export const followAc = (userID:string) => ({type: FOLLOW, userID})
-export const unFollowAc = (userID:string) => ({type: UNFOLLOW, userID})
-export const setUsersAc = (users:Array<UsersType>) => ({type: SET_USERS, users})
+export const followAc = (userID:string):FollowActionType => ({type: FOLLOW, userID})
+export const unFollowAc = (userID:string):UnfollowActionType => ({type: UNFOLLOW, userID})
+export const setUsersAc = (users:Array<UsersType>):Set_usersActionType => ({type: SET_USERS, users})
 
 
 export default UsersReducer;

@@ -14,6 +14,7 @@ type DialogsPropsType = {
 
 
 const Dialogs = (props: DialogsPropsType) => {
+    debugger
 
 
     const mapDialogsItem = props.dialogsPage.dialogsData.map(e => {

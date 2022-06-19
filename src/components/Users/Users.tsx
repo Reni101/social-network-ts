@@ -2,14 +2,14 @@ import React from 'react';
 import {UsersType} from "../../Redux/users-reducer";
 import {v1} from "uuid";
 
-type UsersPropstype = {
+type UsersPropsType = {
     users:Array<UsersType>
     follow:(id:string)=>void
     unFollow:(id:string)=>void
     setUsers:(users:Array<UsersType>) => void
 }
 
-const Users = (props: UsersPropstype) => {
+const Users = (props: UsersPropsType) => {
     if(props.users.length === 0) {
         props.setUsers( [ {
             id: v1(),

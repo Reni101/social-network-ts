@@ -3,17 +3,20 @@ import {sendMessageCreator, UpdateNewMessageBodyCreator} from "../../Redux/dialo
 
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {RootStateType} from "../../Redux/Store";
 
 
-let mapStateToProps = (state: any) => {
+let mapStateToProps = (state: RootStateType) => {
+
     return {
         dialogsPage: state.dialogsPage
     }
 }
 
 let mapDispatchToProps = (dispatch:any) => {
+
     return {
-        UpdateNewMessageBody: (body:any) => {
+        UpdateNewMessageBody: (body:string) => {
             dispatch(UpdateNewMessageBodyCreator(body))
         },
         sendMessage: () => {
