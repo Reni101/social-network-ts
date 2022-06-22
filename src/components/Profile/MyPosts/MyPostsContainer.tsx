@@ -3,7 +3,6 @@ import {addPostCreator, UpdateNewPostCreator} from "../../../Redux/profile-reduc
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {PostsType, RootStateType} from "../../../Redux/Store";
-import {UserType} from "../../../Redux/users-reducer";
 import {Dispatch} from "redux";
 
 type mapStateToPropsType = {
