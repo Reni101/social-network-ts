@@ -3,26 +3,26 @@ import {UserType} from "../../Redux/users-reducer";
 import Avatar from "../../img/UsersAvatar.jpg"
 import axios from "axios";
 
-type UsersPropsType = {
+type UserPropsType = {
     users: Array<UserType>
     follow: (id: string) => void
     unFollow: (id: string) => void
     setUsers: (users: Array<UserType>) => void
 }
 
-const Users = (props: UsersPropsType) => {
-    let getusers = () => {
-        if (props.users.length === 0) {
+class UsersC extends React.Component<UserPropsType, any> {
+    getusers = () => {
+        if (this.props.users.length === 0) {
             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             });
         }
     }
 
-    return (
-        <div>
-            <button onClick={getusers}>Get users</button>
-            {props.users.map(el => <div key={el.id}>
+    render() {
+        return <div>
+            <button onClick={this.getusers}>Get users</button>
+            {this.props.users.map(el => <div key={el.id}>
                 <span>
                     <div>
                         <img src={el.photos.smal !== undefined ? el.photos.small : Avatar}
@@ -32,12 +32,12 @@ const Users = (props: UsersPropsType) => {
                         {el.followed
                             ? <button onClick={() => {
 
-                                props.follow(el.id)
+                                this.props.follow(el.id)
                             }}>follow</button>
 
 
                             : <button onClick={() => {
-                                props.unFollow(el.id)
+                                this.props.unFollow(el.id)
                             }}>unFollow</button>}
 
                     </div>
@@ -56,7 +56,7 @@ const Users = (props: UsersPropsType) => {
                 </div>
             )}
         </div>
-    );
-};
+    }
+}
 
-export default Users;
+export default UsersC;
