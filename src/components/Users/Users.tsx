@@ -1,21 +1,21 @@
 import React from 'react';
 import {UserType} from "../../Redux/users-reducer";
-import {v1} from "uuid";
+import Avatar from "../../img/UsersAvatar.jpg"
+
 import axios from "axios";
 
 type UsersPropsType = {
-    users:Array<UserType>
-    follow:(id:string)=>void
-    unFollow:(id:string)=>void
-    setUsers:(users:Array<UserType>) => void
+    users: Array<UserType>
+    follow: (id: string) => void
+    unFollow: (id: string) => void
+    setUsers: (users: Array<UserType>) => void
 }
 
 const Users = (props: UsersPropsType) => {
-    if(props.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response=>{
-            props.setUsers( )
+    if (props.users.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items)
         });
-
 
 
     }
@@ -24,7 +24,8 @@ const Users = (props: UsersPropsType) => {
             {props.users.map(el => <div key={el.id}>
                 <span>
                     <div>
-                        <img src={el.photoURL} style={{width: "50px", height: "50px"}}/>
+                        <img src={el.photos.smal !== undefined ? el.photos.small : Avatar}
+                             style={{width: "50px", height: "50px"}}/>
                     </div>
                     <div>
                         {el.followed
@@ -42,12 +43,12 @@ const Users = (props: UsersPropsType) => {
                 </span>
                     <span>
             <span>
-                  <div>{el.fullName}    </div>
+                  <div>{el.name}    </div>
                  <div>{el.status}    </div>
             </span>
             <span>
-                 <div> {el.location.country} </div>
-                <div>  {el.location.city}  </div>
+                 <div> {"el.location.country"} </div>
+                <div>  {'el.location.city'}  </div>
             </span>
                 </span>
 
