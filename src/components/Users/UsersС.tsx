@@ -20,6 +20,15 @@ class UsersC extends React.Component<UserPropsType, any> {
 
     render() {
         return <div>
+
+            <div>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+            </div>
+
             {this.props.users.map(el => <div key={el.id}>
                 <span>
                     <div>

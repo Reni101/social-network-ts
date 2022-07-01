@@ -8,6 +8,8 @@ import UsersC from "./UsersС";
 
 type mapStateToPropsType = {
     users: Array<UserType>
+    pageSize:number
+    totalUsersCount:number
 }
 
 type mapDispatchToPropsType = {
@@ -18,7 +20,9 @@ type mapDispatchToPropsType = {
 
 let mapStateToProps = (state: RootStateType):mapStateToPropsType => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize:state.usersPage.pageSize,
+        totalUsersCount:state.usersPage.totalUsersCount
     }
 }
 

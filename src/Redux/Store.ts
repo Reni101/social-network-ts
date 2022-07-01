@@ -71,6 +71,8 @@ export type SidebarType = {}
 
 export type StateTypeUsers = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount:number
 }
 
 
@@ -79,6 +81,7 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
     usersPage:StateTypeUsers
+
 
 }
 
