@@ -8,6 +8,8 @@ type UserPropsType = {
     follow: (id: string) => void
     unFollow: (id: string) => void
     setUsers: (users: Array<UserType>) => void
+    pageSize:number
+    totalUsersCount:number
 }
 
 class UsersC extends React.Component<UserPropsType, any> {
@@ -19,6 +21,8 @@ class UsersC extends React.Component<UserPropsType, any> {
 
 
     render() {
+
+        let pageCount = this.props.totalUsersCount / this.props.pageSize
         return <div>
 
             <div>
