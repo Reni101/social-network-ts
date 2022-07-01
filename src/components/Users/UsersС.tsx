@@ -8,8 +8,8 @@ type UserPropsType = {
     follow: (id: string) => void
     unFollow: (id: string) => void
     setUsers: (users: Array<UserType>) => void
-    pageSize:number
-    totalUsersCount:number
+    pageSize: number
+    totalUsersCount: number
 }
 
 class UsersC extends React.Component<UserPropsType, any> {
@@ -23,14 +23,15 @@ class UsersC extends React.Component<UserPropsType, any> {
     render() {
 
         let pageCount = this.props.totalUsersCount / this.props.pageSize
+
+        let pages = []
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i)
+        }
         return <div>
 
             <div>
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
+                {pages.map(p => <span>{p}</span>)}
             </div>
 
             {this.props.users.map(el => <div key={el.id}>
