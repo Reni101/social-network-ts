@@ -12,14 +12,16 @@ type UserPropsType = {
     setUsers: (users: Array<UserType>) => void
     pageSize: number
     totalUsersCount: number
-    currentPage:number
+    currentPage: number
+    setCurrentPage:(pageNumber:number)=>void
 }
 
 class UsersC extends React.Component<UserPropsType, any> {
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setUsers(response.data.items)
-        });
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            });
     }
 
 
@@ -35,7 +37,9 @@ class UsersC extends React.Component<UserPropsType, any> {
 
             <div>
                 {/* @ts-ignore*/}
-                {pages.map(p => <span className={this.props.currentPage === p && style.pagesCount }>{p}</span>)}
+                {pages.map(p => <span className={this.props.currentPage === p && style.pagesCount}
+                onClick={()=>{this.props.setCurrentPage(p)}}
+                >{p}</span>)}
             </div>
 
             {this.props.users.map(el => <div key={el.id}>

@@ -15,6 +15,8 @@ export type ActionsTypes =
     | FollowActionType
     | UnfollowActionType
     | Set_usersActionType
+|SetCurrentPageType
+
 
 export type FollowActionType = {
     type: "FOLLOW"
@@ -25,8 +27,12 @@ export type UnfollowActionType = {
     userID: string
 }
 export type Set_usersActionType = {
-    type: "SET USERS"
+    type: "SET-USERS"
     users: Array<UserType>
+}
+export type SetCurrentPageType = {
+    type: 'SET-CURRENT-PAGE'
+    currentPage:number
 }
 
 export type AddPostActionType = {
