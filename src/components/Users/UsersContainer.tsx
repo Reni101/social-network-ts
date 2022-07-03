@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Users from "./Users";
 import {followAc, setUsersAc, unFollowAc, UserType} from "../../Redux/users-reducer";
 import {RootStateType} from "../../Redux/Store";
 import { Dispatch } from 'redux';
@@ -10,6 +9,7 @@ type mapStateToPropsType = {
     users: Array<UserType>
     pageSize:number
     totalUsersCount:number
+    currentPage:number
 }
 
 type mapDispatchToPropsType = {
@@ -22,7 +22,8 @@ let mapStateToProps = (state: RootStateType):mapStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize:state.usersPage.pageSize,
-        totalUsersCount:state.usersPage.totalUsersCount
+        totalUsersCount:state.usersPage.totalUsersCount,
+        currentPage:state.usersPage.currentPage,
     }
 }
 

@@ -10,6 +10,7 @@ type UserPropsType = {
     setUsers: (users: Array<UserType>) => void
     pageSize: number
     totalUsersCount: number
+    currentPage:number
 }
 
 class UsersC extends React.Component<UserPropsType, any> {

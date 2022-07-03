@@ -73,6 +73,7 @@ export type StateTypeUsers = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount:number
+    currentPage:number
 }
 
 
