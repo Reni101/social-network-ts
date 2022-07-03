@@ -16,6 +16,7 @@ export type ActionsTypes =
     | UnfollowActionType
     | Set_usersActionType
 |SetCurrentPageType
+| SetTotalCount
 
 
 export type FollowActionType = {
@@ -33,6 +34,10 @@ export type Set_usersActionType = {
 export type SetCurrentPageType = {
     type: 'SET-CURRENT-PAGE'
     currentPage:number
+}
+export type SetTotalCount = {
+    type: 'SET-TOTAL-USERS-COUNT'
+    totalCount:number
 }
 
 export type AddPostActionType = {
