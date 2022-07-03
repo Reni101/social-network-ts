@@ -101,6 +101,7 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
+/*
 
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
@@ -124,6 +125,14 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         }
     }
 }
+*/
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export default connect(mapStateToProps, {
+    follow: followAc,
+    unFollow: unFollowAc,
+    setUsers: setUsersAc,
+    setCurrentPage: setCurrentPageAC,
+    setTotalUsersCount: setTotalUsersCountAC,
+    toggleIsFetching: toggleIsFetchingAC,
+})(UsersAPIComponent);
