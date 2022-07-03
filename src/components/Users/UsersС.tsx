@@ -2,6 +2,8 @@ import React from 'react';
 import {UserType} from "../../Redux/users-reducer";
 import Avatar from "../../img/UsersAvatar.jpg"
 import axios from "axios";
+import style from './Users.module.css'
+
 
 type UserPropsType = {
     users: Array<UserType>
@@ -23,7 +25,7 @@ class UsersC extends React.Component<UserPropsType, any> {
 
     render() {
 
-        let pageCount = this.props.totalUsersCount / this.props.pageSize
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
 
         let pages = []
         for (let i = 1; i <= pageCount; i++) {
@@ -32,7 +34,8 @@ class UsersC extends React.Component<UserPropsType, any> {
         return <div>
 
             <div>
-                {pages.map(p => <span>{p}</span>)}
+                {/* @ts-ignore*/}
+                {pages.map(p => <span className={this.props.currentPage === p && style.pagesCount }>{p}</span>)}
             </div>
 
             {this.props.users.map(el => <div key={el.id}>
