@@ -16,7 +16,7 @@ export type ActionsTypes =
     | UnfollowActionType
     | Set_usersActionType
 |SetCurrentPageType
-| SetTotalCount
+| SetTotalCount |ToggleIsFetching
 
 
 export type FollowActionType = {
@@ -38,6 +38,10 @@ export type SetCurrentPageType = {
 export type SetTotalCount = {
     type: 'SET-TOTAL-USERS-COUNT'
     totalCount:number
+}
+export type ToggleIsFetching = {
+    type: 'TOGGLE_IS_FETCHING'
+    isFetching:boolean
 }
 
 export type AddPostActionType = {
@@ -85,6 +89,7 @@ export type StateTypeUsers = {
     pageSize: number
     totalUsersCount:number
     currentPage:number
+    isFetching:boolean
 }
 
 
@@ -93,6 +98,7 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
     usersPage:StateTypeUsers
+    isFetching:boolean
 
 
 }

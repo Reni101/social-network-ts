@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "./Users.module.css";
-import Avatar from "../../img/UsersAvatar.jpg";
+import Avatar from '../../img/avatar.png'
 
 const UsersC = (props: any) => {
 
