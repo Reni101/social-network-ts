@@ -15,8 +15,8 @@ export type ActionsTypes =
     | FollowActionType
     | UnfollowActionType
     | Set_usersActionType
-|SetCurrentPageType
-| SetTotalCount |ToggleIsFetching
+    | SetCurrentPageType
+    | SetTotalCount | ToggleIsFetching |setUserProfileActinoType
 
 
 export type FollowActionType = {
@@ -33,22 +33,32 @@ export type Set_usersActionType = {
 }
 export type SetCurrentPageType = {
     type: 'SET-CURRENT-PAGE'
-    currentPage:number
+    currentPage: number
 }
 export type SetTotalCount = {
     type: 'SET-TOTAL-USERS-COUNT'
-    totalCount:number
+    totalCount: number
 }
 export type ToggleIsFetching = {
     type: 'TOGGLE_IS_FETCHING'
-    isFetching:boolean
+    isFetching: boolean
 }
 
 export type AddPostActionType = {
     type: "ADD-POST",
-
-
 }
+export type setUserProfileActinoType = {
+    type: "SET_USER_PROFILE"
+    profile: any
+}
+
+export type ProfilePageType = {
+    postsData: Array<PostsType>
+    newPostText: string
+    profile:any
+}
+
+
 export type UpdateNewPostTextPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
@@ -73,10 +83,8 @@ export type dialogs = {
     id: string
     name: string
 };
-export type ProfilePageType = {
-    postsData: Array<PostsType>
-    newPostText: string
-}
+
+
 export type DialogsPageType = {
     messagesData: Array<messages>
     dialogsData: Array<dialogs>
@@ -87,9 +95,9 @@ export type SidebarType = {}
 export type StateTypeUsers = {
     users: Array<UserType>
     pageSize: number
-    totalUsersCount:number
-    currentPage:number
-    isFetching:boolean
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
 }
 
 
@@ -97,8 +105,8 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
-    usersPage:StateTypeUsers
-    isFetching:boolean
+    usersPage: StateTypeUsers
+    isFetching: boolean
 
 
 }

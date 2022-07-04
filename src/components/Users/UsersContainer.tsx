@@ -9,8 +9,6 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import {RootStateType} from "../../Redux/Store";
-import {Dispatch} from 'redux';
-import loader from '../../img/loader.gif'
 
 import axios from "axios";
 import UsersC from "./UsersC";
@@ -23,7 +21,7 @@ type mapStateToPropsType = {
     currentPage: number
     isFetching: boolean
 }
-
+/*
 type mapDispatchToPropsType = {
     follow: (userID: string) => void
     unFollow: (userID: string) => void
@@ -32,7 +30,7 @@ type mapDispatchToPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 
-}
+}*/
 
 type UserPropsType = {
     users: Array<UserType>
@@ -56,6 +54,7 @@ class UsersAPIComponent extends React.Component<UserPropsType, any> {
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
             });
     }
 
@@ -66,7 +65,7 @@ class UsersAPIComponent extends React.Component<UserPropsType, any> {
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+
             });
     }
 
@@ -101,31 +100,6 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
-/*
-
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        follow: (userID: string) => {
-            dispatch(followAc(userID))
-        },
-        unFollow: (userID: string) => {
-            dispatch(unFollowAc(userID))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAc(users))
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-    }
-}
-*/
 
 
 export default connect(mapStateToProps, {
