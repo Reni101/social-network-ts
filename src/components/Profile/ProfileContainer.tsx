@@ -8,7 +8,7 @@ import {RootStateType} from "../../Redux/Store";
 class ProfileContainer extends React.Component<any, any>{
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/13`)
             .then(response => {
                 // @ts-ignore
                 this.setUserProfile(response.data)
