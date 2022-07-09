@@ -7,3 +7,13 @@ div .logo {
     grid-area: h;
     background-color: blueviolet;
 }
+
+div .loginBlock {
+    float: right;
+
+}
+
+.loginBlock a {
+    color: white;
+    text-decoration: none;
+}
