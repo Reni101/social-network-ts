@@ -29,16 +29,38 @@ const Users = (props: UsersPropsType) => {
                              style={{width: "50px", height: "50px"}}/>
                     </div>
                     <div>
+
                         {el.followed
                             ? <button onClick={() => {
 
-                                props.follow(el.id)
-                            }}>follow</button>
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                    withCredentials: true,
+                                    headers:{
+                                        "API-KEY":"fab19197-098e-4362-876a-0c0797e21ac6"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.unFollow(el.id)
+                                        }
+                                    });
 
+                            }}>Unfollow</button>
 
                             : <button onClick={() => {
-                                props.unFollow(el.id)
-                            }}>unFollow</button>}
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
+                                    withCredentials: true,
+                                    headers:{
+                                        "API-KEY":"fab19197-098e-4362-876a-0c0797e21ac6"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.follow(el.id)
+                                        }
+                                    });
+
+                            }}>Follow</button>}
 
                     </div>
                 </span>

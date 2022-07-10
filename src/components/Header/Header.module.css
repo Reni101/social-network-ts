@@ -10,10 +10,11 @@ div .logo {
 
 div .loginBlock {
     float: right;
-
+background-color: black;
 }
 
 .loginBlock a {
+
     color: white;
     text-decoration: none;
 }

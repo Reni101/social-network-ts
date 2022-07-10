@@ -20,7 +20,7 @@ let initialState: StateTypeUsers = {
     users: [       ],
     pageSize: 5,
     totalUsersCount:1,
-    currentPage: 5,
+    currentPage: 1,
     isFetching:false
 }
 
