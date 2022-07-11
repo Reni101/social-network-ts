@@ -9,10 +9,9 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import {RootStateType} from "../../Redux/Store";
-
-import axios from "axios";
 import UsersC from "./UsersC";
 import Preloader from "../Preloader";
+import {getUsers} from "../../api/api";
 
 type mapStateToPropsType = {
     users: Array<UserType>
@@ -21,16 +20,6 @@ type mapStateToPropsType = {
     currentPage: number
     isFetching: boolean
 }
-/*
-type mapDispatchToPropsType = {
-    follow: (userID: string) => void
-    unFollow: (userID: string) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-
-}*/
 
 type UserPropsType = {
     users: Array<UserType>
@@ -49,30 +38,25 @@ type UserPropsType = {
 
 class UsersAPIComponent extends React.Component<UserPropsType, any> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{
-            withCredentials: true
-        })
-            .then(response => {
+        this.props.toggleIsFetching(true);
+
+        getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             });
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(response => {
+        getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-
+                this.props.setUsers(data.items)
             });
     }
-
 
     render() {
 
@@ -103,7 +87,6 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
         isFetching: state.usersPage.isFetching
     }
 }
-
 
 
 export default connect(mapStateToProps, {
