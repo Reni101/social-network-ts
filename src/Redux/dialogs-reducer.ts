@@ -1,12 +1,11 @@
 import {v1} from "uuid";
 import {
     ActionsTypes,
-    SendMessageActionType,
-    UpdateNewMessageBodyActionType
 } from "./Store";
 
 const UPDATE_NEW_MESSAGES_BODY = "UPDATE-NEW-MESSAGES-BODY";
 const SEND_MESSAGES = "SEND-MESSAGES";
+
 type messages = {
     id: string
     message: string
@@ -41,7 +40,7 @@ const DialogsReducer = (state: InitialStateType = initialState, action: ActionsT
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGES_BODY : {
-            return {...state, newMessagesBody: action.body}
+            return {...state, newMessagesBody: action.newMessagesBody}
         }
         case SEND_MESSAGES : {
             let body: string = state.newMessagesBody;
@@ -57,10 +56,18 @@ const DialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     }
 };
 
+export type SendMessageActionType = {
+    type: "SEND-MESSAGES"
+}
+export type UpdateNewMessageBodyActionType = {
+    type: "UPDATE-NEW-MESSAGES-BODY";
+    newMessagesBody: string
+}
+
 export const sendMessageCreator = (): SendMessageActionType => ({type: SEND_MESSAGES})
 export const UpdateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyActionType => ({
     type: UPDATE_NEW_MESSAGES_BODY,
-    body: body,
+    newMessagesBody: body,
 })
 
 

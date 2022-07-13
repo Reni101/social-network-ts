@@ -1,12 +1,8 @@
 import {UserType} from "./users-reducer";
+import {setUserDataActionType} from "./auth-reducer";
+import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
+import {AddPostActionType} from "./profile-reducer";
 
-export type StoreType = {
-    _state: RootStateType
-    getState: () => RootStateType
-    _callSubscriber: (a: RootStateType) => void
-    subscribe: (observer: (state: RootStateType) => void) => void
-    dispatch: (action: ActionsTypes) => void
-}
 export type ActionsTypes =
     AddPostActionType
     | SendMessageActionType
@@ -16,7 +12,10 @@ export type ActionsTypes =
     | UnfollowActionType
     | Set_usersActionType
     | SetCurrentPageType
-    | SetTotalCount | ToggleIsFetching |setUserProfileActinoType
+    | SetTotalCount
+    | ToggleIsFetching
+    | setUserProfileActinoType
+    | setUserDataActionType
 
 
 export type FollowActionType = {
@@ -44,9 +43,7 @@ export type ToggleIsFetching = {
     isFetching: boolean
 }
 
-export type AddPostActionType = {
-    type: "ADD-POST",
-}
+
 export type setUserProfileActinoType = {
     type: "SET_USER_PROFILE"
     profile: any
@@ -55,7 +52,7 @@ export type setUserProfileActinoType = {
 export type ProfilePageType = {
     postsData: Array<PostsType>
     newPostText: string
-    profile:any
+    profile: any
 }
 
 
@@ -63,13 +60,8 @@ export type UpdateNewPostTextPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
-export type SendMessageActionType = {
-    type: "SEND-MESSAGES"
-}
-export type UpdateNewMessageBodyActionType = {
-    type: "UPDATE-NEW-MESSAGES-BODY";
-    body: string
-}
+
+
 export type PostsType = {
     id: string
     message: string
