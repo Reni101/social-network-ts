@@ -15,11 +15,8 @@ type dialogs = {
     id: string
     name: string
 };
-type InitialStateType = {
-    messagesData: Array<messages>
-    dialogsData: Array<dialogs>
-    newMessagesBody: string
-};
+type InitialStateType = typeof initialState
+
 
 let initialState = {
     messagesData: [
@@ -27,13 +24,15 @@ let initialState = {
         {id: v1(), message: "How are you?"},
         {id: v1(), message: "Privet"},
         {id: v1(), message: "Bye"},
-        {id: v1(), message: "You are great"},],
+        {id: v1(), message: "You are great"},
+    ] as Array<messages>,
     dialogsData: [
         {id: v1(), name: "Maxim"},
         {id: v1(), name: "Evgeny"},
         {id: v1(), name: "Andrey"},
         {id: v1(), name: "Sasha"},
-        {id: v1(), name: "Denis"},],
+        {id: v1(), name: "Denis"},
+    ] as Array<dialogs>,
     newMessagesBody: " ",
 }
 
@@ -43,9 +42,7 @@ const DialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     switch (action.type) {
         case UPDATE_NEW_MESSAGES_BODY : {
             return {...state, newMessagesBody: action.body}
-
         }
-
         case SEND_MESSAGES : {
             let body: string = state.newMessagesBody;
             return {
