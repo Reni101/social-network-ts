@@ -1,7 +1,7 @@
 import {UserType} from "./users-reducer";
 import {setUserDataActionType} from "./auth-reducer";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
-import {AddPostActionType} from "./profile-reducer";
+import {AddPostActionType, setUserProfileActionType, UpdateNewPostTextPostActionType} from "./profile-reducer";
 
 export type ActionsTypes =
     AddPostActionType
@@ -14,7 +14,7 @@ export type ActionsTypes =
     | SetCurrentPageType
     | SetTotalCount
     | ToggleIsFetching
-    | setUserProfileActinoType
+    | setUserProfileActionType
     | setUserDataActionType
 
 
@@ -44,21 +44,10 @@ export type ToggleIsFetching = {
 }
 
 
-export type setUserProfileActinoType = {
-    type: "SET_USER_PROFILE"
-    profile: any
-}
-
 export type ProfilePageType = {
     postsData: Array<PostsType>
     newPostText: string
     profile: any
-}
-
-
-export type UpdateNewPostTextPostActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
 }
 
 

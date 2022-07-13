@@ -2,9 +2,8 @@ import {v1} from "uuid";
 import {
     ActionsTypes,
     PostsType,
-    setUserProfileActinoType,
-    UpdateNewPostTextPostActionType
-} from "./Store";
+
+    } from "./Store";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
@@ -39,8 +38,8 @@ type ContactsType = {
     mainLink: string
 }
 type PhotosType = {
-    small: string
-    large: string
+    small: string | null
+    large: string | null
 
 }
 
@@ -55,7 +54,7 @@ let initialState = {
 
 const ProfileReducer = (state = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
-        case ADD_POST: {
+        case "ADD-POST": {
             let newPost: PostsType = {
                 id: v1(),
                 message: state.newPostText,
@@ -67,7 +66,7 @@ const ProfileReducer = (state = initialState, action: ActionsTypes): initialStat
                 newPostText: ""
             }
         }
-        case UPDATE_NEW_POST_TEXT : {
+        case "UPDATE-NEW-POST-TEXT" : {
             return {...state, newPostText: action.newText}
         }
         case "SET_USER_PROFILE": {
@@ -84,11 +83,22 @@ export type AddPostActionType = {
     type: "ADD-POST",
 }
 export const addPostAC = (): AddPostActionType => ({type: ADD_POST})
+
+export type UpdateNewPostTextPostActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
 export const updateNewPostAC = (text: string): UpdateNewPostTextPostActionType => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: text,
 })
-export const setUserProfileAC = (profile: ProfileType): setUserProfileActinoType => ({
+
+
+export type setUserProfileActionType = {
+    type: "SET_USER_PROFILE"
+    profile: ProfileType
+}
+export const setUserProfileAC = (profile: ProfileType): setUserProfileActionType => ({
     type: SET_USER_PROFILE,
     profile
 })
