@@ -3,7 +3,7 @@ import {
     FollowActionType,
     Set_usersActionType,
     SetCurrentPageType, SetTotalCount,
-    StateTypeUsers, ToggleIsFetching,
+     ToggleIsFetching,
     UnfollowActionType
 } from "./Store";
 
@@ -16,12 +16,20 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 
 
-let initialState: StateTypeUsers = {
-    users: [       ],
+export type initialStateType = typeof initialState
+
+
+let initialState = {
+    users: [] as Array<UserType> | [],
     pageSize: 5,
     totalUsersCount:1,
     currentPage: 1,
     isFetching:false
+}
+
+type Photostype = {
+    small:string
+    large:string
 }
 
 export type UserType = {
@@ -31,11 +39,11 @@ export type UserType = {
     name: string,
     status: string,
     location: { city: string, country: string }
-    photos:any
+    photos:Photostype
 }
 
 
-const UsersReducer = (state: StateTypeUsers = initialState, action: ActionsTypes) => {
+const UsersReducer = (state = initialState, action: ActionsTypes):initialStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {
