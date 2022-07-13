@@ -37,7 +37,7 @@ type ContactsType = {
     youtube: string
     mainLink: string
 }
-type PhotosType = {
+export type PhotosType = {
     small: string | null
     large: string | null
 

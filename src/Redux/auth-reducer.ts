@@ -1,19 +1,12 @@
 import {ActionsTypes} from "./Store";
 
 const SET_USER_DATA = 'SET_USER_DATA'
-export type setUserDataActionType = {
-    type: 'SET_USER_DATA'
-    data: {
-        userId: string
-        email: string
-        login: string
-    }
-}
+
 
 export type initialStateType = typeof initialState
 
 const initialState = {
-    userId: null as string | null,
+    userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
@@ -32,8 +25,15 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
             return state
     }
 }
-
-export const setAuthUserDataAC = (userId: string, email: string, login: string): setUserDataActionType => {
+export type setUserDataActionType = {
+    type: 'SET_USER_DATA'
+    data: {
+        userId: number
+        email: string
+        login: string
+    }
+}
+export const setAuthUserDataAC = (userId: number, email: string, login: string): setUserDataActionType => {
     return {
         type: 'SET_USER_DATA',
         data: {userId, email, login}

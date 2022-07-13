@@ -1,4 +1,4 @@
-import {UserType} from "./users-reducer";
+import {FollowActionType, UnfollowActionType, UserType} from "./users-reducer";
 import {setUserDataActionType} from "./auth-reducer";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {AddPostActionType, setUserProfileActionType, UpdateNewPostTextPostActionType} from "./profile-reducer";
@@ -18,14 +18,8 @@ export type ActionsTypes =
     | setUserDataActionType
 
 
-export type FollowActionType = {
-    type: "FOLLOW"
-    userID: string
-}
-export type UnfollowActionType = {
-    type: "UNFOLLOW"
-    userID: string
-}
+
+
 export type Set_usersActionType = {
     type: "SET-USERS"
     users: Array<UserType>

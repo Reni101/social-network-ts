@@ -36,7 +36,7 @@ type UserPropsType = {
 
 }
 
-class UsersAPIComponent extends React.Component<UserPropsType, any> {
+class UsersAPIComponent extends React.Component<any, any> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
 
