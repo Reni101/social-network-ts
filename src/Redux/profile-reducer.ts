@@ -3,7 +3,7 @@ import {
     ActionsTypes,
     PostsType,
 
-    } from "./Store";
+} from "./Types";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
@@ -12,12 +12,12 @@ const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 export type initialStateType = typeof initialState
 
-type PostsDataType = {
+export type PostsDataType = {
     id: string
     message: string
     likeCount: number
 }
-type ProfileType = {
+export type ProfileType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -26,8 +26,7 @@ type ProfileType = {
     photos: PhotosType
 
 }
-
-type ContactsType = {
+export type ContactsType = {
     github: string
     vk: string
     facebook: string
@@ -42,6 +41,7 @@ export type PhotosType = {
     large: string | null
 
 }
+
 
 let initialState = {
     postsData: [

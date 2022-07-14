@@ -1,16 +1,16 @@
 import {v1} from "uuid";
 import {
     ActionsTypes,
-} from "./Store";
+} from "./Types";
 
 const UPDATE_NEW_MESSAGES_BODY = "UPDATE-NEW-MESSAGES-BODY";
 const SEND_MESSAGES = "SEND-MESSAGES";
 
-type messages = {
+export type messages = {
     id: string
     message: string
 };
-type dialogs = {
+export type dialogs = {
     id: string
     name: string
 };

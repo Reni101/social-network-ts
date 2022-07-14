@@ -1,9 +1,4 @@
-import {
-    ActionsTypes,
-    Set_usersActionType,
-    SetCurrentPageType, SetTotalCount,
-    ToggleIsFetching,
-} from "./Store";
+import {ActionsTypes} from "./Types";
 import {PhotosType} from "./profile-reducer";
 
 const FOLLOW = "FOLLOW"
@@ -18,7 +13,7 @@ export type initialStateType = typeof initialState
 
 
 let initialState = {
-    users: [] as Array<UserType> | [],
+    users: [] as Array<UserType>,
     pageSize: 5,
     totalUsersCount: 1,
     currentPage: 1,
@@ -34,7 +29,6 @@ export type UserType = {
     status: string,
     location?: { city: string, country: string }
     photos: PhotosType
-    uniqueUrlName:any
 }
 
 
@@ -84,10 +78,38 @@ export type UnfollowActionType = {
     userID: number
 }
 
-export const setUsersAc = (users: Array<UserType>): Set_usersActionType => ({type: SET_USERS, users})
-export const setCurrentPageAC = (currentPage: number): SetCurrentPageType => ({type: SET_CURRENT_PAGE, currentPage})
-export const setTotalUsersCountAC = (totalCount: number): SetTotalCount => ({type: SET_TOTAL_COUNT, totalCount})
-export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetching => ({type: TOGGLE_IS_FETCHING, isFetching})
+export type SetUsersActionType = {
+    type: "SET-USERS"
+    users: Array<UserType>
+}
+export const setUsersAc = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users})
+
+export type SetCurrentPageActionType = {
+    type: 'SET-CURRENT-PAGE'
+    currentPage: number
+}
+export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => ({
+    type: SET_CURRENT_PAGE,
+    currentPage
+})
+
+export type SetTotalCountActionType = {
+    type: 'SET-TOTAL-USERS-COUNT'
+    totalCount: number
+}
+export const setTotalUsersCountAC = (totalCount: number): SetTotalCountActionType => ({
+    type: SET_TOTAL_COUNT,
+    totalCount
+})
+
+export type ToggleIsFetchingActionType = {
+    type: 'TOGGLE_IS_FETCHING'
+    isFetching: boolean
+}
+export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionType => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching
+})
 
 
 export default UsersReducer;

@@ -1,4 +1,10 @@
-import {FollowActionType, UnfollowActionType, UserType} from "./users-reducer";
+import {
+    FollowActionType,
+    SetCurrentPageActionType, SetTotalCountActionType,
+    SetUsersActionType, ToggleIsFetchingActionType,
+    UnfollowActionType,
+    UserType
+} from "./users-reducer";
 import {setUserDataActionType} from "./auth-reducer";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {AddPostActionType, setUserProfileActionType, UpdateNewPostTextPostActionType} from "./profile-reducer";
@@ -10,32 +16,16 @@ export type ActionsTypes =
     | UpdateNewMessageBodyActionType
     | FollowActionType
     | UnfollowActionType
-    | Set_usersActionType
-    | SetCurrentPageType
-    | SetTotalCount
-    | ToggleIsFetching
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalCountActionType
+    | ToggleIsFetchingActionType
     | setUserProfileActionType
     | setUserDataActionType
 
 
 
 
-export type Set_usersActionType = {
-    type: "SET-USERS"
-    users: Array<UserType>
-}
-export type SetCurrentPageType = {
-    type: 'SET-CURRENT-PAGE'
-    currentPage: number
-}
-export type SetTotalCount = {
-    type: 'SET-TOTAL-USERS-COUNT'
-    totalCount: number
-}
-export type ToggleIsFetching = {
-    type: 'TOGGLE_IS_FETCHING'
-    isFetching: boolean
-}
 
 
 export type ProfilePageType = {

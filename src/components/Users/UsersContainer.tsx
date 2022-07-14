@@ -8,7 +8,7 @@ import {
     unFollowAc,
     UserType
 } from "../../Redux/users-reducer";
-import {RootStateType} from "../../Redux/Store";
+import {RootStateType} from "../../Redux/Types";
 import UsersC from "./UsersC";
 import Preloader from "../Preloader";
 import {getUsers} from "../../api/api";
