@@ -3,8 +3,9 @@ import {sendMessageCreator, UpdateNewMessageBodyCreator} from "../../Redux/dialo
 
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {DialogsPageType, RootStateType} from "../../Redux/Types";
+import {DialogsPageType} from "../../Redux/Types";
 import {Dispatch} from "redux";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 
 type mapStateToPropsType = {
@@ -16,7 +17,7 @@ type mapDispatchToPropsType = {
     sendMessage: () => void
 }
 
-let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
+let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }

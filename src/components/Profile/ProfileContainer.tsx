@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setUserProfileAC} from "../../Redux/profile-reducer";
 import {RootStateType} from "../../Redux/Types";
 import {withRouter} from "react-router-dom";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 class ProfileContainer extends React.Component<any, any>{
 
@@ -29,7 +30,7 @@ class ProfileContainer extends React.Component<any, any>{
     }
 
 }
-let mapStateToProps =(state:RootStateType)=>({
+let mapStateToProps =(state:AppRootStateType)=>({
     profile:state.profilePage.profile
 })
 

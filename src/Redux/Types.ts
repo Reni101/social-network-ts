@@ -28,6 +28,52 @@ export type ActionsTypes =
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export type ProfilePageType = {
     postsData: Array<PostsType>
     newPostText: string
@@ -77,4 +123,3 @@ export type RootStateType = {
 }
 
 
-//window.store = store;

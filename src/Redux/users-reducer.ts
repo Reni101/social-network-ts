@@ -22,15 +22,17 @@ let initialState = {
 
 
 export type UserType = {
-    id: number,
-    photoURL: string,
     followed: boolean,
+    id: number,
     name: string,
+    photos: PhotosType,
     status: string,
+    photoURL: string,
+    uniqueUrlName: null |string
     location?: { city: string, country: string }
-    photos: PhotosType
-}
 
+
+}
 
 const UsersReducer = (state = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {

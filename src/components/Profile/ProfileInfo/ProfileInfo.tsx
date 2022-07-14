@@ -3,10 +3,9 @@ import styleP from "../Profile.module.css";
 import Preloader from "../../Preloader";
 
 const ProfileInfo = (props:any) => {
-
     if(!props.profile){
         return <Preloader/>
-    } else {}
+    } else
     return (
         <div>
             <div className={styleP.item}>Avatar + description</div>

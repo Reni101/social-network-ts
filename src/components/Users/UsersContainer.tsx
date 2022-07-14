@@ -8,10 +8,10 @@ import {
     unFollowAc,
     UserType
 } from "../../Redux/users-reducer";
-import {RootStateType} from "../../Redux/Types";
 import UsersC from "./UsersC";
 import Preloader from "../Preloader";
 import {getUsers} from "../../api/api";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 type mapStateToPropsType = {
     users: Array<UserType>
@@ -21,22 +21,23 @@ type mapStateToPropsType = {
     isFetching: boolean
 }
 
-type UserPropsType = {
+type PropsType = {
+    toggleIsFetching:(toggle:boolean)=>void
+    currentPage:number
+    pageSize:number
+    isFetching:boolean
     users: Array<UserType>
-    follow: (id: string) => void
-    unFollow: (id: string) => void
-    setUsers: (users: Array<UserType>) => void
-    pageSize: number
     totalUsersCount: number
-    currentPage: number
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
 
+    setUsers:(items:Array<UserType>)=>void
+    setTotalUsersCount:(totalCount:number)=>void
+    setCurrentPage:(pageNumber:number)=>void
+    follow: (userID: number) => void
+    unFollow: (userID: number) => void
 }
 
-class UsersAPIComponent extends React.Component<any, any> {
+
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
 
@@ -78,7 +79,7 @@ class UsersAPIComponent extends React.Component<any, any> {
 }
 
 
-let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
+let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -96,4 +97,4 @@ export default connect(mapStateToProps, {
     setCurrentPage: setCurrentPageAC,
     setTotalUsersCount: setTotalUsersCountAC,
     toggleIsFetching: toggleIsFetchingAC,
-})(UsersAPIComponent);
+})(UsersContainer);
