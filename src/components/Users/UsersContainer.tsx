@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from "react-redux";
+import {connect, MapDispatchToProps} from "react-redux";
 import {
     followAc,
     setCurrentPageAC,
@@ -13,7 +13,7 @@ import Preloader from "../Preloader";
 import {getUsers} from "../../api/api";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
@@ -21,17 +21,28 @@ type mapStateToPropsType = {
     isFetching: boolean
 }
 
+type MapDispatchToPropsType = {
+    setUsers: (items: Array<UserType>) => void
+    setTotalUsersCount: (totalCount: number) => void
+    setCurrentPage: (pageNumber: number) => void
+    follow: (userID: number) => void
+    unFollow: (userID: number) => void
+    toggleIsFetching: (toggle: boolean) => void
+}
+type OwnPropsType = {}
+
 type PropsType = {
-    toggleIsFetching:(toggle:boolean)=>void
-    currentPage:number
-    pageSize:number
-    isFetching:boolean
+
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
     users: Array<UserType>
     totalUsersCount: number
 
-    setUsers:(items:Array<UserType>)=>void
-    setTotalUsersCount:(totalCount:number)=>void
-    setCurrentPage:(pageNumber:number)=>void
+    toggleIsFetching: (toggle: boolean) => void
+    setUsers: (items: Array<UserType>) => void
+    setTotalUsersCount: (totalCount: number) => void
+    setCurrentPage: (pageNumber: number) => void
     follow: (userID: number) => void
     unFollow: (userID: number) => void
 }
@@ -79,7 +90,7 @@ class UsersContainer extends React.Component<PropsType> {
 }
 
 
-let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
+let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -88,9 +99,9 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         isFetching: state.usersPage.isFetching
     }
 }
+//<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 
-
-export default connect(mapStateToProps, {
+export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppRootStateType>(mapStateToProps, {
     follow: followAc,
     unFollow: unFollowAc,
     setUsers: setUsersAc,

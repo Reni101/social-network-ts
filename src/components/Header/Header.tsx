@@ -3,7 +3,14 @@ import logo from "../../img/img_logo.png";
 import styleH from "./Header.module.css"
 import {NavLink} from "react-router-dom";
 
+type PropsType= {
+    isAuth:boolean
+    login:string
+    setAuthUserData:any
+}
+
 const Header = (props: any) => {
+
     return (
         <div className={styleH.header}>
             <div><img className={styleH.logo} src={logo} alt="logo"/>
