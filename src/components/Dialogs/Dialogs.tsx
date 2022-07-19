@@ -25,12 +25,10 @@ const Dialogs = (props: DialogsPropsType) => {
 
     const onSendMessageClick = () => {
         props.sendMessage()
-        // props.store.dispatch(sendMessageCreator())
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
         props.UpdateNewMessageBody(body);
-        //  props.store.dispatch(UpdateNewMessageBodyCreator(body))
     }
 
     return (
