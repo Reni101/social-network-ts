@@ -35,6 +35,6 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsTypes>): mapDispatchToPropsT
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;
