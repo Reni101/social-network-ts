@@ -3,7 +3,7 @@ import {sendMessageCreator, UpdateNewMessageBodyCreator} from "../../Redux/dialo
 
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {DialogsPageType} from "../../Redux/Types";
+import {ActionsTypes, DialogsPageType} from "../../Redux/Types";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
@@ -23,7 +23,7 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch<ActionsTypes>): mapDispatchToPropsType => {
 
     return {
         UpdateNewMessageBody: (body: string) => {

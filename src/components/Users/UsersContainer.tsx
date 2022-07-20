@@ -31,7 +31,7 @@ type MapDispatchToPropsType = {
 }
 type OwnPropsType = {}
 
-type PropsType = {
+/*type PropsType = {
 
     currentPage: number
     pageSize: number
@@ -45,7 +45,7 @@ type PropsType = {
     setCurrentPage: (pageNumber: number) => void
     follow: (userID: number) => void
     unFollow: (userID: number) => void
-}
+}*/
 
 
 class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType > {
