@@ -14,7 +14,7 @@ export type dialogs = {
     id: string
     name: string
 };
-type InitialStateType = typeof initialState
+export type InitialStateDialogsType = typeof initialState
 
 
 let initialState = {
@@ -36,7 +36,7 @@ let initialState = {
 }
 
 
-const DialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+const DialogsReducer = (state: InitialStateDialogsType = initialState, action: ActionsTypes): InitialStateDialogsType => {
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGES_BODY : {

@@ -101,7 +101,8 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppRootStateType>(mapStateToProps, {
+export default connect<MapStateToPropsType, MapDispatchToPropsType,
+    OwnPropsType, AppRootStateType>(mapStateToProps, {
     follow: followAc,
     unFollow: unFollowAc,
     setUsers: setUsersAc,
