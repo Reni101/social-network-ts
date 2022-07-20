@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect, MapDispatchToProps} from "react-redux";
+import {connect} from "react-redux";
 import {
     followAc,
     setCurrentPageAC,
@@ -48,7 +48,7 @@ type PropsType = {
 }
 
 
-class UsersContainer extends React.Component<PropsType> {
+class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType > {
     componentDidMount() {
         this.props.toggleIsFetching(true);
 
