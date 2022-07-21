@@ -14,6 +14,7 @@ export type dialogs = {
     id: string
     name: string
 };
+
 export type InitialStateDialogsType = typeof initialState
 
 
