@@ -2,7 +2,6 @@ import React from 'react';
 import contentIMG from "../../img/content .jpg";
 import styleP from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../Redux/profile-reducer";
 
