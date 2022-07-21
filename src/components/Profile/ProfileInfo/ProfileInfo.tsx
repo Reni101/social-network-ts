@@ -13,6 +13,7 @@ const ProfileInfo = (props:PropsType) => {
     } else
     return (
         <div>
+            <div>{props.profile.fullName}</div>
             <div className={styleP.item}>Avatar + description</div>
             <img src={props.profile.photos.large} alt="Avatar" />
         </div>
