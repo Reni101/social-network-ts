@@ -24,6 +24,7 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType
     photos: PhotosType
+    aboutMe?:null |string
 
 }
 export type ContactsType = {
@@ -37,8 +38,8 @@ export type ContactsType = {
     mainLink: string
 }
 export type PhotosType = {
-    small: string | null
-    large: string | null
+    small: string | null | undefined
+    large: string  |undefined
 
 }
 

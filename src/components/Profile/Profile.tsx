@@ -4,14 +4,14 @@ import styleP from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileType} from "../../Redux/profile-reducer";
 
 type ProfilePropsType = {
-profile:any
+profile:ProfileType
 }
 
 
 const Profile = (props: ProfilePropsType) => {
-
 
     return (
         <div className={styleP.profile}>
