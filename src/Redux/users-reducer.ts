@@ -29,7 +29,7 @@ export type UserType = {
     status: string,
     photoURL: string,
     uniqueUrlName: null |string
-    location?: { city: string, country: string }
+
 
 
 }
@@ -39,13 +39,13 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
         case FOLLOW: {
             return {
                 ...state,
-                users: state.users.map((el) => el.id === action.userID ? {...el, followed: false} : el)
+                users: state.users.map((el) => el.id === action.userID ? {...el, followed: true} : el)
             }
         }
         case UNFOLLOW : {
             return {
                 ...state,
-                users: state.users.map((el) => el.id === action.userID ? {...el, followed: true} : el)
+                users: state.users.map((el) => el.id === action.userID ? {...el, followed: false} : el)
             }
         }
         case SET_USERS: {

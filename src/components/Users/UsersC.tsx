@@ -43,13 +43,13 @@ const UsersC: FC<PropsType> = (props) => {
                     <div>
                         {el.followed
                             ? <button onClick={() => {
-                                props.follow(el.id)
-                            }}>follow</button>
+                                props.unFollow(el.id)
+                            }}>unFollow</button>
 
 
                             : <button onClick={() => {
-                                props.unFollow(el.id)
-                            }}>unFollow</button>}
+                                props.follow(el.id)
+                            }}>Follow</button>}
 
                     </div>
                 </span>
@@ -59,7 +59,7 @@ const UsersC: FC<PropsType> = (props) => {
                  <div>{el.status}    </div>
             </span>
             <span>
-                 <div> {"el.location.country"} </div>
+                <div> {"el.location.country"} </div>
                 <div>  {'el.location.city'}  </div>
             </span>
                 </span>
