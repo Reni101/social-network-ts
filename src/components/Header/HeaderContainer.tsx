@@ -23,7 +23,7 @@ class HeaderContainer extends React.Component<MapStateToPropsType & MapDispatchT
         })
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data.login
+                    let {id, email, login} = response.data.data
                     this.props.setAuthUserData(id, email, login)
                 }
             });

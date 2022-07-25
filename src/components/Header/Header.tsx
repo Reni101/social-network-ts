@@ -10,16 +10,14 @@ type PropsType= {
 }
 
 const Header = (props: PropsType) => {
-
     return (
         <div className={styleH.header}>
             <div><img className={styleH.logo} src={logo} alt="logo"/>
-                <div className={styleH.loginBlock}>
-                    {props.isAuth ? props.login
-                        : <NavLink to='login'>Login </NavLink> }
 
-
-                </div>
+            </div>
+            <div className={styleH.loginBlock}>
+                {props.isAuth ? props.login
+                    : <NavLink to='login'>Login </NavLink> }
             </div>
 
 

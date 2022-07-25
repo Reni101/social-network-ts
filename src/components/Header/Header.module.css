@@ -6,15 +6,16 @@ div .logo {
 .header {
     grid-area: h;
     background-color: blueviolet;
+    display: flex;
+    justify-content: space-between;
 }
 
 div .loginBlock {
-    float: right;
-background-color: black;
+    color: white;
+
 }
 
 .loginBlock a {
-
     color: white;
     text-decoration: none;
 }
