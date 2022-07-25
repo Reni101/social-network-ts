@@ -10,7 +10,6 @@ type PropsType= {
 }
 
 const Header = (props: PropsType) => {
-    debugger
     return (
         <div className={styleH.header}>
             <div><img className={styleH.logo} src={logo} alt="logo"/>
