@@ -5,11 +5,11 @@ import {NavLink} from "react-router-dom";
 
 type PropsType= {
     isAuth:boolean
-    login:string
-    setAuthUserData:any
+    login:string |null
+
 }
 
-const Header = (props: any) => {
+const Header = (props: PropsType) => {
 
     return (
         <div className={styleH.header}>
