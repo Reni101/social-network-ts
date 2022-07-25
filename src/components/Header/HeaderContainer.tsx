@@ -41,6 +41,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
 });
 
 
-export default connect<MapStateToPropsType, >(mapStateToProps, {
+export default connect<MapStateToPropsType,
+    MapDispatchToPropsType,{},AppRootStateType >(mapStateToProps, {
     setAuthUserData: setAuthUserDataAC
 })(HeaderContainer)
