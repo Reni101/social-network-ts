@@ -57,11 +57,9 @@ const UsersC: FC<PropsType> = (props) => {
                     <span>
             <span>
                   <div>{el.name}    </div>
-                 <div>{el.status}    </div>
+                 <div> status: {el.status !==null ? el.status : "статус не найден" }    </div>
             </span>
-            <span>
-                <div>{el.status}</div>
-            </span>
+
                 </span>
 
                 </div>
