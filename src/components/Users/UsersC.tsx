@@ -25,7 +25,8 @@ const UsersC: FC<PropsType> = (props) => {
         <div>
 
             <div>
-                {pages.map((p, index) => <span key={index} className={`${props.currentPage === p && style.pagesCount}`}
+                {pages.map((p, index) => <span key={index}
+                                               className={`${props.currentPage === p && style.pagesCount}`}
                                                onClick={() => {
                                                    props.onPageChanged(p)
                                                }}

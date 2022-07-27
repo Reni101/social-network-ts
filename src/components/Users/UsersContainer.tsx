@@ -48,7 +48,7 @@ type OwnPropsType = {}
 }*/
 
 
-class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType > {
+class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
 

@@ -8,7 +8,7 @@ import {AppRootStateType} from "../../Redux/Redux-store";
 
 type MapStateToPropsType = {
     isAuth: boolean
-    login: null | string
+    login: string
 }
 
 type MapDispatchToPropsType = {
@@ -37,11 +37,11 @@ class HeaderContainer extends React.Component<MapStateToPropsType & MapDispatchT
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
-    login: state.auth.login,
+    login: state.auth.login!, // проверка на null
 });
 
 
 export default connect<MapStateToPropsType,
-    MapDispatchToPropsType,{},AppRootStateType >(mapStateToProps, {
+    MapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, {
     setAuthUserData: setAuthUserDataAC
 })(HeaderContainer)
