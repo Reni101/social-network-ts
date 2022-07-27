@@ -59,8 +59,7 @@ const UsersC: FC<PropsType> = (props) => {
                  <div>{el.status}    </div>
             </span>
             <span>
-                <div> {"el.location.country"} </div>
-                <div>  {'el.location.city'}  </div>
+                <div>{el.status}</div>
             </span>
                 </span>
 

@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
     return (
         <nav className={styleN.nav}>
             <div className={styleN.item}>
-                <NavLink to="/profile" activeClassName={styleN.active}>Profile</NavLink>
+                <NavLink to="/profile/24522" activeClassName={styleN.active}>Profile</NavLink>
             </div>
 
             <div className={styleN.item}>
