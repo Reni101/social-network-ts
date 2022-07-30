@@ -4,20 +4,20 @@ import Preloader from "../../Preloader";
 import {ProfileType} from "../../../Redux/profile-reducer";
 
 type PropsType = {
-    profile:ProfileType
+    profile: ProfileType
 }
 
-const ProfileInfo = (props:PropsType) => {
-    if(!props.profile){
+const ProfileInfo = (props: PropsType) => {
+    if (!props.profile) {
         return <Preloader/>
     } else
-    return (
-        <div>
-            <div>{props.profile.fullName}</div>
-            <div className={styleP.item}>Avatar + description</div>
-            <img src={props.profile.photos.large} alt="Avatar" />
-        </div>
-    );
+        return (
+            <div>
+                <div>{props.profile.fullName}</div>
+                <img src={props.profile.photos.large} alt="Avatar"/>
+                <div className={styleP.item}>Description</div>
+            </div>
+        );
 };
 
 export default ProfileInfo;
