@@ -1,5 +1,9 @@
 import React from 'react';
-import {InitialStateDialogsType, sendMessageActionCreator, UpdateNewMessageBodyActionCreator} from "../../Redux/dialogs-reducer";
+import {
+    InitialStateDialogsType,
+    sendMessageActionCreator,
+    UpdateNewMessageBodyActionCreator
+} from "../../Redux/dialogs-reducer";
 
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
@@ -34,8 +38,10 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }*/
 
 const DialogsContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {},
-    AppRootStateType>(mapStateToProps,
-    {UpdateNewMessageBody:UpdateNewMessageBodyActionCreator,
-        sendMessage:sendMessageActionCreator},)(Dialogs);
+    AppRootStateType>
+(mapStateToProps, {
+    UpdateNewMessageBody: UpdateNewMessageBodyActionCreator,
+    sendMessage: sendMessageActionCreator
+},)(Dialogs);
 
 export default DialogsContainer;
