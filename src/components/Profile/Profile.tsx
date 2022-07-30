@@ -11,12 +11,13 @@ type ProfilePropsType = {
 
 
 const Profile = (props: ProfilePropsType) => {
+    debugger
 
     return (
         <div className={styleP.profile}>
             <div className={styleP.main}>Main content</div>
 
-            <img className={styleP.contentIMG} src={contentIMG}/>
+            <img className={styleP.contentIMG} src={contentIMG} alt="img"/>
 
             <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
