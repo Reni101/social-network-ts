@@ -20,7 +20,6 @@ type MapStateToPropsType = {
     currentPage: number
     isFetching: boolean
 }
-
 type MapDispatchToPropsType = {
     setUsers: (items: Array<UserType>) => void
     setTotalUsersCount: (totalCount: number) => void
