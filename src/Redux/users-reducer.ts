@@ -7,6 +7,7 @@ const SET_USERS = "SET-USERS"
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING'
 
 
 export type initialStateType = typeof initialState
@@ -17,7 +18,9 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 1,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress:false,
+
 }
 
 
@@ -62,6 +65,10 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
         case TOGGLE_IS_FETCHING: {
 
             return {...state, isFetching: action.isFetching}
+        }
+        case TOGGLE_IS_FOLLOWING: {
+
+            return {...state, followingInProgress: action.isFollowing}
         }
         default:
             return state
@@ -113,6 +120,15 @@ export type ToggleIsFetchingActionType = {
 export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionType => ({
     type: TOGGLE_IS_FETCHING,
     isFetching
+})
+
+export type ToggleIsFollowingActionType = {
+    type: 'TOGGLE_IS_FOLLOWING'
+    isFollowing: boolean
+}
+export const toggleIsFollowingAC = (isFollowing: boolean): ToggleIsFollowingActionType => ({
+    type: TOGGLE_IS_FOLLOWING,
+    isFollowing
 })
 
 

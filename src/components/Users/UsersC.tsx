@@ -12,7 +12,9 @@ type PropsType = {
     pageSize: number
     totalUsersCount: number
     unFollow: (userID: number) => void
+    toggleIsFollow:(isFollow:boolean)=>void
     users: Array<UserType>
+    followingInProgress:boolean
 }
 
 const UsersC: FC<PropsType> = (props) => {
@@ -45,17 +47,21 @@ const UsersC: FC<PropsType> = (props) => {
                         </div>
                     <div>
                         {el.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress} onClick={() => {
+                                props.toggleIsFollow(true)
                                 usersAPI.unfollowUser(el.id)
                                     .then((data) => {
-                                        if (data.resultCode === 0) props.unFollow(el.id)
+                                        if (data.resultCode === 0) props.unFollow(el.id);
+                                        props.toggleIsFollow(false)
                                     })
                             }}>unFollow</button>
 
                             : <button onClick={() => {
+                                props.toggleIsFollow(true)
                                 usersAPI.followUser(el.id)
                                     .then((data) => {
                                         if (data.resultCode === 0) props.follow(el.id)
+                                        props.toggleIsFollow(false)
                                     })
                             }}>Follow</button>}
                     </div>
