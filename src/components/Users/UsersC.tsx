@@ -4,6 +4,7 @@ import UserAvatar from '../../img/UsersAvatar.jpg'
 import {NavLink} from "react-router-dom";
 import {UserType} from "../../Redux/users-reducer";
 import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type PropsType = {
     currentPage: number
@@ -59,17 +60,9 @@ const UsersC: FC<PropsType> = (props) => {
                             }}>unFollow</button>
 
                             : <button onClick={() => {
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                    {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "fab19197-098e-4362-876a-0c0797e21ac6"
-                                        }
-                                    })
-                                    .then((response) => {
-                                        if (response.data.resultCode === 0) {
-                                            props.follow(el.id)
-                                        }
+                                usersAPI.followUser(el.id)
+                                    .then((data) => {
+                                        if (data.resultCode === 0) props.follow(el.id)
                                     })
                             }}>Follow</button>}
                     </div>
