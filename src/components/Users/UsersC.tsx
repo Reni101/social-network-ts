@@ -3,7 +3,6 @@ import style from "./Users.module.css";
 import UserAvatar from '../../img/UsersAvatar.jpg'
 import {NavLink} from "react-router-dom";
 import {UserType} from "../../Redux/users-reducer";
-import axios from "axios";
 import {usersAPI} from "../../api/api";
 
 type PropsType = {
@@ -40,22 +39,16 @@ const UsersC: FC<PropsType> = (props) => {
                         <NavLink to={'/profile/' + el.id}>
 
                         <img src={el.photos.small !== null ? el.photos.small : UserAvatar}
+                             alt ="imgAvatar"
                              style={{width: "50px", height: "50px"}}/>
                           </NavLink>
                         </div>
                     <div>
                         {el.followed
                             ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "fab19197-098e-4362-876a-0c0797e21ac6"
-                                    }
-                                })
-                                    .then((response) => {
-                                        if (response.data.resultCode === 0) {
-                                            props.unFollow(el.id)
-                                        }
+                                usersAPI.unfollowUser(el.id)
+                                    .then((data) => {
+                                        if (data.resultCode === 0) props.unFollow(el.id)
                                     })
                             }}>unFollow</button>
 
