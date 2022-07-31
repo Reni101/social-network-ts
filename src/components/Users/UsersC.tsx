@@ -45,26 +45,32 @@ const UsersC: FC<PropsType> = (props) => {
                     <div>
                         {el.followed
                             ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                     {withCredentials: true})
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                    withCredentials: true,
+                                    headers: {
+                                        "API-KEY": "fab19197-098e-4362-876a-0c0797e21ac6"
+                                    }
+                                })
                                     .then((response) => {
                                         if (response.data.resultCode === 0) {
                                             props.unFollow(el.id)
                                         }
                                     })
-
                             }}>unFollow</button>
 
                             : <button onClick={() => {
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                    {}, {withCredentials: true})
+                                    {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "fab19197-098e-4362-876a-0c0797e21ac6"
+                                        }
+                                    })
                                     .then((response) => {
                                         if (response.data.resultCode === 0) {
                                             props.follow(el.id)
                                         }
                                     })
-
-
                             }}>Follow</button>}
                     </div>
                 </span>
