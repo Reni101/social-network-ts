@@ -12,9 +12,9 @@ type PropsType = {
     pageSize: number
     totalUsersCount: number
     unFollow: (userID: number) => void
-    toggleIsFollow:(isFollow:boolean)=>void
+    toggleIsFollow: (isFollow: boolean) => void
     users: Array<UserType>
-    followingInProgress:boolean
+    followingInProgress: boolean
 }
 
 const UsersC: FC<PropsType> = (props) => {
@@ -41,7 +41,7 @@ const UsersC: FC<PropsType> = (props) => {
                         <NavLink to={'/profile/' + el.id}>
 
                         <img src={el.photos.small !== null ? el.photos.small : UserAvatar}
-                             alt ="imgAvatar"
+                             alt="imgAvatar"
                              style={{width: "50px", height: "50px"}}/>
                           </NavLink>
                         </div>
@@ -56,7 +56,7 @@ const UsersC: FC<PropsType> = (props) => {
                                     })
                             }}>unFollow</button>
 
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress} onClick={() => {
                                 props.toggleIsFollow(true)
                                 usersAPI.followUser(el.id)
                                     .then((data) => {
