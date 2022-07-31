@@ -11,7 +11,6 @@ type ProfilePropsType = {
 
 
 const Profile = (props: ProfilePropsType) => {
-    debugger
 
     return (
         <div className={styleP.profile}>

@@ -15,7 +15,7 @@ const ProfileInfo = (props: PropsType) => {
             <div>
                 <div>{props.profile.fullName}</div>
                 <img src={props.profile.photos.large} alt="Avatar"/>
-                <div className={styleP.item}>Description</div>
+                <div className={styleP.item}>{props.profile.aboutMe}</div>
             </div>
         );
 };

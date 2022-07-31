@@ -25,9 +25,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userid = this.props.match.params.userId;
-        if (!userid) {
-            userid = '24522';
-        }
+        if (!userid) userid = '24522';
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userid)
             .then(response => {
                 this.props.setUserProfile(response.data)
@@ -52,8 +50,6 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-const ProfileContainerURL = connect<MapStateToPropsType,MapDispatchToPropsType,{},AppRootStateType>(mapStateToProps, {
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, {
     setUserProfile: setUserProfileAC
 })(WithUrlDataContainerComponent);
-
-export default ProfileContainerURL
