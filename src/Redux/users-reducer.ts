@@ -68,6 +68,8 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
 
     }
 };
+
+
 export type FollowActionType = {
     type: "FOLLOW"
     userID: number

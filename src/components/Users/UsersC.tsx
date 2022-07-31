@@ -3,6 +3,7 @@ import style from "./Users.module.css";
 import UserAvatar from '../../img/UsersAvatar.jpg'
 import {NavLink} from "react-router-dom";
 import {UserType} from "../../Redux/users-reducer";
+import axios from "axios";
 
 type PropsType = {
     currentPage: number
@@ -44,20 +45,33 @@ const UsersC: FC<PropsType> = (props) => {
                     <div>
                         {el.followed
                             ? <button onClick={() => {
-                                props.unFollow(el.id)
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
+                                     {withCredentials: true})
+                                    .then((response) => {
+                                        if (response.data.resultCode === 0) {
+                                            props.unFollow(el.id)
+                                        }
+                                    })
+
                             }}>unFollow</button>
 
-
                             : <button onClick={() => {
-                                props.follow(el.id)
-                            }}>Follow</button>}
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
+                                    {}, {withCredentials: true})
+                                    .then((response) => {
+                                        if (response.data.resultCode === 0) {
+                                            props.follow(el.id)
+                                        }
+                                    })
 
+
+                            }}>Follow</button>}
                     </div>
                 </span>
                     <span>
             <span>
                   <div>{el.name}    </div>
-                 <div> status: {el.status !==null ? el.status : "статус не найден" }    </div>
+                 <div> status: {el.status !== null ? el.status : "статус не найден"}    </div>
             </span>
 
                 </span>
