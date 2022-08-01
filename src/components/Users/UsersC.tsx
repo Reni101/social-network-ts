@@ -6,16 +6,13 @@ import {UserType} from "../../Redux/users-reducer";
 
 type PropsType = {
     currentPage: number
-    follow: (userID: number) => void
     onPageChanged: (pageNumber: number) => void
     pageSize: number
     totalUsersCount: number
-    unFollow: (userID: number) => void
-    toggleIsFollow: (isFollow: boolean, userId: number) => void
     users: Array<UserType>
     followingInProgress: Array<number>
-    followThunk: (userId: number) => any
-    unfollowThunk: (userId: number) => any
+    followThunk: (userId: number) => void
+    unfollowThunk: (userId: number) => void
 }
 
 const UsersC: FC<PropsType> = (props) => {

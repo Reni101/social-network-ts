@@ -160,7 +160,6 @@ export const followThunkCreator = (userId:number) => {
                 dispatch(toggleIsFollowingAC(false, userId))
             })
     }
-
 }
 
 export const unfollowThunkCreator = (userId:number) => {
@@ -172,7 +171,6 @@ export const unfollowThunkCreator = (userId:number) => {
                 dispatch(toggleIsFollowingAC(false, userId))
             })
     }
-
 }
 
 
