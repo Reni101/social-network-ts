@@ -11,7 +11,6 @@ import {
 import UsersC from "./UsersC";
 import Preloader from "../Preloader";
 import {AppRootStateType} from "../../Redux/Redux-store";
-import {usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -60,13 +59,15 @@ class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchTo
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.toggleIsFetching(true)
-        this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-            });
+        /*       this.props.toggleIsFetching(true)
+               this.props.setCurrentPage(pageNumber)
+               usersAPI.getUsers(pageNumber, this.props.pageSize)
+                   .then(data => {
+                       this.props.toggleIsFetching(false)
+                       this.props.setUsers(data.items)
+                   });*/
+
+        this.props.getUsersThunk(pageNumber, this.props.pageSize)
     }
 
     render() {
