@@ -1,6 +1,7 @@
 import {ActionsTypes} from "./Types";
 import {PhotosType} from "./profile-reducer";
 import {usersAPI} from "../api/api";
+import {Dispatch} from "react";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -140,7 +141,7 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number): Toggl
 
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: any) => {
+    return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFetchingAC(true));
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
@@ -152,7 +153,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 }
 
 export const followThunkCreator = (userId:number) => {
-    return (dispatch: any) => {
+    return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFollowingAC(true, userId))
         usersAPI.followUser(userId)
             .then((data) => {
@@ -163,7 +164,7 @@ export const followThunkCreator = (userId:number) => {
 }
 
 export const unfollowThunkCreator = (userId:number) => {
-    return (dispatch: any) => {
+    return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFollowingAC(true, userId))
         usersAPI.unfollowUser(userId)
             .then((data) => {
