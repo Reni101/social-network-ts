@@ -82,7 +82,7 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
     }
 };
 
-
+//========================Action Creator======================
 export type FollowActionType = {
     type: "FOLLOW"
     userID: number
@@ -140,6 +140,10 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number): Toggl
 })
 
 
+
+
+
+//========================Thunk======================
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFetchingAC(true));
@@ -151,7 +155,6 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
             });
     }
 }
-
 export const followThunkCreator = (userId:number) => {
     return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFollowingAC(true, userId))
@@ -162,7 +165,6 @@ export const followThunkCreator = (userId:number) => {
             })
     }
 }
-
 export const unfollowThunkCreator = (userId:number) => {
     return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFollowingAC(true, userId))
