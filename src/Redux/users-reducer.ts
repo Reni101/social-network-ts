@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./Types";
 import {PhotosType} from "./profile-reducer";
+import {usersAPI} from "../api/api";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -136,6 +137,43 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number): Toggl
     userId,
     isFollowing,
 })
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFetchingAC(true));
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetchingAC(false))
+                dispatch(setUsersAc(data.items))
+                dispatch(setTotalUsersCountAC(data.totalCount))
+            });
+    }
+}
+
+export const followThunkCreator = (userId:number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFollowingAC(true, userId))
+        usersAPI.followUser(userId)
+            .then((data) => {
+                if (data.resultCode === 0) dispatch(followAc(userId));
+                dispatch(toggleIsFollowingAC(false, userId))
+            })
+    }
+
+}
+
+export const unfollowThunkCreator = (userId:number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFollowingAC(true, userId))
+        usersAPI.unfollowUser(userId)
+            .then((data) => {
+                if (data.resultCode === 0) dispatch(unFollowAc(userId));
+                dispatch(toggleIsFollowingAC(false, userId))
+            })
+    }
+
+}
 
 
 export default UsersReducer;

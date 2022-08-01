@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    followAc,
+    followAc, followThunkCreator, getUsersThunkCreator,
     setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAc, toggleIsFetchingAC, toggleIsFollowingAC,
-    unFollowAc,
+    unFollowAc, unfollowThunkCreator,
     UserType
 } from "../../Redux/users-reducer";
 import UsersC from "./UsersC";
@@ -19,7 +19,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress:Array<number>
+    followingInProgress: Array<number>
 }
 type MapDispatchToPropsType = {
     setUsers: (items: Array<UserType>) => void
@@ -28,7 +28,10 @@ type MapDispatchToPropsType = {
     follow: (userID: number) => void
     unFollow: (userID: number) => void
     toggleIsFetching: (toggle: boolean) => void
-    toggleIsFollow:(isFollow:boolean,userId: number)=>void
+    toggleIsFollow: (isFollow: boolean, userId: number) => void
+    getUsersThunk: (currentPage: number, pageSize: number) => any
+    followThunk: (userId: number) => any
+    unfollowThunk: (userId: number) => any
 
 }
 type OwnPropsType = {}
@@ -52,14 +55,8 @@ type OwnPropsType = {}
 
 class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
 
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            });
+        this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -86,6 +83,8 @@ class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchTo
                         unFollow={this.props.unFollow}
                         toggleIsFollow={this.props.toggleIsFollow}
                         followingInProgress={this.props.followingInProgress}
+                        followThunk={this.props.followThunk}
+                        unfollowThunk={this.props.unfollowThunk}
 
                 />}
 
@@ -101,7 +100,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,//всего страниц?
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress:state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
@@ -115,5 +114,8 @@ export default connect<MapStateToPropsType, MapDispatchToPropsType,
     setTotalUsersCount: setTotalUsersCountAC,
     toggleIsFetching: toggleIsFetchingAC,
     toggleIsFollow: toggleIsFollowingAC,
+    getUsersThunk: getUsersThunkCreator,
+    followThunk: followThunkCreator,
+    unfollowThunk: unfollowThunkCreator,
 
 })(UsersContainer);
