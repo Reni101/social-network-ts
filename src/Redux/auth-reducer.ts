@@ -1,4 +1,7 @@
 import {ActionsTypes} from "./Types";
+import {Dispatch} from "react";
+import {authAPI} from "../api/api";
+
 
 const SET_USER_DATA = 'SET_USER_DATA'
 
@@ -39,4 +42,16 @@ export const setAuthUserDataAC = (userId: number, email: string, login: string):
         data: {userId, email, login}
     }
 
+}
+
+export const GetAuthUserDataThunkCreator = () => {
+    return (dispatch: Dispatch<ActionsTypes>) => {
+        authAPI.getAuthMe()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    let {id, email, login} = response.data.data
+                    dispatch(setAuthUserDataAC(id, email, login))
+                }
+            })
+    }
 }

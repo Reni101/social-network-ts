@@ -7,6 +7,7 @@ import {
 import {Dispatch} from "react";
 import {usersAPI} from "../api/api";
 
+
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
