@@ -12,6 +12,7 @@ import {AppRootStateType} from "../../Redux/Redux-store";
 
 type mapStateToPropsType = {
     dialogsPage: InitialStateDialogsType
+    isAuth:boolean
 }
 
 type mapDispatchToPropsType = {
@@ -21,21 +22,10 @@ type mapDispatchToPropsType = {
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth:state.auth.isAuth
     }
 }
-
-/*let mapDispatchToProps = (dispatch: Dispatch<ActionsTypes>): mapDispatchToPropsType => {
-
-    return {
-        UpdateNewMessageBody: (body: string) => {
-            dispatch(UpdateNewMessageBodyActionCreator(body))
-        },
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator())
-        }
-    }
-}*/
 
 const DialogsContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {},
     AppRootStateType>
