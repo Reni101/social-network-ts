@@ -17,7 +17,7 @@ type DialogsPropsType = {
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    if(!props.isAuth) return <Redirect to={'login'} />
+    if(!props.isAuth) return <Redirect to={'/login'} />
 
     const mapDialogsItem = props.dialogsPage.dialogsData.map(e => {
         return <DialogItem name={e.name} id={e.id} key={e.id}/>
