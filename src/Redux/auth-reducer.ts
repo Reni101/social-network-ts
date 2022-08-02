@@ -28,6 +28,8 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
             return state
     }
 }
+
+//========================Action Creator======================
 export type setUserDataActionType = {
     type: 'SET_USER_DATA'
     data: {
@@ -43,8 +45,8 @@ export const setAuthUserDataAC = (userId: number, email: string, login: string):
     }
 
 }
-
-export const GetAuthUserDataThunkCreator = () => {
+//========================Thunk======================
+export const getAuthUserDataThunkCreator = () => {
     return (dispatch: Dispatch<ActionsTypes>) => {
         authAPI.getAuthMe()
             .then(response => {

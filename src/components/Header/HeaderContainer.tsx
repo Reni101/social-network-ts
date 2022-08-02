@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {GetAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
+import {getAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
 type MapStateToPropsType = {
@@ -10,13 +10,13 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    GetAuthUserDataThunk: () => void
+    getAuthUserDataThunk: () => void
 }
 
 
 class HeaderContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
     componentDidMount() {
-        this.props.GetAuthUserDataThunk()
+        this.props.getAuthUserDataThunk()
     }
 
     render() {
@@ -33,5 +33,5 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
 
 export default connect<MapStateToPropsType,
     MapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, {
-    GetAuthUserDataThunk: GetAuthUserDataThunkCreator
+    getAuthUserDataThunk: getAuthUserDataThunkCreator
 })(HeaderContainer)
