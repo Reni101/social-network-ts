@@ -16,6 +16,7 @@ type PropsType = {
 }
 
 const UsersC: FC<PropsType> = (props) => {
+
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: Array<number> = []
     for (let i = 1; i <= pageCount; i++) {
@@ -27,8 +28,10 @@ const UsersC: FC<PropsType> = (props) => {
 
             <div>
                 {pages.map((p) => <span key={p}
+
                                         className={`${props.currentPage === p && style.pagesCount}`}
                                         onClick={() => {
+
                                             props.onPageChanged(p)
                                         }}
                 >{p}</span>)}
