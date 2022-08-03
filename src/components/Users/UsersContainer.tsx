@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     followThunkCreator, getUsersThunkCreator,
-    setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAc, toggleIsFetchingAC, unfollowThunkCreator,
     UserType
@@ -22,7 +21,6 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     setUsers: (items: Array<UserType>) => void
     setTotalUsersCount: (totalCount: number) => void
-    setCurrentPage: (pageNumber: number) => void
     toggleIsFetching: (toggle: boolean) => void
     getUsersThunk: (currentPage: number, pageSize: number) => any
     followThunk: (userId: number) => void
@@ -76,7 +74,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 export default connect<MapStateToPropsType, MapDispatchToPropsType,
     OwnPropsType, AppRootStateType>(mapStateToProps, {
     setUsers: setUsersAc,
-    setCurrentPage: setCurrentPageAC,
+
     setTotalUsersCount: setTotalUsersCountAC,
     toggleIsFetching: toggleIsFetchingAC,
     getUsersThunk: getUsersThunkCreator,
