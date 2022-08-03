@@ -12,7 +12,7 @@ type PathParamsType = {
 
 type MapStateToPropsType = {
     profile: ProfileType | null
-    isAuth:boolean
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -32,7 +32,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
     render() {
 
-        if(!this.props.isAuth) return <Redirect to={'/login'} />
+
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile!}/>
@@ -43,12 +43,18 @@ class ProfileContainer extends React.Component<PropsType> {
 
 }
 
+
+let AuthRedirectComponent =(props:any)=>{
+    if (!props.isAuth) return <Redirect to={'/login'}/>
+ return <ProfileContainer {...props}/>
+}
+
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth:state.auth.isAuth
+    isAuth: state.auth.isAuth
 })
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, {
     getProfileThunk: getProfileThunkCreator,
