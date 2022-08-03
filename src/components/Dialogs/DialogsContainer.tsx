@@ -22,10 +22,11 @@ type mapDispatchToPropsType = {
 }
 
 let AuthRedirectComponent =(props:mapStateToPropsType & mapDispatchToPropsType)=>{
-    debugger
     if (!props.isAuth) return <Redirect to={'/login'}/>
     return <Dialogs {...props}/>
 }
+
+
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
