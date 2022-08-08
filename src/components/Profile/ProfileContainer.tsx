@@ -43,14 +43,13 @@ class ProfileContainer extends React.Component<PropsType> {
 
 }
 
-
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
 })
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default WithAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {},
+export default WithAuthRedirect( connect<MapStateToPropsType, MapDispatchToPropsType, {},
     AppRootStateType>(mapStateToProps, {
     getProfileThunk: getProfileThunkCreator,
 })(WithUrlDataContainerComponent));
