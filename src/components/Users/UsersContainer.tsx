@@ -9,6 +9,8 @@ import {
 import UsersC from "./UsersC";
 import Preloader from "../Preloader";
 import {AppRootStateType} from "../../Redux/Redux-store";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import Dialogs from "../Dialogs/Dialogs";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -71,6 +73,8 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 
+let AuthRedirectComponent =WithAuthRedirect(UsersContainer)
+
 export default connect<MapStateToPropsType, MapDispatchToPropsType,
     OwnPropsType, AppRootStateType>(mapStateToProps, {
     setUsers: setUsersAc,
@@ -81,4 +85,4 @@ export default connect<MapStateToPropsType, MapDispatchToPropsType,
     followThunk: followThunkCreator,
     unfollowThunk: unfollowThunkCreator,
 
-})(UsersContainer);
+})(AuthRedirectComponent);
