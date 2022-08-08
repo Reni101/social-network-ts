@@ -78,7 +78,6 @@ let AuthRedirectComponent =WithAuthRedirect(UsersContainer)
 export default connect<MapStateToPropsType, MapDispatchToPropsType,
     OwnPropsType, AppRootStateType>(mapStateToProps, {
     setUsers: setUsersAc,
-
     setTotalUsersCount: setTotalUsersCountAC,
     toggleIsFetching: toggleIsFetchingAC,
     getUsersThunk: getUsersThunkCreator,
