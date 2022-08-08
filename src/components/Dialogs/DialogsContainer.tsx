@@ -8,7 +8,7 @@ import {
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/Redux-store";
-import {Redirect} from "react-router-dom";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type mapStateToPropsType = {
@@ -21,11 +21,7 @@ type mapDispatchToPropsType = {
     sendMessage: () => void
 }
 
-let AuthRedirectComponent =(props:mapStateToPropsType & mapDispatchToPropsType)=>{
-    if (!props.isAuth) return <Redirect to={'/login'}/>
-    return <Dialogs {...props}/>
-}
-
+let AuthRedirectComponent =WithAuthRedirect(Dialogs)
 
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
