@@ -13,7 +13,6 @@ type PathParamsType = {
 
 type MapStateToPropsType = {
     profile: ProfileType | null
-    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -45,11 +44,10 @@ class ProfileContainer extends React.Component<PropsType> {
 }
 
 
-let AuthRedirectComponent =WithAuthRedirect(ProfileContainer)
+let AuthRedirectComponent = WithAuthRedirect(ProfileContainer)
 
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 })
 
 let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
