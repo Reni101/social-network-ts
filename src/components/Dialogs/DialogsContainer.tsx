@@ -29,9 +29,9 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }
 
 
-
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {
+    connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppRootStateType>
+    (mapStateToProps, {
         UpdateNewMessageBody: UpdateNewMessageBodyActionCreator,
         sendMessage: sendMessageActionCreator
     }),
