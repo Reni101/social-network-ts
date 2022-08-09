@@ -10,7 +10,7 @@ import UsersC from "./UsersC";
 import Preloader from "../Preloader";
 import {AppRootStateType} from "../../Redux/Redux-store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-import Dialogs from "../Dialogs/Dialogs";
+import {compose} from "redux";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -73,15 +73,17 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 
-let AuthRedirectComponent =WithAuthRedirect(UsersContainer)
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType,
+        OwnPropsType, AppRootStateType>(mapStateToProps, {
+        setUsers: setUsersAc,
+        setTotalUsersCount: setTotalUsersCountAC,
+        toggleIsFetching: toggleIsFetchingAC,
+        getUsersThunk: getUsersThunkCreator,
+        followThunk: followThunkCreator,
+        unfollowThunk: unfollowThunkCreator,
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType,
-    OwnPropsType, AppRootStateType>(mapStateToProps, {
-    setUsers: setUsersAc,
-    setTotalUsersCount: setTotalUsersCountAC,
-    toggleIsFetching: toggleIsFetchingAC,
-    getUsersThunk: getUsersThunkCreator,
-    followThunk: followThunkCreator,
-    unfollowThunk: unfollowThunkCreator,
+    }),
+    WithAuthRedirect
+)(UsersContainer);
 
-})(AuthRedirectComponent);

@@ -28,7 +28,6 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     }
 }
 
-
 export default compose<React.ComponentType>(
     connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppRootStateType>
     (mapStateToProps, {
