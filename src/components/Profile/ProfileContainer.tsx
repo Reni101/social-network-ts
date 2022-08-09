@@ -47,7 +47,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {},
         AppRootStateType>(mapStateToProps, {
         getProfileThunk: getProfileThunkCreator,
