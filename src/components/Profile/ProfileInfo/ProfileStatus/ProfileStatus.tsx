@@ -40,7 +40,7 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
         return (<>
                 {!this.state.editMode
                     ? <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status} </span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || "Status not found"} </span>
                     </div>
                     : <div>
                         <input autoFocus
