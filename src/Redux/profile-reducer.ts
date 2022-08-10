@@ -5,7 +5,7 @@ import {
 
 } from "./Types";
 import {Dispatch} from "react";
-import {usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -112,7 +112,7 @@ export const setUserProfileAC = (profile: ProfileType): setUserProfileActionType
 //========================Thunk======================
 export const getProfileThunkCreator = (userid: string) => {
     return (dispatch:Dispatch<ActionsTypes>) => {
-        usersAPI.getProfile(userid)
+        profileAPI.getProfile(userid)
             .then(response => {
                dispatch(setUserProfileAC(response.data))
             });

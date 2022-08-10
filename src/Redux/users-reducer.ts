@@ -27,13 +27,12 @@ let initialState = {
 
 
 export type UserType = {
-    followed: boolean,
-    id: number,
     name: string,
-    photos: PhotosType,
-    status: string,
-    photoURL: string,
+    id: number,
     uniqueUrlName: null | string
+    photos: PhotosType,
+    followed: boolean,
+    status: string,
 
 
 }
