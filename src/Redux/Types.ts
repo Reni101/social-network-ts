@@ -7,7 +7,12 @@ import {
 } from "./users-reducer";
 import {setUserDataActionType} from "./auth-reducer";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
-import {AddPostActionType, setUserProfileActionType, UpdateNewPostTextPostActionType} from "./profile-reducer";
+import {
+    AddPostActionType,
+    setStatusActionType,
+    setUserProfileActionType,
+    UpdateNewPostTextPostActionType
+} from "./profile-reducer";
 
 export type ActionsTypes =
     AddPostActionType
@@ -23,6 +28,7 @@ export type ActionsTypes =
     | setUserProfileActionType
     | setUserDataActionType
     | ToggleIsFollowingActionType
+    | setStatusActionType
 
 
 export type ProfilePageType = {
