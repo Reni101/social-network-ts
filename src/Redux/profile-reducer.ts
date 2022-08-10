@@ -133,11 +133,23 @@ export const getProfileThunkCreator = (userid: string) => {
     }
 }
 
-export const getStatusThunkCreator = (status: string) => {
+export const getStatusThunkCreator = (userid: string) => {
+    debugger
     return (dispatch:Dispatch<ActionsTypes>) => {
-        profileAPI.getStatus(status)
+        profileAPI.getStatus(userid)
             .then(response => {
                 dispatch(setStatusAC(response.data))
+            });
+    }
+}
+export const updateStatusThunkCreator = (status: string) => {
+    return (dispatch:Dispatch<ActionsTypes>) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if(response.data.resultCode === 0) {
+                    dispatch(setStatusAC(status))
+                }
+
             });
     }
 }
