@@ -71,6 +71,6 @@ export default compose<React.ComponentType>(
         updateStatusThunk:updateStatusThunkCreator
     }),
     withRouter,
-    WithAuthRedirect,
+  //  WithAuthRedirect,
 )(ProfileContainer)
 
