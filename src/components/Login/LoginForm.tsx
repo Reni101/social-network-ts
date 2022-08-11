@@ -3,6 +3,7 @@ import {Field, reduxForm} from "redux-form";
 
 
 const LoginForm = (props:any) => {
+    debugger
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
