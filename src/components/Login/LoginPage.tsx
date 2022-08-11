@@ -1,11 +1,11 @@
 import React from 'react';
-import LoginForm from "./LoginForm";
+import LoginReduxForm from "./LoginForm";
 
 const LoginPage = () => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginForm/>
+            <LoginReduxForm/>
         </div>
     );
 };
