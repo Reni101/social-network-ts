@@ -134,7 +134,6 @@ export const getProfileThunkCreator = (userid: string) => {
 }
 
 export const getStatusThunkCreator = (userid: string) => {
-    debugger
     return (dispatch:Dispatch<ActionsTypes>) => {
         profileAPI.getStatus(userid)
             .then(response => {

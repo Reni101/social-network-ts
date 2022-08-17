@@ -1,4 +1,12 @@
 import axios from "axios";
+import {UserType} from "../Redux/users-reducer";
+
+type getUsersResponseType = {
+
+    items: Array<UserType>,
+    totalCount: number,
+    error: null | string
+}
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -10,7 +18,8 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+
+        return instance.get<getUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
     },
     followUser(userId: number) {
@@ -36,11 +45,11 @@ export const profileAPI = {
     getProfile(userid: string) {
         return instance.get(`profile/` + userid)
     },
-    getStatus(userid: string){
-    return instance.get(`profile/status/${userid}`)
+    getStatus(userid: string) {
+        return instance.get(`profile/status/${userid}`)
     },
-    updateStatus(status:string){
-        return instance.put (`profile/status`,{status},)
+    updateStatus(status: string) {
+        return instance.put(`profile/status`, {status},)
     },
 
 }
