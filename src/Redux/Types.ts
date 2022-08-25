@@ -6,19 +6,17 @@ import {
     UserType
 } from "./users-reducer";
 import {setUserDataActionType} from "./auth-reducer";
-import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
+import {SendMessageActionType} from "./dialogs-reducer";
 import {
     AddPostActionType,
     setStatusActionType,
     setUserProfileActionType,
-    UpdateNewPostTextPostActionType
+
 } from "./profile-reducer";
 
 export type ActionsTypes =
     AddPostActionType
     | SendMessageActionType
-    | UpdateNewPostTextPostActionType
-    | UpdateNewMessageBodyActionType
     | FollowActionType
     | UnfollowActionType
     | SetUsersActionType

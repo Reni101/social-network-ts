@@ -7,8 +7,6 @@ import {
 import {Dispatch} from "react";
 import {profileAPI} from "../api/api";
 
-
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
@@ -28,7 +26,7 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType
     photos: PhotosType
-    aboutMe?:null |string
+    aboutMe?: null | string
 
 }
 export type ContactsType = {
@@ -43,7 +41,7 @@ export type ContactsType = {
 }
 export type PhotosType = {
     small: string | null | undefined
-    large: string  |undefined
+    large: string | undefined
 
 }
 
@@ -52,7 +50,6 @@ let initialState = {
     postsData: [
         {id: v1(), message: "My first post", likeCount: 0},
     ] as Array<PostsDataType>,
-    newPostText: "",
     profile: null as ProfileType | null,
     status: ""
 
@@ -63,17 +60,14 @@ const ProfileReducer = (state = initialState, action: ActionsTypes): initialStat
         case "ADD-POST": {
             let newPost: PostsType = {
                 id: v1(),
-                message: state.newPostText,
+                message: action.text,
                 likeCount: 0,
             };
             return {
                 ...state,
                 postsData: [...state.postsData, newPost],
-                newPostText: ""
+
             }
-        }
-        case "UPDATE-NEW-POST-TEXT" : {
-            return {...state, newPostText: action.newText}
         }
         case "SET_USER_PROFILE": {
             return {...state, profile: action.profile}
@@ -90,17 +84,9 @@ const ProfileReducer = (state = initialState, action: ActionsTypes): initialStat
 //========================Action Creator======================
 export type AddPostActionType = {
     type: "ADD-POST",
+    text: string
 }
-export const addPostAC = (): AddPostActionType => ({type: ADD_POST})
-
-export type UpdateNewPostTextPostActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
-export const updateNewPostAC = (text: string): UpdateNewPostTextPostActionType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text,
-})
+export const addPostAC = (text: string): AddPostActionType => ({type: ADD_POST, text})
 
 
 export type setUserProfileActionType = {
@@ -114,7 +100,7 @@ export const setUserProfileAC = (profile: ProfileType): setUserProfileActionType
 
 export type setStatusActionType = {
     type: "SET_STATUS"
-    status:string
+    status: string
 }
 export const setStatusAC = (status: string): setStatusActionType => ({
     type: SET_STATUS,
@@ -122,19 +108,18 @@ export const setStatusAC = (status: string): setStatusActionType => ({
 })
 
 
-
 //========================Thunk======================
 export const getProfileThunkCreator = (userid: string) => {
-    return (dispatch:Dispatch<ActionsTypes>) => {
+    return (dispatch: Dispatch<ActionsTypes>) => {
         profileAPI.getProfile(userid)
             .then(response => {
-               dispatch(setUserProfileAC(response.data))
+                dispatch(setUserProfileAC(response.data))
             });
     }
 }
 
 export const getStatusThunkCreator = (userid: string) => {
-    return (dispatch:Dispatch<ActionsTypes>) => {
+    return (dispatch: Dispatch<ActionsTypes>) => {
         profileAPI.getStatus(userid)
             .then(response => {
                 dispatch(setStatusAC(response.data))
@@ -142,10 +127,10 @@ export const getStatusThunkCreator = (userid: string) => {
     }
 }
 export const updateStatusThunkCreator = (status: string) => {
-    return (dispatch:Dispatch<ActionsTypes>) => {
+    return (dispatch: Dispatch<ActionsTypes>) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                if(response.data.resultCode === 0) {
+                if (response.data.resultCode === 0) {
                     dispatch(setStatusAC(status))
                 }
 

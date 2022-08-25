@@ -10,7 +10,7 @@ import AddMessageReduxForm, {FormDataAddMessageType} from "./AddMessageForm";
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
     sendMessage: (messageBody: string) => void
-    isAuth: boolean
+    //isAuth: boolean
 }
 
 
