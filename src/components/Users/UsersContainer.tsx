@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {
     followThunkCreator, getUsersThunkCreator,
     setTotalUsersCountAC,
-    setUsersAc, toggleIsFetchingAC, unfollowThunkCreator,
+    setUsersAС, toggleIsFetchingAC, unfollowThunkCreator,
     UserType
 } from "../../Redux/users-reducer";
 import UsersC from "./UsersC";
@@ -76,7 +76,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType,
         OwnPropsType, AppRootStateType>(mapStateToProps, {
-        setUsers: setUsersAc,
+        setUsers: setUsersAС,
         setTotalUsersCount: setTotalUsersCountAC,
         toggleIsFetching: toggleIsFetchingAC,
         getUsersThunk: getUsersThunkCreator,

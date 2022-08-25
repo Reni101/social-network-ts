@@ -2,7 +2,6 @@ import React from 'react';
 import {
     InitialStateDialogsType,
     sendMessageActionCreator,
-    UpdateNewMessageBodyActionCreator
 } from "../../Redux/dialogs-reducer";
 
 import Dialogs from "./Dialogs";
@@ -18,8 +17,8 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-    UpdateNewMessageBody: (body: string) => void
-    sendMessage: () => void
+
+    sendMessage: (messageBody:string) => void
 }
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
@@ -31,7 +30,7 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 export default compose<React.ComponentType>(
     connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppRootStateType>
     (mapStateToProps, {
-        UpdateNewMessageBody: UpdateNewMessageBodyActionCreator,
+
         sendMessage: sendMessageActionCreator
     }),
     WithAuthRedirect

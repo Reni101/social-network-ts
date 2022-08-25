@@ -1,16 +1,16 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import styleDi from './Dialogs.module.css'
 import Message from "./MessageItem/Dialogs";
 import {DialogsPageType} from "../../Redux/Types";
 
 import DialogItem from "./Dialogitem/DialogsItem";
+import AddMessageReduxForm, {FormDataAddMessageType} from "./AddMessageForm";
 
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    UpdateNewMessageBody: (body: string) => void
-    sendMessage: () => void
-    isAuth:boolean
+    sendMessage: (messageBody: string) => void
+    isAuth: boolean
 }
 
 
@@ -23,14 +23,9 @@ const Dialogs = (props: DialogsPropsType) => {
         return <Message message={e.message} id={e.id} key={e.id}/>
     })
 
-    const onSendMessageClick = () => {
-        props.sendMessage()
+    const addNewMessage = (values: FormDataAddMessageType) => {
+        props.sendMessage(values.newMessageBody)
     }
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.target.value
-        props.UpdateNewMessageBody(body);
-    }
-
     return (
         <div className={styleDi.dialogs}>
 
@@ -40,14 +35,7 @@ const Dialogs = (props: DialogsPropsType) => {
 
             <div className={styleDi.messages}>
                 <div> {mapMessageElement} </div>
-                <div><textarea placeholder="Enter your message"
-                               onChange={onNewMessageChange}
-                               value={props.dialogsPage.newMessagesBody}
-                ></textarea>
-                </div>
-                <div>
-                    <button onClick={onSendMessageClick}>SEND</button>
-                </div>
+                <AddMessageReduxForm onSubmit={addNewMessage}/>
             </div>
         </div>
     )

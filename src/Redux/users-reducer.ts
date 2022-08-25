@@ -98,7 +98,7 @@ export type SetUsersActionType = {
     type: "SET-USERS"
     users: Array<UserType>
 }
-export const setUsersAc = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users})
+export const setUsersAС = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users})
 
 export type SetCurrentPageActionType = {
     type: 'SET-CURRENT-PAGE'
@@ -144,14 +144,13 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number): Toggl
 
 //========================Thunk======================
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-
     return (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(toggleIsFetchingAC(true));
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(setCurrentPageAC(currentPage))
                 dispatch(toggleIsFetchingAC(false))
-                dispatch(setUsersAc(data.items))
+                dispatch(setUsersAС(data.items))
                 dispatch(setTotalUsersCountAC(data.totalCount))
             });
     }
