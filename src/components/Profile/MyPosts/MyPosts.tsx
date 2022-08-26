@@ -1,13 +1,13 @@
-import React, {KeyboardEvent} from 'react';
+import React from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import {PostsType} from "../../../Redux/Types";
-import AddPostReduxForm, {AddPostType} from "./AddPostForm";
+import AddNewPostReduxForm, {AddPostType} from "./AddPostForm";
 
 
 type MyPostsPropsType = {
     postsData: Array<PostsType>
-    addPost: (text:string) => void
+    addPost: (text: string) => void
 }
 
 
@@ -16,24 +16,20 @@ const MyPosts = (props: MyPostsPropsType) => {
             return <Post key={e.id} text={e.message} likeCount={e.likeCount}/>
         })
 
-        const addPost = (value:AddPostType) => {
+        const addPost = (value: AddPostType) => {
             props.addPost(value.AddPost)
         }
-/*        const pressEnterHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-            if (e.key === "Enter") {
-                addPostHandler()
-            }
-        }*/
 
         return (
             <div className={styleMP.item}>
-                My posts
+                Add post
                 <div>
-                    <AddPostReduxForm onSubmit={addPost}/>
+                    <AddNewPostReduxForm onSubmit={addPost}/>
 
                 </div>
 
                 <div>
+                    My posts
                     {mapPost}
                 </div>
 

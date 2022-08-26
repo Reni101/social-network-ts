@@ -1,5 +1,6 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxlength30, requiredField} from "../../../utils/validator/validators";
 
 
 export type AddPostType = {
@@ -10,7 +11,10 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component='textarea' name='AddPost' placeholder="Create post"/>
+                <Field validate={[requiredField,maxlength30 ]}
+                       component='textarea'
+                       name='AddPost'
+                       placeholder="Create post"/>
 
             </div>
             <div>
@@ -21,7 +25,7 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostType>> = (props) => {
     );
 };
 
-const AddPostReduxForm = reduxForm<AddPostType>({form: 'dialogAddMessageForm'})(AddPostForm)
+const AddNewPostReduxForm = reduxForm<AddPostType>({form: 'dialogAddMessageForm'})(AddPostForm)
 
 
-export default AddPostReduxForm;
+export default AddNewPostReduxForm;
