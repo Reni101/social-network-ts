@@ -7,7 +7,7 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import UsersC from "./UsersC";
-import Preloader from "../Preloader";
+import Preloader from "../common/Preloader";
 import {AppRootStateType} from "../../Redux/Redux-store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";

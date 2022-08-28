@@ -17,7 +17,8 @@ const MyPosts = (props: MyPostsPropsType) => {
         })
 
         const addPost = (value: AddPostType) => {
-            props.addPost(value.AddPost)
+            debugger
+            props.addPost(value.newPostText)
         }
 
         return (
