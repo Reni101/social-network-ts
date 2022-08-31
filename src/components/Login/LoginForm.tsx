@@ -10,7 +10,7 @@ export type FormDataLoginType = {
     rememberMe:boolean
 
 }
-const maxLength10 = maxlengthCreator(10)
+const maxLength20 = maxlengthCreator(20)
 
 const LoginForm:React.FC<InjectedFormProps<FormDataLoginType>> = (props) => {
 
@@ -18,14 +18,15 @@ const LoginForm:React.FC<InjectedFormProps<FormDataLoginType>> = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field placeholder={"Login"}
-                       validate={[requiredField,maxLength10]}
+                       validate={[requiredField,maxLength20]}
                        component={Input}
                        name={"login"}/>
             </div>
             <div>
                 <Field
                     placeholder={"Password"}
-                    validate={[requiredField,maxLength10]}
+                    type = {"password"}
+                    validate={[requiredField,maxLength20]}
                     component={Input}
                     name={"password"}/>
             </div>
