@@ -66,9 +66,11 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(getAuthUserDataTC())
-                } else  {
+                } else {
+
+                    let message = res.data.message.length > 0 ? res.data.message[0] : "Some error"
                     //@ts-ignore
-                    dispatch(stopSubmit("login",{_error:"Email or password is wrong"}))
+                    dispatch(stopSubmit("login", {_error: message}))
                 }
             })
     }
