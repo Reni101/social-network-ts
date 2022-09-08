@@ -9,6 +9,7 @@ type ProfilePropsType = {
     profile: ProfileType
     status:string
     updateStatus: (status: string) => void
+    authorizedUserID:number
 }
 
 

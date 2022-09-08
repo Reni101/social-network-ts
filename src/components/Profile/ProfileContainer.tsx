@@ -20,6 +20,8 @@ type PathParamsType = {
 type MapStateToPropsType = {
     profile: ProfileType | null
     status:string
+    authorizedUserID:number
+
 }
 
 type MapDispatchToPropsType = {
@@ -34,7 +36,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userid = this.props.match.params.userId;
-        if (!userid) userid = '24522';
+        if (!userid) userid = this.props.authorizedUserID.toString() ;
 
         this.props.getProfileThunk(userid)
 
@@ -60,7 +62,8 @@ class ProfileContainer extends React.Component<PropsType> {
 
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserID:state.auth.userId!,
 })
 
 export default compose<React.ComponentType>(
@@ -71,6 +74,6 @@ export default compose<React.ComponentType>(
         updateStatusThunk:updateStatusThunkCreator
     }),
     withRouter,
-  //  WithAuthRedirect,
+    WithAuthRedirect,
 )(ProfileContainer)
 

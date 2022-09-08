@@ -1,6 +1,8 @@
 import {ActionsTypes} from "./Types";
-import {Dispatch} from "react";
+
 import {authAPI} from "../api/api";
+import {AppThunk} from "./Redux-store";
+import {stopSubmit} from "redux-form";
 
 
 const SET_USER_DATA = 'SET_USER_DATA'
@@ -21,7 +23,6 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true
             }
         }
         default:
@@ -36,19 +37,19 @@ export type setUserDataActionType = {
         userId: number | null
         email: string | null
         login: string | null
-        isAuth:boolean
+        isAuth: boolean
     }
 }
-export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth:boolean): setUserDataActionType => {
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataActionType => {
     return {
         type: 'SET_USER_DATA',
         payload: {userId, email, login, isAuth}
     }
 
 }
-//========================Thunk======================
-export const getAuthUserDataTC = () => {
-    return (dispatch: Dispatch<ActionsTypes>) => {
+//========================Thunk Create======================
+export const getAuthUserDataTC = (): AppThunk => {
+    return (dispatch) => {
         authAPI.getAuthMe()
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -59,20 +60,22 @@ export const getAuthUserDataTC = () => {
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch<ActionsTypes>) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+    return (dispatch) => {
         authAPI.login(email, password, rememberMe)
             .then(res => {
                 if (res.data.resultCode === 0) {
-//@ts-ignore
                     dispatch(getAuthUserDataTC())
+                } else  {
+                    //@ts-ignore
+                    dispatch(stopSubmit("login",{_error:"Email or password is wrong"}))
                 }
             })
     }
 }
 
-export const logoutTC = () => {
-    return (dispatch: Dispatch<ActionsTypes>) => {
+export const logoutTC = (): AppThunk => {
+    return (dispatch) => {
         authAPI.logout()
             .then(res => {
                 if (res.data.resultCode === 0) {
