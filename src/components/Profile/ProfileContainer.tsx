@@ -37,9 +37,7 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userid = this.props.match.params.userId;
         if (!userid) userid = this.props.authorizedUserID.toString() ;
-
         this.props.getProfileThunk(userid)
-
         this.props.getStatusThunk(userid)
 
     }

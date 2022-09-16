@@ -4,10 +4,6 @@ import {authAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
 import {stopSubmit} from "redux-form";
 
-
-const SET_USER_DATA = 'SET_USER_DATA'
-
-
 export type initialStateType = typeof initialState
 
 const initialState = {
@@ -19,7 +15,7 @@ const initialState = {
 
 export const authReducer = (state = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
-        case SET_USER_DATA: {
+        case 'SET_USER_DATA': {
             return {
                 ...state,
                 ...action.payload,
@@ -48,41 +44,36 @@ export const setAuthUserDataAC = (userId: number | null, email: string | null, l
 
 }
 //========================Thunk Create======================
-export const getAuthUserDataTC = (): AppThunk => {
-    return (dispatch) => {
-        authAPI.getAuthMe()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data
-                    dispatch(setAuthUserDataAC(id, email, login, true))
-                }
-            })
-    }
+export const getAuthUserDataTC = ():AppThunk => dispatch => {
+    return authAPI.getAuthMe()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                let {id, email, login} = res.data.data
+                dispatch(setAuthUserDataAC(id, email, login, true))
+            }
+        })
+
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(getAuthUserDataTC())
-                } else {
-
-                    let message = res.data.message.length > 0 ? res.data.message[0] : "Some error"
-                    //@ts-ignore
-                    dispatch(stopSubmit("login", {_error: message}))
-                }
-            })
-    }
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => dispatch => {
+    authAPI.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(getAuthUserDataTC())
+            } else {
+                let message = res.data.message.length > 0 ? res.data.message[0] : "Some error"
+                //@ts-ignore
+                dispatch(stopSubmit("login", {_error: message}))
+            }
+        })
 }
 
-export const logoutTC = (): AppThunk => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserDataAC(null, null, null, false))
-                }
-            })
-    }
+
+export const logoutTC = (): AppThunk => dispatch => {
+    authAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(null, null, null, false))
+            }
+        })
 }

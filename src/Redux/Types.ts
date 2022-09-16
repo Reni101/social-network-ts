@@ -1,34 +1,33 @@
 import {
-    FollowActionType,
-    SetCurrentPageActionType, SetTotalCountActionType,
-    SetUsersActionType, ToggleIsFetchingActionType, ToggleIsFollowingActionType,
-    UnfollowActionType,
+    followActionType,
+    setCurrentPageActionType, setTotalCountActionType,
+    setUsersActionType, toggleIsFetchingActionType, toggleIsFollowingActionType,
+    unfollowActionType,
 } from "./users-reducer";
 import {setUserDataActionType} from "./auth-reducer";
-import {SendMessageActionType} from "./dialogs-reducer";
+import {sendMessageActionType} from "./dialogs-reducer";
 import {
-    AddPostActionType,
+    addPostActionType,
     setStatusActionType,
     setUserProfileActionType,
 
 } from "./profile-reducer";
+import {setInitializedType} from "./app-reducer";
 
 export type ActionsTypes =
-    AddPostActionType
-    | SendMessageActionType
-    | FollowActionType
-    | UnfollowActionType
-    | SetUsersActionType
-    | SetCurrentPageActionType
-    | SetTotalCountActionType
-    | ToggleIsFetchingActionType
+    | addPostActionType
+    | sendMessageActionType
+    | followActionType
+    | unfollowActionType
+    | setUsersActionType
+    | setCurrentPageActionType
+    | setTotalCountActionType
+    | toggleIsFetchingActionType
     | setUserProfileActionType
     | setUserDataActionType
-    | ToggleIsFollowingActionType
+    | toggleIsFollowingActionType
     | setStatusActionType
-
-
-
+    | setInitializedType
 
 
 export type PostsType = {

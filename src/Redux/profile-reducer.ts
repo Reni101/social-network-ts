@@ -4,8 +4,8 @@ import {
     PostsType,
 
 } from "./Types";
-import {Dispatch} from "react";
 import {profileAPI} from "../api/api";
+import {AppThunk} from "./Redux-store";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -55,7 +55,7 @@ let initialState = {
 
 }
 
-const ProfileReducer = (state = initialState, action: ActionsTypes): initialStateType => {
+export const ProfileReducer = (state = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             debugger
@@ -83,11 +83,11 @@ const ProfileReducer = (state = initialState, action: ActionsTypes): initialStat
 };
 
 //========================Action Creator======================
-export type AddPostActionType = {
+export type addPostActionType = {
     type: "ADD-POST",
     text: string
 }
-export const addPostAC = (text: string): AddPostActionType => ({type: ADD_POST, text})
+export const addPostAC = (text: string): addPostActionType => ({type: ADD_POST, text})
 
 
 export type setUserProfileActionType = {
@@ -110,34 +110,31 @@ export const setStatusAC = (status: string): setStatusActionType => ({
 
 
 //========================Thunk======================
-export const getProfileThunkCreator = (userid: string) => {
-    return (dispatch: Dispatch<ActionsTypes>) => {
-        profileAPI.getProfile(userid)
-            .then(response => {
-                dispatch(setUserProfileAC(response.data))
-            });
-    }
+export const getProfileThunkCreator = (userid: string): AppThunk => dispatch => {
+    profileAPI.getProfile(userid)
+        .then(response => {
+            dispatch(setUserProfileAC(response.data))
+        });
 }
 
-export const getStatusThunkCreator = (userid: string) => {
-    return (dispatch: Dispatch<ActionsTypes>) => {
-        profileAPI.getStatus(userid)
-            .then(response => {
-                dispatch(setStatusAC(response.data))
-            });
-    }
-}
-export const updateStatusThunkCreator = (status: string) => {
-    return (dispatch: Dispatch<ActionsTypes>) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatusAC(status))
-                }
 
-            });
-    }
+export const getStatusThunkCreator = (userid: string): AppThunk => dispatch => {
+    profileAPI.getStatus(userid)
+        .then(response => {
+            dispatch(setStatusAC(response.data))
+        });
 }
 
-export default ProfileReducer;
+export const updateStatusThunkCreator = (status: string): AppThunk => dispatch => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusAC(status))
+            }
+
+        });
+}
+
+
+
 
