@@ -1,11 +1,26 @@
 import axios from "axios";
 import {UserType} from "../Redux/users-reducer";
+import {ProfileType} from "../Redux/profile-reducer";
 
 type getUsersResponseType = {
-
     items: Array<UserType>,
     totalCount: number,
     error: null | string
+}
+export type ResponceType<T = {}> = {
+    data: T;
+    messages: string[];
+    fieldsErrors: string[];
+    resultCode: number;
+}
+
+export type AuthResType = {
+    id: number;
+    login: string;
+    email: string;
+}
+export type LoginType = {
+    userId: number;
 }
 
 const instance = axios.create({
@@ -16,17 +31,19 @@ const instance = axios.create({
     }
 });
 
+
 export const usersAPI = {
+
     getUsers(currentPage: number = 1, pageSize: number = 10) {
         return instance.get<getUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
     },
     followUser(userId: number) {
-        return instance.post(`follow/${userId}`)
+        return instance.post<ResponceType>(`follow/${userId}`)
             .then(response => response.data)
     },
     unfollowUser(userId: number) {
-        return instance.delete(`follow/${userId}`)
+        return instance.delete<ResponceType>(`follow/${userId}`)
             .then(response => response.data)
     },
 
@@ -35,26 +52,26 @@ export const usersAPI = {
 
 export const authAPI = {
     getAuthMe() {
-        return instance.get(`auth/me`)
+        return instance.get<ResponceType<AuthResType>>(`auth/me`)
     },
     login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+        return instance.post<ResponceType<LoginType>>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
-        return instance.delete(`auth/login`,)
+        return instance.delete<ResponceType>(`auth/login`,)
     },
 
 }
 
 export const profileAPI = {
     getProfile(userid: string) {
-        return instance.get(`profile/` + userid)
+        return instance.get<ProfileType>(`profile/` + userid)
     },
     getStatus(userid: string) {
-        return instance.get(`profile/status/${userid}`)
+        return instance.get<string>(`profile/status/${userid}`)
     },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, {status},)
+        return instance.put<ResponceType>(`profile/status`, {status},)
     },
 
 }
