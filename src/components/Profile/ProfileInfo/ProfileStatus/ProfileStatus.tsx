@@ -1,26 +1,21 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 
-
 type PropsType = {
     status: string
     updateStatus: (status: string) => void
-}
-type StateType = {
-    editMode: boolean
-    status: string
 }
 
 export const ProfileStatus = (props: PropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const [status, setStatus] = useState<string>(props.status)
-    useEffect(() => {
 
-    }, [])
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
     const activateEditMode = () => {
         setEditMode(true)
-        setStatus(props.status)
     }
 
     const deActivateEditMode = () => {
@@ -49,5 +44,3 @@ export const ProfileStatus = (props: PropsType) => {
     </>
 
 }
-
-export default ProfileStatus;
