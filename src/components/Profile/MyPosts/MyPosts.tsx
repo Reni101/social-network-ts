@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import {PostsType} from "../../../Redux/Types";
@@ -11,7 +11,7 @@ type MyPostsPropsType = {
 }
 
 
-const MyPosts = (props: MyPostsPropsType) => {
+const MyPosts = memo((props: MyPostsPropsType) => {
         const mapPost = props.postsData.map((e) => {
             return <Post key={e.id} text={e.message} likeCount={e.likeCount}/>
         })
@@ -37,7 +37,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
             </div>
         );
-    }
+    })
 ;
 
 export default MyPosts;
