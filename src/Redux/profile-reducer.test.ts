@@ -18,6 +18,7 @@ test('new post should be added', () => {
 
     //3. expectation
     expect(newState.postsData.length).toBe(2)
+    expect(newState.postsData[1].likeCount).toBe(0)
 
 
 })
