@@ -141,31 +141,26 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number): toggl
 
 
 //========================Thunk======================
-export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => dispatch => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => async dispatch => {
     dispatch(toggleIsFetchingAC(true));
-    usersAPI.getUsers(currentPage, pageSize)
-        .then(data => {
-            dispatch(setCurrentPageAC(currentPage))
-            dispatch(toggleIsFetchingAC(false))
-            dispatch(setUsersAС(data.items))
-            dispatch(setTotalUsersCountAC(data.totalCount))
-        });
+    let res = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setCurrentPageAC(currentPage))
+    dispatch(toggleIsFetchingAC(false))
+    dispatch(setUsersAС(res.items))
+    dispatch(setTotalUsersCountAC(res.totalCount))
+
 }
-export const followThunkCreator = (userId: number): AppThunk => dispatch => {
+export const followThunkCreator = (userId: number): AppThunk => async dispatch => {
     dispatch(toggleIsFollowingAC(true, userId))
-    usersAPI.followUser(userId)
-        .then((data) => {
-            if (data.resultCode === 0) dispatch(followAc(userId));
-            dispatch(toggleIsFollowingAC(false, userId))
-        })
+    let res = await usersAPI.followUser(userId)
+    if (res.resultCode === 0) dispatch(followAc(userId));
+    dispatch(toggleIsFollowingAC(false, userId))
 }
-export const unfollowThunkCreator = (userId: number): AppThunk => dispatch => {
+export const unfollowThunkCreator = (userId: number): AppThunk => async dispatch => {
     dispatch(toggleIsFollowingAC(true, userId))
-    usersAPI.unfollowUser(userId)
-        .then((data) => {
-            if (data.resultCode === 0) dispatch(unFollowAc(userId));
-            dispatch(toggleIsFollowingAC(false, userId))
-        })
+    let res = await usersAPI.unfollowUser(userId)
+    if (res.resultCode === 0) dispatch(unFollowAc(userId));
+
 }
 
 

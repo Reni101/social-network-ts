@@ -117,21 +117,18 @@ export const getProfileThunkCreator = (userid: string): AppThunk => dispatch => 
 }
 
 
-export const getStatusThunkCreator = (userid: string): AppThunk => dispatch => {
-    profileAPI.getStatus(userid)
-        .then(response => {
-            dispatch(setStatusAC(response.data))
-        });
+export const getStatusThunkCreator = (userid: string): AppThunk => async dispatch => {
+    let response = await profileAPI.getStatus(userid)
+    dispatch(setStatusAC(response.data))
+
 }
 
-export const updateStatusThunkCreator = (status: string): AppThunk => dispatch => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatusAC(status))
-            }
+export const updateStatusThunkCreator = (status: string): AppThunk => async dispatch => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatusAC(status))
+    }
 
-        });
 }
 
 

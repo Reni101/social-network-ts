@@ -27,10 +27,10 @@ export const setInitialized = (value: boolean) => ({type: 'SET_INITIALIZED_SUCCE
 
 //========================Thunk Create======================
 export const InitializeAppTC = (): AppThunk => dispatch => {
-     dispatch(getAuthUserDataTC())
-         //@ts-ignore
-         .then(() => {
-        dispatch(setInitialized(true))
-    })
+    let promise = dispatch(getAuthUserDataTC())
+        Promise.all([promise])
+        .then(() => {
+            dispatch(setInitialized(true))
+        })
 }
 
