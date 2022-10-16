@@ -109,11 +109,9 @@ export const setStatusAC = (status: string): setStatusActionType => ({
 
 
 //========================Thunk======================
-export const getProfileThunkCreator = (userid: string): AppThunk => dispatch => {
-    profileAPI.getProfile(userid)
-        .then(response => {
-            dispatch(setUserProfileAC(response.data))
-        });
+export const getProfileThunkCreator = (userid: string): AppThunk => async dispatch => {
+    let response = await profileAPI.getProfile(userid)
+    dispatch(setUserProfileAC(response.data))
 }
 
 

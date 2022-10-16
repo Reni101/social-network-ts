@@ -43,7 +43,8 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): initia
         case FOLLOW: {
             return {
                 ...state,
-                users: state.users.map((el) => el.id === action.userID ? {...el, followed: true} : el)
+                users: state.users.map((el) => el.id === action.userID ?
+                    {...el, followed: true} : el)
             }
         }
         case UNFOLLOW : {
@@ -87,7 +88,7 @@ export type followActionType = {
     type: "FOLLOW"
     userID: number
 }
-export const followAc = (userID: number): followActionType => ({type: FOLLOW, userID})
+export const followAC = (userID: number): followActionType => ({type: FOLLOW, userID})
 
 export const unFollowAc = (userID: number): unfollowActionType => ({type: UNFOLLOW, userID})
 export type unfollowActionType = {
@@ -150,16 +151,23 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number): App
     dispatch(setTotalUsersCountAC(res.totalCount))
 
 }
-export const followThunkCreator = (userId: number): AppThunk => async dispatch => {
+
+export const followUnfollow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleIsFollowingAC(true, userId))
-    let res = await usersAPI.followUser(userId)
-    if (res.resultCode === 0) dispatch(followAc(userId));
+    let res = await apiMethod(userId)
+    if (res.resultCode === 0) dispatch(actionCreator(userId));
     dispatch(toggleIsFollowingAC(false, userId))
 }
+
+export const followThunkCreator = (userId: number): AppThunk => async dispatch => {
+    let apiMethod = usersAPI.followUser.bind(usersAPI)
+    let actionCreator = followAC
+    followUnfollow(dispatch, userId, apiMethod, actionCreator)
+}
 export const unfollowThunkCreator = (userId: number): AppThunk => async dispatch => {
-    dispatch(toggleIsFollowingAC(true, userId))
-    let res = await usersAPI.unfollowUser(userId)
-    if (res.resultCode === 0) dispatch(unFollowAc(userId));
+    let apiMethod = usersAPI.unfollowUser.bind(usersAPI)
+    let actionCreator = unFollowAc
+    followUnfollow(dispatch, userId, apiMethod, actionCreator)
 
 }
 
