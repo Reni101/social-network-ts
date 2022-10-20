@@ -16,7 +16,7 @@ import {InitializeAppTC} from "./Redux/app-reducer";
 import Preloader from "./components/common/Preloader";
 
 type MapDispatchToPropsType = {
-    InitializeAppTunk: () => void
+    InitializeAppThunk: () => void
 }
 type MapStateToPropsType = {
     initialized: boolean
@@ -25,7 +25,7 @@ type MapStateToPropsType = {
 
 class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
     componentDidMount() {
-        this.props.InitializeAppTunk()
+        this.props.InitializeAppThunk()
     }
 
     render() {
@@ -56,7 +56,7 @@ export default compose<React.ComponentType>(
     withRouter,
     connect<MapStateToPropsType, MapDispatchToPropsType,
         {}, AppRootStateType>(mapStateToProps, {
-        InitializeAppTunk: InitializeAppTC
+        InitializeAppThunk: InitializeAppTC
     })
 )(App)
 

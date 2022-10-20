@@ -68,18 +68,6 @@ class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchTo
     }
 }
 
-
-// let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
-// //     return {
-// //         users: state.usersPage.users,
-// //         pageSize: state.usersPage.pageSize,
-// //         totalUsersCount: state.usersPage.totalUsersCount,//всего страниц?
-// //         currentPage: state.usersPage.currentPage,
-// //         isFetching: state.usersPage.isFetching,
-// //         followingInProgress: state.usersPage.followingInProgress
-// //     }
-// // }
-
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         users: getUsersSelector(state),

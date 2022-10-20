@@ -5,12 +5,21 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
-const LoginPage = (props: any) => {
+
+type mapStateToPropsType = {
+    isAuth: boolean
+}
+
+type mapDispatchToPropsType = {
+    Login: (login: string, password: string, rememberMe: boolean) => void
+}
+
+const LoginPage: React.FC<mapStateToPropsType & mapDispatchToPropsType> = ({Login, isAuth}) => {
     const onSubmit = (formData: FormDataLoginType) => {
-        props.Login(formData.login, formData.password, formData.rememberMe)
+        Login(formData.login, formData.password, formData.rememberMe)
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
 
@@ -21,6 +30,6 @@ const LoginPage = (props: any) => {
         </div>
     );
 };
-const mapStateToProps = (state: AppRootStateType)    => ({isAuth: state.auth.isAuth})
+const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => ({isAuth: state.auth.isAuth})
 
 export default connect(mapStateToProps, {Login: loginTC})(LoginPage);

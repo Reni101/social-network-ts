@@ -13,10 +13,10 @@ export type FormDataLoginType = {
 }
 const maxLength20 = maxlengthCreator(20)
 
-const LoginForm: React.FC<InjectedFormProps<FormDataLoginType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataLoginType>> = ({handleSubmit,error}) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={"Login"}
                        validate={[requiredField, maxLength20]}
@@ -41,7 +41,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataLoginType>> = (props) => {
             <div>
                 <button> login</button>
             </div>
-            {!!props.error && <div className={style.formSummaryError}>{props.error}</div>}
+            {!!error && <div className={style.formSummaryError}>{error}</div>}
         </form>
     );
 };
