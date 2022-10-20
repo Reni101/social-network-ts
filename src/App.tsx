@@ -42,6 +42,7 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
                 <Route path="/dialogs" render={() => <DialogsContainer/>}/>
                 <Route path="/users" render={() => <UsersContainer/>}/>
                 <Route path="/login" render={() => <LoginPage/>}/>
+
             </div>
 
         );
