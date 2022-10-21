@@ -8,7 +8,7 @@ type PropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     pageSize: number
-    totalUsersCount: number
+    totalItemsCount: number
     users: Array<UserType>
     followingInProgress: Array<number>
     followThunk: (userId: number) => void
@@ -22,7 +22,7 @@ const UsersC: FC<PropsType> = (props) => {
             <Paginator onPageChanged={props.onPageChanged}
                        currentPage={props.currentPage}
                        pageSize={props.pageSize}
-                       totalUsersCount={props.totalUsersCount}/>
+                       totalItemsCount={props.totalItemsCount}/>
 
             {props.users.map(el => <User user={el}
                                          key={el.id}

@@ -19,7 +19,7 @@ export const User: FC<PropsType> = ({user,followingInProgress,followThunk,unfoll
 
                         <img src={user.photos.small !== null ? user.photos.small : UserAvatar}
                              alt="imgAvatar"
-                             style={{width: "50px", height: "50px"}}/>
+                             style={{width: "50px", height: "50px", marginTop:"5px"}}/>
                           </NavLink>
                         </div>
                     <div>

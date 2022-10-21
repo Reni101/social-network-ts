@@ -19,7 +19,7 @@ export type initialStateType = typeof initialState
 let initialState = {
     users: [] as Array<UserType>,
     pageSize: 5,
-    totalUsersCount: 1,
+    totalItemsCount: 1,
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>
@@ -62,7 +62,7 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): initia
         }
         case SET_TOTAL_COUNT: {
 
-            return {...state, totalUsersCount: action.totalCount}
+            return {...state, totalItemsCount: action.totalCount}
         }
         case TOGGLE_IS_FETCHING: {
 

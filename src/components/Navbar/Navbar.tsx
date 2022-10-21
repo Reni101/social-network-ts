@@ -16,17 +16,6 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className={styleN.item}>
-                <NavLink to="/news" activeClassName={styleN.active}>News</NavLink>
-            </div>
-
-            <div className={styleN.item}>
-                <NavLink to="/music" activeClassName={styleN.active}>Music</NavLink>
-            </div>
-
-            <div className={styleN.item}>
-                <NavLink to="/setting" activeClassName={styleN.active}>Setting</NavLink>
-            </div>
-            <div className={styleN.item}>
                 <NavLink to="/users" activeClassName={styleN.active}>Users</NavLink>
             </div>
             <Sidebar/>
