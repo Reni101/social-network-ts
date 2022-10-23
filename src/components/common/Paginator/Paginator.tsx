@@ -26,8 +26,7 @@ export const Paginator: FC<PropsType> = ({totalItemsCount, pageSize, currentPage
     let rightPortionPageNumber = portionNumber * portionSize
 
 
-
-        useEffect(() => setPortionNumber(Math.ceil(currentPage / portionSize)), [currentPage]);
+    useEffect(() => setPortionNumber(Math.ceil(currentPage / portionSize)), [currentPage]);
     return (
 
         <div>
@@ -39,7 +38,7 @@ export const Paginator: FC<PropsType> = ({totalItemsCount, pageSize, currentPage
             {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map((p) => <span key={p}
 
-                                  className={className({[style.selectedPage]: currentPage=== p},style.pageNumber)}
+                                  className={className({[style.selectedPage]: currentPage === p}, style.pageNumber)}
                                   onClick={() => {
                                       onPageChanged(p)
                                   }}
