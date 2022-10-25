@@ -108,6 +108,14 @@ export const setStatusAC = (status: string): setStatusActionType => ({
 })
 
 
+export type savePhotoSuccessType = ReturnType<typeof savePhotoSuccess>
+export const savePhotoSuccess = (photos:PhotosType) => ({
+    type: SET_STATUS,
+    photos
+} as const)
+
+
+
 //========================Thunk======================
 export const getProfileThunkCreator = (userid: string): AppThunk => async dispatch => {
     let response = await profileAPI.getProfile(userid)
@@ -125,6 +133,13 @@ export const updateStatusThunkCreator = (status: string): AppThunk => async disp
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status))
+    }
+
+}
+export const savePhotoTC = (file: any): AppThunk => async dispatch => {
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch()
     }
 
 }

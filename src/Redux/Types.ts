@@ -7,7 +7,7 @@ import {
 import {setUserDataActionType} from "./auth-reducer";
 import {sendMessageActionType} from "./dialogs-reducer";
 import {
-    addPostActionType,
+    addPostActionType, savePhotoSuccessType,
     setStatusActionType,
     setUserProfileActionType,
 
@@ -28,6 +28,7 @@ export type ActionsTypes =
     | toggleIsFollowingActionType
     | setStatusActionType
     | setInitializedType
+| savePhotoSuccessType
 
 
 export type PostsType = {

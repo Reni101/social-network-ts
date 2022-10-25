@@ -7,9 +7,11 @@ import {ProfileType} from "../../Redux/profile-reducer";
 
 type ProfilePropsType = {
     profile: ProfileType
-    status:string
+    status: string
     updateStatus: (status: string) => void
-    authorizedUserID:number
+    authorizedUserID: number
+    isOwner: boolean
+    savePhoto:any
 }
 
 
@@ -21,9 +23,11 @@ const Profile = (props: ProfilePropsType) => {
 
             <img className={styleP.contentIMG} src={contentIMG} alt="img"/>
 
-            <ProfileInfo profile={props.profile}
+            <ProfileInfo isOwner={props.isOwner}
+                         profile={props.profile}
                          status={props.status}
                          updateStatus={props.updateStatus}
+                         savePhoto={props.savePhoto}
 
             />
             <MyPostsContainer/>
