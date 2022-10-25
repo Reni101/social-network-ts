@@ -1,7 +1,6 @@
 import React from 'react';
 import styleN from "./Navbar.module.css"
 import {NavLink} from "react-router-dom";
-import Sidebar from "./Sidebar";
 
 
 const Navbar: React.FC = () => {
@@ -18,7 +17,6 @@ const Navbar: React.FC = () => {
             <div className={styleN.item}>
                 <NavLink to="/users" activeClassName={styleN.active}>Users</NavLink>
             </div>
-            <Sidebar/>
         </nav>
     );
 };
