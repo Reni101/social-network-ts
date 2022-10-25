@@ -11,7 +11,7 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
     authorizedUserID: number
     isOwner: boolean
-    savePhoto:any
+    savePhoto:(file: any) => void
 }
 
 

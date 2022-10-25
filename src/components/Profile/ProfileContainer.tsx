@@ -28,7 +28,7 @@ type MapDispatchToPropsType = {
     getProfileThunk: (userid: string) => void
     getStatusThunk: (status: string) => void
     updateStatusThunk: (status: string) => void
-    savePhotoThunk:any
+    savePhotoThunk:(file: any) => void
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & MapStateToPropsType & MapDispatchToPropsType

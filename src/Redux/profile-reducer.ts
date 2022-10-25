@@ -41,7 +41,7 @@ export type ContactsType = {
 }
 export type PhotosType = {
     small: string | null | undefined
-    large: string | undefined
+    large: string | null | undefined
 
 }
 
@@ -50,6 +50,7 @@ let initialState = {
     postsData: [
         {id: v1(), message: "My first post", likeCount: 0},
     ] as Array<PostsDataType>,
+
     profile: null as ProfileType | null,
     status: ""
 
@@ -75,6 +76,11 @@ export const ProfileReducer = (state = initialState, action: ActionsTypes): init
         case "SET_STATUS": {
             return {...state, status: action.status}
         }
+        case "SAVE_PHOTO_SUCCESS": {
+//@ts-ignore пофиксить!
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
+
         default:
             return state
 
@@ -109,11 +115,10 @@ export const setStatusAC = (status: string): setStatusActionType => ({
 
 
 export type savePhotoSuccessType = ReturnType<typeof savePhotoSuccess>
-export const savePhotoSuccess = (photos:PhotosType) => ({
-    type: SET_STATUS,
+export const savePhotoSuccess = (photos: PhotosType) => ({
+    type: 'SAVE_PHOTO_SUCCESS',
     photos
 } as const)
-
 
 
 //========================Thunk======================
@@ -139,10 +144,12 @@ export const updateStatusThunkCreator = (status: string): AppThunk => async disp
 export const savePhotoTC = (file: any): AppThunk => async dispatch => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
-        dispatch()
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 
 }
+
+
 
 
 

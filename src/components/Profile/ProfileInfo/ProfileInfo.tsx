@@ -10,7 +10,7 @@ type PropsType = {
     status:string
     updateStatus: (status: string) => void
     isOwner:boolean
-    savePhoto:any
+    savePhoto:(file: any) => void
 }
 
 

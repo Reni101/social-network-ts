@@ -28,7 +28,7 @@ export type ActionsTypes =
     | toggleIsFollowingActionType
     | setStatusActionType
     | setInitializedType
-| savePhotoSuccessType
+    | savePhotoSuccessType
 
 
 export type PostsType = {
