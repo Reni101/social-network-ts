@@ -56,7 +56,7 @@ class ProfileContainer extends React.PureComponent<PropsType> {
 
         return (
             <div>
-                <Profile {...this.props}
+                <Profile authorizedUserID={this.props.authorizedUserID}
                          isOwner={(this.props.match.params.userId === this.props.authorizedUserID.toString()) || !this.props.match.params.userId }// вынести в отдельную
                          profile={this.props.profile!}
                          status={this.props.status}
