@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader";
 import {ProfileType} from "../../../Redux/profile-reducer";
@@ -16,6 +16,7 @@ type PropsType = {
 
 
 const ProfileInfo = (props: PropsType) => {
+    const [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
         return <Preloader/>
@@ -29,23 +30,46 @@ const ProfileInfo = (props: PropsType) => {
 
     return (
         <div>
-            {/*<div className={style.fullName}>{props.profile.fullName}</div>*/}
             <img src={props.profile.photos.large || UserAvatar} alt="Avatar" className={style.Avatar}/>
             <div> {props.isOwner && <input type="file" onChange={mainPhotoSelected}/>} </div>
-            <ProfileStatus status={props.status}
-                           updateStatus={props.updateStatus}
-            />
-            <div><b>Full name</b> {props.profile.fullName}</div>
-            <div><b>Looking for a job :</b> {props.profile.lookingForAJob ? "yes" : "no"}</div>
-            <div><b>Contacts:</b>
-                {Object.keys(props.profile.contacts).map(el => {
-                    //@ts-ignore
-                  return  <Contact ContactTitle={el} ContactValue={props.profile.contacts[el]} key={el}/>
-                })}
+            {props.isOwner ? <ProfileStatus status={props.status}
+                                            updateStatus={props.updateStatus}
+                />
+                : <div>{props.status || "Status not found"} </div>}
+            {editMode ? <ProfileDataForm profile={props.profile}/> : <ProfileData profile={props.profile}/>}
 
-            </div>
         </div>
     );
 };
 
 export default ProfileInfo;
+
+export const ProfileData = (props: any) => {
+    return (
+        <>
+            <div><b>Full name</b> {props.profile.fullName}</div>
+            <div><b>Looking for a job :</b> {props.profile.lookingForAJob ? "yes" : "no"}</div>
+            <div><b>Contacts:</b>
+                {Object.keys(props.profile.contacts).map(el => {
+                    //@ts-ignore
+                    return <Contact ContactTitle={el} ContactValue={props.profile.contacts[el]} key={el}/>
+                })}
+            </div>
+        </>
+    );
+};
+export const ProfileDataForm = (props: any) => {
+    return (
+        <>
+            <div><b>Full name</b> {props.profile.fullName}</div>
+            <div><b>Looking for a job :</b> {props.profile.lookingForAJob ? "yes" : "no"}</div>
+            <div><b>Contacts:</b>
+                {Object.keys(props.profile.contacts).map(el => {
+                    //@ts-ignore
+                    return <Contact ContactTitle={el} ContactValue={props.profile.contacts[el]} key={el}/>
+                })}
+            </div>
+
+        </>
+    );
+};

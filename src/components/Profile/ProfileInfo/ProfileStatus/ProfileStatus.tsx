@@ -29,7 +29,7 @@ export const ProfileStatus = (props: PropsType) => {
     return <>
         {!editMode
             ? <div>
-                <span onDoubleClick={activateEditMode}>{props.status || "Status not found"} </span>
+                <div onDoubleClick={activateEditMode}>{props.status || "Status not found"} </div>
             </div>
             : <div>
                 <input autoFocus
