@@ -2,7 +2,6 @@ import {ActionsTypes} from "./Types";
 
 import {authAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
-import {stopSubmit} from "redux-form";
 
 export type initialStateType = typeof initialState
 

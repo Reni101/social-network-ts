@@ -2,7 +2,8 @@ import React, {memo} from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import {PostsType} from "../../../Redux/Types";
-import AddNewPostReduxForm, {AddPostType} from "./AddPostForm";
+import AddPostForm from "./AddPostForm";
+
 
 
 type MyPostsPropsType = {
@@ -16,16 +17,13 @@ const MyPosts = memo((props: MyPostsPropsType) => {
             return <Post key={e.id} text={e.message} likeCount={e.likeCount}/>
         })
 
-        const addPost = (value: AddPostType) => {
-            debugger
-            props.addPost(value.newPostText)
-        }
+
 
         return (
             <div className={styleMP.item}>
                 Add post
                 <div>
-                    <AddNewPostReduxForm onSubmit={addPost}/>
+                    <AddPostForm addPost={props.addPost} />
 
                 </div>
 

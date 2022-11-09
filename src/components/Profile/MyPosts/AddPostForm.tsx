@@ -1,34 +1,35 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxlengthCreator, requiredField} from "../../../utils/validator/validators";
-import TextArea from "../../common/FormControls/FormsControl";
+import {useFormik} from "formik";
 
-const maxLength10 = maxlengthCreator(10)
-
-export type AddPostType = {
-    newPostText: string
+type PropsType = {
+    addPost: (text: string) => void
 }
 
-const AddPostForm: React.FC<InjectedFormProps<AddPostType>> = (props) => {
+const AddPostForm = (props:PropsType) => {
+    const formik = useFormik({
+        initialValues: {
+            SendPost: '',
+        },
+        onSubmit: values => {
+          props.addPost(values.SendPost)
+            formik.resetForm()
+        },
+    });
 
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field validate={[requiredField, maxLength10]}
-                       component={TextArea}
-                       name='newPostText'
-                       placeholder="Create post"/>
-
-            </div>
-            <div>
-                <button> Add post</button>
-            </div>
+        <form onSubmit={formik.handleSubmit}>
+            <input
+                name="SendPost"
+                type="text"
+                placeholder="add new Post"
+                onChange={formik.handleChange}
+                value={formik.values.SendPost}
+            />
+                <button type="submit">Add post</button>
 
         </form>
     );
 };
 
-const AddNewPostReduxForm = reduxForm<AddPostType>({form: 'dialogAddMessageForm'})(AddPostForm)
 
-
-export default AddNewPostReduxForm;
+export default AddPostForm;

@@ -1,50 +1,53 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../common/FormControls/FormsControl";
-import {maxlengthCreator, requiredField} from "../../utils/validator/validators";
-import style from "../common/FormControls/FormsControls.module.css";
+import {useFormik} from 'formik';
 
-
-export type FormDataLoginType = {
-    login: string
-    password: string
-    rememberMe: boolean
-
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }
-const maxLength20 = maxlengthCreator(20)
+type PropsType ={
+    Login: (login: string, password: string, rememberMe: boolean) => void
+}
 
-const LoginForm: React.FC<InjectedFormProps<FormDataLoginType>> = ({handleSubmit,error}) => {
-
+const LoginForm = (props:PropsType) => {
+    const formik = useFormik({
+        initialValues: {
+            login: '',
+            password: '',
+            rememberMe: true,
+        },
+        onSubmit: values => {
+           props.Login(values.login,values.password,values.rememberMe)
+        },
+    });
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={"Login"}
-                       validate={[requiredField, maxLength20]}
-                       component={Input}
-                       name={"login"}/>
-            </div>
-            <div>
-                <Field
-                    placeholder={"Password"}
-                    type={"password"}
-                    validate={[requiredField, maxLength20]}
-                    component={Input}
-                    name={"password"}/>
-            </div>
-            <div>
-                <Field
-                    type={"checkbox"}
-                    component={Input}
-                    name={"rememberMe"}
-                />remember me
-            </div>
-            <div>
-                <button> login</button>
-            </div>
-            {!!error && <div className={style.formSummaryError}>{error}</div>}
+        <form onSubmit={formik.handleSubmit}>
+            <div>Login</div>
+            <input
+                name="login"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.login}
+            />
+            <div>Password</div>
+            <input
+                name="password"
+                type="password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+            />
+            <div>Remember Me</div>
+            <input
+                type="checkbox"
+                name="rememberMe"
+                onChange={formik.handleChange}
+                checked={formik.values.rememberMe}
+            />
+            <button type="submit">Login</button>
+
         </form>
     );
 };
-const LoginReduxForm = reduxForm<FormDataLoginType>({form: 'login'})(LoginForm)
 
-export default LoginReduxForm;
+export default LoginForm;

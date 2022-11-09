@@ -4,7 +4,7 @@ import Message from "./MessageItem/Dialogs";
 import {DialogsPageType} from "../../Redux/Types";
 
 import DialogItem from "./Dialogitem/DialogsItem";
-import AddMessageReduxForm, {FormDataAddMessageType} from "./AddMessageForm";
+import AddMessageForm from "./AddMessageForm";
 
 
 type DialogsPropsType = {
@@ -23,9 +23,6 @@ const Dialogs = (props: DialogsPropsType) => {
         return <Message message={e.message} id={e.id} key={e.id}/>
     })
 
-    const addNewMessage = (values: FormDataAddMessageType) => {
-        props.sendMessage(values.newMessageBody)
-    }
     return (
         <div className={styleDi.dialogs}>
 
@@ -35,7 +32,7 @@ const Dialogs = (props: DialogsPropsType) => {
 
             <div className={styleDi.messages}>
                 <div> {mapMessageElement} </div>
-                <AddMessageReduxForm onSubmit={addNewMessage}/>
+               <AddMessageForm sendMessage={props.sendMessage}/>
             </div>
         </div>
     )

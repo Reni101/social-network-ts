@@ -1,9 +1,9 @@
 import React from 'react';
-import LoginReduxForm, {FormDataLoginType} from "./LoginForm";
 import {loginTC} from "../../Redux/auth-reducer";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
+import LoginForm from "./LoginForm";
 
 
 type mapStateToPropsType = {
@@ -15,10 +15,7 @@ type mapDispatchToPropsType = {
 }
 
 const LoginPage: React.FC<mapStateToPropsType & mapDispatchToPropsType> = ({Login, isAuth}) => {
-    const onSubmit = (formData: FormDataLoginType) => {
-        Login(formData.login, formData.password, formData.rememberMe)
-    }
-
+debugger
     if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
@@ -26,7 +23,7 @@ const LoginPage: React.FC<mapStateToPropsType & mapDispatchToPropsType> = ({Logi
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+          <LoginForm Login={Login}/>
         </div>
     );
 };

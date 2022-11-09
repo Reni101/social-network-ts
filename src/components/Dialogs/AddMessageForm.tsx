@@ -1,32 +1,38 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import TextArea from "../common/FormControls/FormsControl";
-import {maxlengthCreator, requiredField} from "../../utils/validator/validators";
+import {useFormik} from "formik";
 
-
-const maxLength30 = maxlengthCreator(30)
-export type FormDataAddMessageType = {
-    newMessageBody: string
+type PropsType = {
+    sendMessage: (messageBody: string) => void
 }
 
+const AddMessageForm = (props: PropsType) => {
+    const formik = useFormik({
+        initialValues: {
+            Text: '',
+        },
+        onSubmit: values => {
+            props.sendMessage(values.Text)
+            formik.resetForm()
+        },
+    });
 
-const AddMessageForm: React.FC<InjectedFormProps<FormDataAddMessageType>> = (props) => {
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <div>
-                <Field component={TextArea}
-                       validate={[requiredField,maxLength30,]}
-                       name='newMessageBody'
-                       placeholder="Enter your message"/>
+                <input
+                    name="Text"
+                    type="textarea"
+                    onChange={formik.handleChange}
+                    value={formik.values.Text}
+                />
             </div>
             <div>
-                <button>SEND</button>
+                <button type="submit">Send message</button>
 
             </div>
         </form>
     );
 };
 
-const AddMessageReduxForm = reduxForm<FormDataAddMessageType>({form: 'dialogAddMessageForm'})(AddMessageForm)
-
-export default AddMessageReduxForm;
+export default AddMessageForm;
