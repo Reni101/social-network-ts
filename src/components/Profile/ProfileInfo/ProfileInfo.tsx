@@ -4,7 +4,9 @@ import Preloader from "../../common/Preloader";
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import UserAvatar from '../../../img/UsersAvatar.jpg'
-import {Contact} from "./Contact/Contact";
+
+import {ProfileData} from "./ProfileData/ProfileData";
+import {ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
 
 type PropsType = {
     profile: ProfileType
@@ -36,7 +38,12 @@ const ProfileInfo = (props: PropsType) => {
                                             updateStatus={props.updateStatus}
                 />
                 : <div>{props.status || "Status not found"} </div>}
-            {editMode ? <ProfileDataForm profile={props.profile}/> : <ProfileData profile={props.profile}/>}
+            {editMode ? <ProfileDataForm profile={props.profile} isOwner={props.isOwner} toEditMode={() => {
+                    setEditMode(false)
+                }} /> :
+                <ProfileData profile={props.profile} isOwner={props.isOwner} toEditMode={() => {
+                    setEditMode(true)
+                }}/>}
 
         </div>
     );
@@ -44,32 +51,4 @@ const ProfileInfo = (props: PropsType) => {
 
 export default ProfileInfo;
 
-export const ProfileData = (props: any) => {
-    return (
-        <>
-            <div><b>Full name</b> {props.profile.fullName}</div>
-            <div><b>Looking for a job :</b> {props.profile.lookingForAJob ? "yes" : "no"}</div>
-            <div><b>Contacts:</b>
-                {Object.keys(props.profile.contacts).map(el => {
-                    //@ts-ignore
-                    return <Contact ContactTitle={el} ContactValue={props.profile.contacts[el]} key={el}/>
-                })}
-            </div>
-        </>
-    );
-};
-export const ProfileDataForm = (props: any) => {
-    return (
-        <>
-            <div><b>Full name</b> {props.profile.fullName}</div>
-            <div><b>Looking for a job :</b> {props.profile.lookingForAJob ? "yes" : "no"}</div>
-            <div><b>Contacts:</b>
-                {Object.keys(props.profile.contacts).map(el => {
-                    //@ts-ignore
-                    return <Contact ContactTitle={el} ContactValue={props.profile.contacts[el]} key={el}/>
-                })}
-            </div>
 
-        </>
-    );
-};
