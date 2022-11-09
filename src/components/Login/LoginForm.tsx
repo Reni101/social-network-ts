@@ -6,11 +6,11 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
-type PropsType ={
+type PropsType = {
     Login: (login: string, password: string, rememberMe: boolean) => void
 }
 
-const LoginForm = (props:PropsType) => {
+const LoginForm = (props: PropsType) => {
     const formik = useFormik({
         initialValues: {
             login: '',
@@ -18,11 +18,11 @@ const LoginForm = (props:PropsType) => {
             rememberMe: true,
         },
         onSubmit: values => {
-           props.Login(values.login,values.password,values.rememberMe)
+            props.Login(values.login, values.password, values.rememberMe)
         },
 
-        validate: (values:FormikErrorType) => {
-            const errors:FormikErrorType  = {}
+        validate: (values: FormikErrorType) => {
+            const errors: FormikErrorType = {}
             if (!values.login) {
                 errors.login = 'Required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.login)) {
@@ -57,6 +57,9 @@ const LoginForm = (props:PropsType) => {
                 onChange={formik.handleChange}
                 value={formik.values.password}
             />
+            {formik.touched.password && formik.errors.password &&
+                <div style={{color: "red"}}>{formik.errors.password}</div>}
+
             <div>Remember Me</div>
             <input
                 type="checkbox"

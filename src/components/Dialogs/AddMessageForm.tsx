@@ -5,6 +5,10 @@ type PropsType = {
     sendMessage: (messageBody: string) => void
 }
 
+type FormikType = {
+    Text?: string
+}
+
 const AddMessageForm = (props: PropsType) => {
     const formik = useFormik({
         initialValues: {
@@ -14,22 +18,32 @@ const AddMessageForm = (props: PropsType) => {
             props.sendMessage(values.Text)
             formik.resetForm()
         },
+        validate: (values: FormikType) => {
+            const errors: FormikType = {}
+
+            if (!values.Text) {
+                errors.Text = "Required"
+            }
+            return errors
+        },
     });
 
 
     return (
         <form onSubmit={formik.handleSubmit}>
             <div>
-                <input
+                <textarea
+                    placeholder="Send messages Formik"
                     name="Text"
-                    type="textarea"
                     onChange={formik.handleChange}
                     value={formik.values.Text}
-                />
+                ></textarea>
+
+                {formik.touched.Text && formik.errors.Text &&
+                    <div style={{color: "red"}}>{formik.errors.Text}</div>}
             </div>
             <div>
                 <button type="submit">Send message</button>
-
             </div>
         </form>
     );
