@@ -5,9 +5,11 @@ type FormikErrorType = {
     login?: string
     password?: string
     rememberMe?: boolean
+    captcha?: string
 }
 type PropsType = {
-    Login: (login: string, password: string, rememberMe: boolean) => void
+    Login: (login: string, password: string, rememberMe: boolean, captcha?: string) => void
+    captchaURl: string | null
 }
 
 const LoginForm = (props: PropsType) => {
@@ -16,9 +18,11 @@ const LoginForm = (props: PropsType) => {
             login: '',
             password: '',
             rememberMe: true,
+            captcha: "",
         },
         onSubmit: values => {
-            props.Login(values.login, values.password, values.rememberMe)
+            props.Login(values.login, values.password, values.rememberMe, values.captcha)
+            formik.resetForm()
         },
 
         validate: (values: FormikErrorType) => {
@@ -67,8 +71,19 @@ const LoginForm = (props: PropsType) => {
                 onChange={formik.handleChange}
                 checked={formik.values.rememberMe}
             />
-            <button type="submit">Login</button>
 
+
+            {props.captchaURl && <div><img src={props.captchaURl} alt="captcha"/></div>}
+            {props.captchaURl && <input
+                placeholder="enter the captcha"
+                type="text"
+                name="captcha"
+                onChange={formik.handleChange}
+                value={formik.values.captcha}
+            />}
+            <div>
+                <button type="submit">Login</button>
+            </div>
         </form>
     );
 };

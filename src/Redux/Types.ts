@@ -4,7 +4,7 @@ import {
     setUsersActionType, toggleIsFetchingActionType, toggleIsFollowingActionType,
     unfollowActionType,
 } from "./users-reducer";
-import {setUserDataActionType} from "./auth-reducer";
+import {getCaptchaUrlACType, setUserDataActionType} from "./auth-reducer";
 import {sendMessageActionType} from "./dialogs-reducer";
 import {
     addPostActionType, savePhotoSuccessType,
@@ -29,6 +29,7 @@ export type ActionsTypes =
     | setStatusActionType
     | setInitializedType
     | savePhotoSuccessType
+    | getCaptchaUrlACType
 
 
 export type PostsType = {

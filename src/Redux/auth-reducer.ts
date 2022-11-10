@@ -1,6 +1,6 @@
 import {ActionsTypes} from "./Types";
 
-import {authAPI} from "../api/api";
+import {authAPI, securityAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
 
 export type initialStateType = typeof initialState
@@ -10,6 +10,7 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
+    captchaURl: null as string | null
 };
 
 export const authReducer = (state = initialState, action: ActionsTypes): initialStateType => {
@@ -19,6 +20,9 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
                 ...state,
                 ...action.payload,
             }
+        }
+        case 'AUTH/GET_CAPTCHA_URL': {
+            return {...state, captchaURl: action.payload.url}
         }
         default:
             return state
@@ -42,9 +46,23 @@ export const setAuthUserDataAC = (userId: number | null, email: string | null, l
     }
 
 }
+
+export  type getCaptchaUrlACType = {
+    type: 'AUTH/GET_CAPTCHA_URL',
+    payload: {
+        url: string
+    }
+}
+export const getCaptchaUrlAC = (url: string): getCaptchaUrlACType => {
+    return {
+        type: 'AUTH/GET_CAPTCHA_URL',
+        payload: {url}
+    }
+
+}
 //========================Thunk Create======================
 export const getAuthUserDataTC = (): AppThunk => async dispatch => {
-    let res = await authAPI.getAuthMe()
+    const res = await authAPI.getAuthMe()
     if (res.data.resultCode === 0) {
         let {id, email, login} = res.data.data
         dispatch(setAuthUserDataAC(id, email, login, true))
@@ -53,22 +71,27 @@ export const getAuthUserDataTC = (): AppThunk => async dispatch => {
 
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => async dispatch => {
-    let res = await authAPI.login(email, password, rememberMe)
+export const loginTC = (email: string, password: string, rememberMe: boolean,captcha?:string): AppThunk => async dispatch => {
+    const res = await authAPI.login(email, password, rememberMe,captcha)
     if (res.data.resultCode === 0) {
         dispatch(getAuthUserDataTC())
-    } else {
-        let message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error"
-        //@ts-ignore
-        dispatch(stopSubmit("login", {_error: message}))
+    }
+    if (res.data.resultCode === 10) {
+        dispatch(getCaptchaURLTC())
     }
 
 }
 
 
 export const logoutTC = (): AppThunk => async dispatch => {
-    let res = await authAPI.logout()
+    const res = await authAPI.logout()
     if (res.data.resultCode === 0) {
         dispatch(setAuthUserDataAC(null, null, null, false))
     }
+}
+
+export const getCaptchaURLTC = (): AppThunk => async dispatch => {
+    const res = await securityAPI.getCaptcha()
+    const captchaURL = res.data.url
+    dispatch(getCaptchaUrlAC(captchaURL))
 }

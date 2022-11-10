@@ -8,14 +8,15 @@ import LoginForm from "./LoginForm";
 
 type mapStateToPropsType = {
     isAuth: boolean
+    captchaURl: string
 }
 
 type mapDispatchToPropsType = {
-    Login: (login: string, password: string, rememberMe: boolean) => void
+    Login: (login: string, password: string, rememberMe: boolean, captcha?: string) => void
 }
 
-const LoginPage: React.FC<mapStateToPropsType & mapDispatchToPropsType> = ({Login, isAuth}) => {
-debugger
+const LoginPage: React.FC<mapStateToPropsType & mapDispatchToPropsType> = ({Login, isAuth, captchaURl}) => {
+
     if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
@@ -23,10 +24,15 @@ debugger
     return (
         <div>
             <h1>LOGIN</h1>
-          <LoginForm Login={Login}/>
+            <LoginForm Login={Login} captchaURl={captchaURl}/>
         </div>
     );
 };
-const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => ({isAuth: state.auth.isAuth})
+const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => (
+    {
+        isAuth: state.auth.isAuth,
+        captchaURl: state.auth.captchaURl!,
+    }
+)
 
 export default connect(mapStateToProps, {Login: loginTC})(LoginPage);
