@@ -29,7 +29,6 @@ export const ProfileDataForm = (props: any) => {
             <div><b>Looking for a job :</b> {props.profile.lookingForAJob ? "yes" : "no"}</div>
             <div><b>Contacts:</b>
                 {Object.keys(props.profile.contacts).map(el => {
-                    //@ts-ignore
                     return <Contact ContactTitle={el} ContactValue={props.profile.contacts[el]} key={el}/>
                 })}
             </div>

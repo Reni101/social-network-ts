@@ -25,7 +25,7 @@ export const appReducer = (state = initialState, action: ActionsTypes): initialS
 export type setInitializedType = ReturnType<typeof setInitialized>
 export const setInitialized = (value: boolean) => ({type: 'SET_INITIALIZED_SUCCESSED', value} as const)
 
-//========================Thunk Create======================
+//========================Thunk Creator======================
 export const InitializeAppTC = (): AppThunk => dispatch => {
     let promise = dispatch(getAuthUserDataTC())
         Promise.all([promise])

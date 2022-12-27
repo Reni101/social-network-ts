@@ -13,7 +13,6 @@ import {compose} from "redux";
 import {InitializeAppTC} from "./Redux/app-reducer";
 
 import Preloader from "./components/common/Preloader";
-//import DialogsContainer from "./components/Dialogs/DialogsContainer";
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 

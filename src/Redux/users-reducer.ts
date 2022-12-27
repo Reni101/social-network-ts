@@ -3,6 +3,7 @@ import {PhotosType} from "./profile-reducer";
 import {usersAPI} from "../api/api";
 
 import {AppThunk} from "./Redux-store";
+import {Dispatch} from "redux";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -141,7 +142,7 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number): toggl
 })
 
 
-//========================Thunk======================
+//========================Thunk Creator======================
 export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => async dispatch => {
     dispatch(toggleIsFetchingAC(true));
     let res = await usersAPI.getUsers(currentPage, pageSize)
@@ -152,7 +153,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number): App
 
 }
 
-export const followUnfollow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
+export const followUnfollow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleIsFollowingAC(true, userId))
     let res = await apiMethod(userId)
     if (res.resultCode === 0) dispatch(actionCreator(userId));
@@ -170,7 +171,6 @@ export const unfollowThunkCreator = (userId: number): AppThunk => async dispatch
     followUnfollow(dispatch, userId, apiMethod, actionCreator)
 
 }
-
 
 
 

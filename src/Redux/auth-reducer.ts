@@ -60,7 +60,7 @@ export const getCaptchaUrlAC = (url: string): getCaptchaUrlACType => {
     }
 
 }
-//========================Thunk Create======================
+//========================Thunk Creator======================
 export const getAuthUserDataTC = (): AppThunk => async dispatch => {
     const res = await authAPI.getAuthMe()
     if (res.data.resultCode === 0) {
