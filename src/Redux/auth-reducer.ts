@@ -1,8 +1,12 @@
-import {ActionsTypes} from "./Types";
 import {authAPI, securityAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
 
 export type initialStateType = typeof initialState
+
+export type ActionsAuthType =
+    | ReturnType<typeof setAuthUserDataAC>
+    | ReturnType<typeof getCaptchaUrlAC>
+
 
 const initialState = {
     userId: null as number | null,
@@ -12,7 +16,7 @@ const initialState = {
     captchaURl: null as string | null
 };
 
-export const authReducer = (state = initialState, action: ActionsTypes): initialStateType => {
+export const authReducer = (state = initialState, action: ActionsAuthType): initialStateType => {
     switch (action.type) {
         case 'AUTH/SET_USER_DATA': {
             return {
@@ -29,38 +33,20 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
 }
 
 //========================Action Creator======================
-export type setUserDataActionType = {
-    type: 'AUTH/SET_USER_DATA'
-    payload: {
-        userId: number | null
-        email: string | null
-        login: string | null
-        isAuth: boolean
-    }
-}
+
 export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string
-    | null, isAuth: boolean): setUserDataActionType => {
-    return {
-        type: 'AUTH/SET_USER_DATA',
-        payload: {userId, email, login, isAuth}
-    }
+    | null, isAuth: boolean) => ({
+    type: 'AUTH/SET_USER_DATA',
+    payload: {userId, email, login, isAuth}
+} as const)
 
-}
-
-export  type getCaptchaUrlACType = {
+export const getCaptchaUrlAC = (url: string) => ({
     type: 'AUTH/GET_CAPTCHA_URL',
-    payload: {
-        url: string
-    }
-}
-export const getCaptchaUrlAC = (url: string): getCaptchaUrlACType => {
-    return {
-        type: 'AUTH/GET_CAPTCHA_URL',
-        payload: {url}
-    }
+    payload: {url}
+} as const)
 
-}
 //========================Thunk Creator======================
+
 export const getAuthUserDataTC = (): AppThunk => async dispatch => {
     const res = await authAPI.getAuthMe()
     if (res.data.resultCode === 0) {
@@ -73,15 +59,15 @@ export const getAuthUserDataTC = (): AppThunk => async dispatch => {
 
 export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string): AppThunk =>
     async dispatch => {
-    const res = await authAPI.login(email, password, rememberMe, captcha)
-    if (res.data.resultCode === 0) {
-        dispatch(getAuthUserDataTC())
-    }
-    if (res.data.resultCode === 10) {
-        dispatch(getCaptchaURLTC())
-    }
+        const res = await authAPI.login(email, password, rememberMe, captcha)
+        if (res.data.resultCode === 0) {
+            dispatch(getAuthUserDataTC())
+        }
+        if (res.data.resultCode === 10) {
+            dispatch(getCaptchaURLTC())
+        }
 
-}
+    }
 
 export const logoutTC = (): AppThunk => async dispatch => {
     const res = await authAPI.logout()

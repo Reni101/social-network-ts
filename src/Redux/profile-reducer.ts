@@ -1,9 +1,5 @@
 import {v1} from "uuid";
-import {
-    ActionsTypes,
-    PostsType,
-
-} from "./Types";
+import {PostsType} from "./Types";
 import {profileAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
 
@@ -55,8 +51,13 @@ let initialState = {
     status: ""
 
 }
+export type ActionsProfileType =
+    | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof addPostAC>
 
-export const ProfileReducer = (state = initialState, action: ActionsTypes): initialStateType => {
+export const ProfileReducer = (state = initialState, action: ActionsProfileType): initialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost: PostsType = {
@@ -88,45 +89,27 @@ export const ProfileReducer = (state = initialState, action: ActionsTypes): init
 };
 
 //========================Action Creator======================
-export type addPostActionType = {
-    type: "ADD-POST",
-    text: string
-}
-export const addPostAC = (text: string): addPostActionType => ({type: ADD_POST, text})
 
-
-export type setUserProfileActionType = {
-    type: "SET_USER_PROFILE"
-    profile: ProfileType
-}
-export const setUserProfileAC = (profile: ProfileType): setUserProfileActionType => ({
+export const addPostAC = (text: string) => ({type: ADD_POST, text} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({
     type: SET_USER_PROFILE,
     profile
-})
-
-export type setStatusActionType = {
-    type: "SET_STATUS"
-    status: string
-}
-export const setStatusAC = (status: string): setStatusActionType => ({
+} as const)
+export const setStatusAC = (status: string) => ({
     type: SET_STATUS,
     status
-})
-
-
-export type savePhotoSuccessType = ReturnType<typeof savePhotoSuccess>
+} as const)
 export const savePhotoSuccess = (photos: PhotosType) => ({
     type: 'SAVE_PHOTO_SUCCESS',
     photos
 } as const)
 
-
 //========================Thunk Creator======================
+
 export const getProfileThunkCreator = (userid: string): AppThunk => async dispatch => {
     let response = await profileAPI.getProfile(userid)
     dispatch(setUserProfileAC(response.data))
 }
-
 
 export const getStatusThunkCreator = (userid: string): AppThunk => async dispatch => {
     let response = await profileAPI.getStatus(userid)
@@ -141,6 +124,7 @@ export const updateStatusThunkCreator = (status: string): AppThunk => async disp
     }
 
 }
+
 export const savePhotoTC = (file: any): AppThunk => async dispatch => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {

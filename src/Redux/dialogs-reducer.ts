@@ -1,7 +1,4 @@
 import {v1} from "uuid";
-import {
-    ActionsTypes,
-} from "./Types";
 
 const SEND_MESSAGES = "SEND-MESSAGES";
 
@@ -15,7 +12,7 @@ export type dialogs = {
 };
 
 export type InitialStateDialogsType = typeof initialState
-
+export type ActionsDialogsType = |ReturnType<typeof sendMessageActionCreator>
 
 let initialState = {
     messagesData: [
@@ -35,8 +32,7 @@ let initialState = {
 }
 
 
-export const DialogsReducer = (state: InitialStateDialogsType = initialState, action: ActionsTypes): InitialStateDialogsType => {
-
+export const DialogsReducer = (state: InitialStateDialogsType = initialState, action: ActionsDialogsType): InitialStateDialogsType => {
     switch (action.type) {
         case SEND_MESSAGES : {
             let body: string = action.messageBody;
@@ -45,17 +41,13 @@ export const DialogsReducer = (state: InitialStateDialogsType = initialState, ac
                 messagesData: [...state.messagesData, {id: v1(), message: body}],
             }
         }
-
         default:
             return state
     }
 };
 
-export type sendMessageActionType = {
-    type: "SEND-MESSAGES"
-    messageBody:string
-}
-export const sendMessageActionCreator = (messageBody: string): sendMessageActionType => ({type: SEND_MESSAGES,messageBody})
+
+export const sendMessageActionCreator = (messageBody: string) => ({type: SEND_MESSAGES, messageBody} as const)
 
 
 

@@ -1,35 +1,19 @@
+import {ActionsUsersType} from "./users-reducer";
+import {ActionsAuthType} from "./auth-reducer";
+import {ActionsDialogsType} from "./dialogs-reducer";
 import {
-    followActionType,
-    setCurrentPageActionType, setTotalCountActionType,
-    setUsersActionType, toggleIsFetchingActionType, toggleIsFollowingActionType,
-    unfollowActionType,
-} from "./users-reducer";
-import {getCaptchaUrlACType, setUserDataActionType} from "./auth-reducer";
-import {sendMessageActionType} from "./dialogs-reducer";
-import {
-    addPostActionType, savePhotoSuccessType,
-    setStatusActionType,
-    setUserProfileActionType,
+    ActionsProfileType
+
 
 } from "./profile-reducer";
 import {setInitializedType} from "./app-reducer";
 
 export type ActionsTypes =
-    | addPostActionType
-    | sendMessageActionType
-    | followActionType
-    | unfollowActionType
-    | setUsersActionType
-    | setCurrentPageActionType
-    | setTotalCountActionType
-    | toggleIsFetchingActionType
-    | setUserProfileActionType
-    | setUserDataActionType
-    | toggleIsFollowingActionType
-    | setStatusActionType
+    | ActionsUsersType
+    | ActionsAuthType
+    | ActionsProfileType
+    | ActionsDialogsType
     | setInitializedType
-    | savePhotoSuccessType
-    | getCaptchaUrlACType
 
 
 export type PostsType = {
