@@ -1,5 +1,5 @@
 import {PhotosType} from "./profile-reducer";
-import {usersAPI} from "../api/api";
+import {ResulCode, usersAPI} from "../api/api";
 
 import {AppThunk} from "./Redux-store";
 import {Dispatch} from "redux";
@@ -14,7 +14,14 @@ const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING'
 
 
 export type initialStateType = typeof initialState
-
+export type UserType = {
+    name: string,
+    id: number,
+    uniqueUrlName: null | string
+    photos: PhotosType,
+    followed: boolean,
+    status: string,
+}
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -35,16 +42,6 @@ export type ActionsUsersType =
     | ReturnType<typeof toggleIsFollowingAC>
 
 
-export type UserType = {
-    name: string,
-    id: number,
-    uniqueUrlName: null | string
-    photos: PhotosType,
-    followed: boolean,
-    status: string,
-
-
-}
 
 export const UsersReducer = (state = initialState, action: ActionsUsersType): initialStateType => {
     switch (action.type) {
@@ -127,7 +124,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number): App
 export const followUnfollow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleIsFollowingAC(true, userId))
     let res = await apiMethod(userId)
-    if (res.resultCode === 0) dispatch(actionCreator(userId));
+    if (res.resultCode === ResulCode.Success) dispatch(actionCreator(userId));
     dispatch(toggleIsFollowingAC(false, userId))
 }
 
