@@ -1,5 +1,4 @@
 import {ActionsTypes} from "./Types";
-
 import {authAPI, securityAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
 
@@ -39,7 +38,8 @@ export type setUserDataActionType = {
         isAuth: boolean
     }
 }
-export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataActionType => {
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string
+    | null, isAuth: boolean): setUserDataActionType => {
     return {
         type: 'AUTH/SET_USER_DATA',
         payload: {userId, email, login, isAuth}
@@ -71,8 +71,9 @@ export const getAuthUserDataTC = (): AppThunk => async dispatch => {
 
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean,captcha?:string): AppThunk => async dispatch => {
-    const res = await authAPI.login(email, password, rememberMe,captcha)
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string): AppThunk =>
+    async dispatch => {
+    const res = await authAPI.login(email, password, rememberMe, captcha)
     if (res.data.resultCode === 0) {
         dispatch(getAuthUserDataTC())
     }
@@ -81,7 +82,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean,cap
     }
 
 }
-
 
 export const logoutTC = (): AppThunk => async dispatch => {
     const res = await authAPI.logout()

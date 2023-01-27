@@ -26,7 +26,8 @@ export const Paginator: FC<PropsType> = ({totalItemsCount, pageSize, currentPage
     let rightPortionPageNumber = portionNumber * portionSize
 
 
-    useEffect(() => setPortionNumber(Math.ceil(currentPage / portionSize)), [currentPage]);
+    useEffect(() => setPortionNumber(Math.ceil(currentPage / portionSize)),
+        [currentPage]);
     return (
 
         <div>

@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {UserType} from "../../Redux/users-reducer";
-
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User/User";
 
@@ -15,7 +14,7 @@ type PropsType = {
     unfollowThunk: (userId: number) => void
 }
 
-const UsersC: FC<PropsType> = (props) => {
+const Users: FC<PropsType> = (props) => {
 
     return (
         <div>
@@ -33,4 +32,4 @@ const UsersC: FC<PropsType> = (props) => {
     );
 };
 
-export default UsersC;
+export default Users;

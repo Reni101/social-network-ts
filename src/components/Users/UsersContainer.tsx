@@ -6,7 +6,7 @@ import {
     setUsersAС, toggleIsFetchingAC, unfollowThunkCreator,
     UserType
 } from "../../Redux/users-reducer";
-import UsersC from "./UsersC";
+import Users from "./Users";
 import Preloader from "../common/Preloader";
 import {AppRootStateType} from "../../Redux/Redux-store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
@@ -50,17 +50,16 @@ class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchTo
 
     render() {
 
-
         return <>
             {this.props.isFetching ? <Preloader/> :
-                <UsersC totalItemsCount={this.props.totalItemsCount}
-                        pageSize={this.props.pageSize}
-                        currentPage={this.props.currentPage}
-                        onPageChanged={this.onPageChanged}
-                        users={this.props.users}
-                        followingInProgress={this.props.followingInProgress}
-                        followThunk={this.props.followThunk}
-                        unfollowThunk={this.props.unfollowThunk}
+                <Users totalItemsCount={this.props.totalItemsCount}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}
+                       onPageChanged={this.onPageChanged}
+                       users={this.props.users}
+                       followingInProgress={this.props.followingInProgress}
+                       followThunk={this.props.followThunk}
+                       unfollowThunk={this.props.unfollowThunk}
 
                 />}
 
