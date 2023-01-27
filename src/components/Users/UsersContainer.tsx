@@ -2,9 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     followThunkCreator, getUsersThunkCreator,
-    setTotalUsersCountAC,
-    setUsersAС, toggleIsFetchingAC, unfollowThunkCreator,
-    UserType
+    unfollowThunkCreator, UserType
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
@@ -29,9 +27,6 @@ type MapStateToPropsType = {
     followingInProgress: Array<number>
 }
 type MapDispatchToPropsType = {
-    setUsers: (items: Array<UserType>) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (toggle: boolean) => void
     getUsersThunk: (currentPage: number, pageSize: number) => any
     followThunk: (userId: number) => void
     unfollowThunk: (userId: number) => void
@@ -82,9 +77,6 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType,
         OwnPropsType, AppRootStateType>(mapStateToProps, {
-        setUsers: setUsersAС,
-        setTotalUsersCount: setTotalUsersCountAC,
-        toggleIsFetching: toggleIsFetchingAC,
         getUsersThunk: getUsersThunkCreator,
         followThunk: followThunkCreator,
         unfollowThunk: unfollowThunkCreator,
