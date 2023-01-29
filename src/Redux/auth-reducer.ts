@@ -1,4 +1,4 @@
-import {authAPI, ResulCode, securityAPI} from "../api/api";
+import {authAPI, ResultCodeEnum, securityAPI} from "../api/api";
 import {AppThunk} from "./Redux-store";
 
 export type initialStateType = typeof initialState
@@ -49,7 +49,7 @@ export const getCaptchaUrlAC = (url: string) => ({
 
 export const getAuthUserDataTC = (): AppThunk => async dispatch => {
     const res = await authAPI.getAuthMe()
-    if (res.data.resultCode === ResulCode.Success) {
+    if (res.data.resultCode === ResultCodeEnum.Success) {
         let {id, email, login} = res.data.data
         dispatch(setAuthUserDataAC(id, email, login, true))
     }
@@ -60,10 +60,10 @@ export const getAuthUserDataTC = (): AppThunk => async dispatch => {
 export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string): AppThunk =>
     async dispatch => {
         const res = await authAPI.login(email, password, rememberMe, captcha)
-        if (res.data.resultCode === ResulCode.Success) {
+        if (res.resultCode === ResultCodeEnum.Success) {
             dispatch(getAuthUserDataTC())
         }
-        if (res.data.resultCode === ResulCode.CaptchaIsRequired) {
+        if (res.resultCode === ResultCodeEnum.CaptchaIsRequired) {
             dispatch(getCaptchaURLTC())
         }
 

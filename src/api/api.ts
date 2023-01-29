@@ -3,7 +3,7 @@ import {UserType} from "../Redux/users-reducer";
 import {PhotosType, ProfileType} from "../Redux/profile-reducer";
 
 
-export enum ResulCode {
+export enum ResultCodeEnum {
     Success = 0,
     Error = 1,
     CaptchaIsRequired =10,
@@ -19,7 +19,7 @@ export type ResponseType<T = {}> = {
     data: T;
     messages: string[];
     fieldsErrors: string[];
-    resultCode: ResulCode;
+    resultCode: ResultCodeEnum;
 }
 
 export type AuthResType = {
@@ -61,6 +61,7 @@ export const authAPI = {
     },
     login(email: string, password: string, rememberMe: boolean, captcha?: string) {
         return instance.post<ResponseType<LoginType>>(`auth/login`, {email, password, rememberMe, captcha})
+            .then(res=>res.data)
     },
     logout() {
         return instance.delete<ResponseType>(`auth/login`,)

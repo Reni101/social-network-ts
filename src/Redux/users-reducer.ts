@@ -1,5 +1,5 @@
 import {PhotosType} from "./profile-reducer";
-import {ResulCode, usersAPI} from "../api/api";
+import {ResponseType, ResultCodeEnum, usersAPI} from "../api/api";
 
 import {AppThunk} from "./Redux-store";
 import {Dispatch} from "redux";
@@ -40,7 +40,6 @@ export type ActionsUsersType =
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
     | ReturnType<typeof toggleIsFollowingAC>
-
 
 
 export const UsersReducer = (state = initialState, action: ActionsUsersType): initialUsersStateType => {
@@ -122,23 +121,28 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number): App
 
 }
 
-export const followUnfollow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
+export const followUnfollow = async (dispatch: Dispatch, userId: number,
+                                     apiMethod: (userId: number) => Promise<ResponseType>,
+                                     actionCreator: (userid: number) => ActionsUsersType) => {
     dispatch(toggleIsFollowingAC(true, userId))
     let res = await apiMethod(userId)
-    if (res.resultCode === ResulCode.Success) dispatch(actionCreator(userId));
+    if (res.resultCode === ResultCodeEnum.Success) {
+        dispatch(actionCreator(userId))
+    }
+
     dispatch(toggleIsFollowingAC(false, userId))
 }
 
 export const followThunkCreator = (userId: number): AppThunk => async dispatch => {
     let apiMethod = usersAPI.followUser.bind(usersAPI)
     let actionCreator = followAC
-    followUnfollow(dispatch, userId, apiMethod, actionCreator)
+    await followUnfollow(dispatch, userId, apiMethod, actionCreator)
 }
 
 export const unfollowThunkCreator = (userId: number): AppThunk => async dispatch => {
     let apiMethod = usersAPI.unfollowUser.bind(usersAPI)
     let actionCreator = unFollowAc
-    followUnfollow(dispatch, userId, apiMethod, actionCreator)
+    await followUnfollow(dispatch, userId, apiMethod, actionCreator)
 
 }
 
