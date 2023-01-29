@@ -13,7 +13,7 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING'
 
 
-export type initialStateType = typeof initialState
+export type initialUsersStateType = typeof initialState
 export type UserType = {
     name: string,
     id: number,
@@ -43,7 +43,7 @@ export type ActionsUsersType =
 
 
 
-export const UsersReducer = (state = initialState, action: ActionsUsersType): initialStateType => {
+export const UsersReducer = (state = initialState, action: ActionsUsersType): initialUsersStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {
@@ -55,7 +55,8 @@ export const UsersReducer = (state = initialState, action: ActionsUsersType): in
         case UNFOLLOW : {
             return {
                 ...state,
-                users: state.users.map((el) => el.id === action.userID ? {...el, followed: false} : el)
+                users: state.users.map((el) => el.id === action.userID ?
+                    {...el, followed: false} : el)
             }
         }
         case SET_USERS: {

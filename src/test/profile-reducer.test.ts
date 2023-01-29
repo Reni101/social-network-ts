@@ -1,4 +1,4 @@
-import {addPostAC, PostsDataType, ProfileReducer, ProfileType} from "./profile-reducer";
+import {addPostAC, PostsDataType, ProfileReducer, ProfileType} from "../Redux/profile-reducer";
 import {v1} from "uuid";
 
 
