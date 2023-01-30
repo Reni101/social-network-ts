@@ -44,8 +44,7 @@ export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10,
              filter:FilterType) {
         return instance.get<getUsersResponseType>(
-            `users?page=${currentPage}&count=${pageSize}&term=${filter.term}
-            &friend=${filter.friend}`)
+            `users?page=${currentPage}&count=${pageSize}&term=${filter.term}&friend=${filter.friend}`)
             .then(response => response.data);
     },
     followUser(userId: number) {

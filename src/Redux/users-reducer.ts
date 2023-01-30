@@ -15,7 +15,7 @@ export type UserType = {
 }
 export type FilterType = {
     term: string | null,
-    friend:  null |boolean
+    friend: null | boolean
 }
 
 let initialState = {
@@ -113,7 +113,7 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
 
 //========================Thunk Creator======================
 export const getUsersThunkCreator = (currentPage: number, pageSize: number,
-                                    filter:FilterType): AppThunk => async dispatch => {
+                                     filter: FilterType): AppThunk => async dispatch => {
     dispatch(toggleIsFetchingAC(true));
     let res = await usersAPI.getUsers(currentPage, pageSize, filter)
     dispatch(setFilterAС(filter))

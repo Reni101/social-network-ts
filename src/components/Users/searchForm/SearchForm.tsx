@@ -20,7 +20,7 @@ export const SearchForm = (props: PropsType) => {
     const formik = useFormik({
         initialValues: {
             term: '',
-            onlyFriend: ""
+            onlyFriend: "all"
 
 
         },
