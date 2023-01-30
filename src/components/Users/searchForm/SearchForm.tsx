@@ -7,7 +7,7 @@ import {FilterType,} from "../../../Redux/users-reducer";
 
 type FormikErrorType = {
     term?: string
-    onlyFriend: boolean
+    onlyFriend: string
 
 }
 type PropsType = {
@@ -20,14 +20,15 @@ export const SearchForm = (props: PropsType) => {
     const formik = useFormik({
         initialValues: {
             term: '',
-            onlyFriend: false
+            onlyFriend: ""
 
 
         },
         onSubmit: values => {
-
-            alert(values.onlyFriend)
-            //  props.onFilterChanged({term: values.term, friend: all})
+            let filterFriend = null
+            if (values.onlyFriend === "all") filterFriend = null
+            if (values.onlyFriend === "myFriend") filterFriend = true
+            props.onFilterChanged({term: values.term, friend: filterFriend})
         },
 
         validate: (values: FormikErrorType) => {
@@ -44,13 +45,10 @@ export const SearchForm = (props: PropsType) => {
 
             />
 
-            {/*<select name="friend" value={"myFriend"} onChange={formik.}>*/}
-            {/*    <option value="all" label="all">All</option>*/}
-            {/*    <option value="myFriend" label='myFriend'>my Friend</option>*/}
-            {/*</select>*/}
-
-
-            <input name='onlyFriend' type="checkbox" checked={formik.values.onlyFriend}/>
+            <select name="onlyFriend" value={formik.values.onlyFriend} onChange={formik.handleChange}>
+                <option value="all">All</option>
+                <option value="myFriend">my friend</option>
+            </select>
             <div>
                 <button type="submit">Find</button>
             </div>

@@ -73,6 +73,7 @@ const LoginForm = (props: PropsType) => {
             />
 
 
+
             {props.captchaURl && <div><img src={props.captchaURl} alt="captcha"/></div>}
             {props.captchaURl && <input
                 placeholder="enter the captcha"
