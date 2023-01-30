@@ -112,15 +112,19 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
 } as const)
 
 //========================Thunk Creator======================
-export const getUsersThunkCreator = (currentPage: number, pageSize: number,
-                                     filter: FilterType): AppThunk => async dispatch => {
+export const getUsersTC = (currentPage: number, pageSize: number,
+                           filter: FilterType): AppThunk => async dispatch => {
     dispatch(toggleIsFetchingAC(true));
-    let res = await usersAPI.getUsers(currentPage, pageSize, filter)
     dispatch(setFilterAС(filter))
     dispatch(setCurrentPageAC(currentPage))
-    dispatch(toggleIsFetchingAC(false))
+
+
+    let res = await usersAPI.getUsers(currentPage, pageSize, filter)
+
     dispatch(setUsersAС(res.items))
     dispatch(setTotalUsersCountAC(res.totalCount))
+
+    dispatch(toggleIsFetchingAC(false))
 
 }
 
@@ -136,13 +140,13 @@ export const followUnfollow = async (dispatch: Dispatch, userId: number,
     dispatch(toggleIsFollowingAC(false, userId))
 }
 
-export const followThunkCreator = (userId: number): AppThunk => async dispatch => {
+export const followTC = (userId: number): AppThunk => async dispatch => {
     let apiMethod = usersAPI.followUser.bind(usersAPI)
     let actionCreator = followAC
     await followUnfollow(dispatch, userId, apiMethod, actionCreator)
 }
 
-export const unfollowThunkCreator = (userId: number): AppThunk => async dispatch => {
+export const unfollowTC = (userId: number): AppThunk => async dispatch => {
     let apiMethod = usersAPI.unfollowUser.bind(usersAPI)
     let actionCreator = unFollowAc
     await followUnfollow(dispatch, userId, apiMethod, actionCreator)

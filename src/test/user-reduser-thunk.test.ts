@@ -1,4 +1,4 @@
-import {followThunkCreator, getUsersThunkCreator} from "../Redux/users-reducer";
+import {followTC, getUsersTC} from "../Redux/users-reducer";
 import {getUsersResponseType, ResponseType, usersAPI} from "../api/api";
 
 
@@ -15,7 +15,7 @@ test("followThunkCreator", async () => {
         resultCode: 0,
     }
     userAPIMock.followUser.mockReturnValue(Promise.resolve(result))
-    const thunk = followThunkCreator(1)
+    const thunk = followTC(1)
 
     const dispatchMock = jest.fn()
     const getStateMock = jest.fn()
@@ -50,7 +50,7 @@ test("getUsersThunkCreator working correct", async () => {
 
 
     userAPIMock.getUsers.mockReturnValue(Promise.resolve(result))
-    const thunk = getUsersThunkCreator(1, 5, {term: "", friend: null})
+    const thunk = getUsersTC(1, 5, {term: "", friend: null})
 
     const dispatchMock = jest.fn()
     const getStateMock = jest.fn()

@@ -37,7 +37,6 @@ export const SearchForm = (props: PropsType) => {
     });
     return (
         <form onSubmit={formik.handleSubmit} className={style.containerForm}>
-            <div>term</div>
             <input
                 name="term"
                 type="text"
