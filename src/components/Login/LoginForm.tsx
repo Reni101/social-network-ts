@@ -16,7 +16,7 @@ const LoginForm = (props: PropsType) => {
     const formik = useFormik({
         initialValues: {
             login: '',
-            password:'',
+            password: '',
             rememberMe: true,
             captcha: "",
         },

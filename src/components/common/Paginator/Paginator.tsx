@@ -30,7 +30,7 @@ export const Paginator: FC<PropsType> = ({totalItemsCount, pageSize, currentPage
         [currentPage]);
     return (
 
-        <div>
+        <div className={style.containerPaginator}>
             {portionNumber > 1 && <button onClick={() => {
                 setPortionNumber(portionNumber - 1)
             }}>Prev </button>}

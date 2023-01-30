@@ -11,7 +11,7 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
     authorizedUserID: number
     isOwner: boolean
-    savePhoto:(file: any) => void
+    savePhoto: (file: any) => void
 }
 
 
@@ -30,7 +30,7 @@ const Profile = (props: ProfilePropsType) => {
                          savePhoto={props.savePhoto}
 
             />
-            <MyPostsContainer/>
+            {props.isOwner && <MyPostsContainer/>}
 
         </div>
     );

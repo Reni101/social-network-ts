@@ -1,16 +1,16 @@
 import axios from "axios";
-import {UserType} from "../Redux/users-reducer";
+import {FilterType, UserType} from "../Redux/users-reducer";
 import {PhotosType, ProfileType} from "../Redux/profile-reducer";
 
 
 export enum ResultCodeEnum {
     Success = 0,
     Error = 1,
-    CaptchaIsRequired =10,
+    CaptchaIsRequired = 10,
 
 }
 
-type getUsersResponseType = {
+export type getUsersResponseType = {
     items: Array<UserType>,
     totalCount: number,
     error: null | string
@@ -41,8 +41,11 @@ const instance = axios.create({
 
 
 export const usersAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get<getUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number = 1, pageSize: number = 10,
+             filter:FilterType) {
+        return instance.get<getUsersResponseType>(
+            `users?page=${currentPage}&count=${pageSize}&term=${filter.term}
+            &friend=${filter.friend}`)
             .then(response => response.data);
     },
     followUser(userId: number) {
@@ -61,7 +64,7 @@ export const authAPI = {
     },
     login(email: string, password: string, rememberMe: boolean, captcha?: string) {
         return instance.post<ResponseType<LoginType>>(`auth/login`, {email, password, rememberMe, captcha})
-            .then(res=>res.data)
+            .then(res => res.data)
     },
     logout() {
         return instance.delete<ResponseType>(`auth/login`,)

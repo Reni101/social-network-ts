@@ -13,6 +13,7 @@ beforeEach(() => {
             followed: false,
             status: ""
 
+
         },
             {
                 id: 1,
@@ -42,7 +43,8 @@ beforeEach(() => {
         totalItemsCount: 1,
         currentPage: 1,
         isFetching: false,
-        followingInProgress: []
+        followingInProgress: [],
+        filter: {term: '', friend: null}
     }
 })
 

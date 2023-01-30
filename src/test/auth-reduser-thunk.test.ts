@@ -15,11 +15,8 @@ const result: ResponseType<LoginType> = {
 }
 
 
-authAPIMock.login.mockReturnValue(Promise.resolve(result))
-
-
 test("loginTC", async () => {
-
+    authAPIMock.login.mockReturnValue(Promise.resolve(result))
     const thunk = loginTC("maximor-2008@tut.by", "12334", true)
 
     const dispatchMock = jest.fn()
