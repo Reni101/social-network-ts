@@ -13,6 +13,7 @@ import {
     getUsersSelector
 } from "../../Redux/users-selectors";
 import {useHistory} from "react-router-dom";
+import * as querystring from "querystring";
 
 
 const UsersPage = () => {
@@ -42,18 +43,25 @@ const UsersPage = () => {
         dispatch(unfollowTC(userId))
     }
 
+
+    useEffect(() => {
+        // const parsed = querystring.parse(history.location.search.substring(1))
+        // let actualPage = currentPage
+        // let actualFilter = filter
+        // if (parsed.page) actualPage = +parsed.page
+        //
+        // if (parsed.term) actualFilter = {...actualFilter, term: parsed.term}
+
+        dispatch(getUsersTC(currentPage, pageSize, {term: "", friend: null}))
+    }, [])
+
+
     useEffect(() => {
         history.push({
             pathname: "/users",
             search: `?term=${filter.term}&friend=${filter.friend}`,
         })
     }, [filter])
-
-
-    useEffect(() => {
-        dispatch(getUsersTC(currentPage, pageSize, {term: "", friend: null}))
-    }, [])
-
 
     return (
         <div className={style.containerUsers}>

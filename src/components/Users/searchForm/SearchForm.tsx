@@ -3,6 +3,9 @@ import style from './SearchForm.module.css'
 import {useFormik} from "formik";
 
 import {FilterType,} from "../../../Redux/users-reducer";
+import {Button, Select, Space} from "antd";
+import {json} from "stream/consumers";
+import Input from "antd/lib/input/Input";
 
 
 type FormikErrorType = {
@@ -16,6 +19,9 @@ type PropsType = {
 
 
 export const SearchForm = (props: PropsType) => {
+    const handleChange = (value: string) => {
+        formik.values.onlyFriend = value
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -37,19 +43,22 @@ export const SearchForm = (props: PropsType) => {
     });
     return (
         <form onSubmit={formik.handleSubmit} className={style.containerForm}>
-            <input
-                name="term"
-                type="text"
-                onChange={formik.handleChange}
 
+            <Input placeholder="Basic usage" onChange={formik.handleChange} name="term"/>
+
+            <Select
+
+                defaultValue="all"
+                style={{width: 120}}
+                onChange={handleChange}
+                options={[
+                    {value: 'all', label: 'All'},
+                    {value: 'myFriend', label: 'my friend'},
+                ]}
             />
-
-            <select name="onlyFriend" value={formik.values.onlyFriend} onChange={formik.handleChange}>
-                <option value="all">All</option>
-                <option value="myFriend">my friend</option>
-            </select>
             <div>
-                <button type="submit">Find</button>
+
+                <Button htmlType="submit" type="primary" onClick={formik.handleChange}>Search</Button>
             </div>
         </form>
     );
