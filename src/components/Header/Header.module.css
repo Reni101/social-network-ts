@@ -1,21 +1,5 @@
-div .logo {
-    width: 50px;
-    padding: 5px;
-}
-
-.header {
-    grid-area: h;
-    background-color: blueviolet;
+.loginBlock{
     display: flex;
-    justify-content: space-between;
-}
-
-div .loginBlock {
-    color: white;
-
-}
-
-.loginBlock a {
-    color: white;
-    text-decoration: none;
+    align-items: center;
+    justify-content: flex-end;
 }

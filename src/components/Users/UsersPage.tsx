@@ -1,5 +1,5 @@
-import React, {FC, useEffect} from 'react';
-import {FilterType, followTC, getUsersTC, unfollowTC, UserType} from "../../Redux/users-reducer";
+import React, { useEffect} from 'react';
+import {FilterType, followTC, getUsersTC, unfollowTC} from "../../Redux/users-reducer";
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User/User";
 import style from './Users.module.css'
@@ -12,14 +12,13 @@ import {
     getPageSize, getTotalItemsCount,
     getUsersSelector
 } from "../../Redux/users-selectors";
-import {useHistory} from "react-router-dom";
-import * as querystring from "querystring";
+import {Redirect} from "react-router-dom";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 
 const UsersPage = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
-
+    const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
     const users = useSelector(getUsersSelector)
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
@@ -45,23 +44,13 @@ const UsersPage = () => {
 
 
     useEffect(() => {
-        // const parsed = querystring.parse(history.location.search.substring(1))
-        // let actualPage = currentPage
-        // let actualFilter = filter
-        // if (parsed.page) actualPage = +parsed.page
-        //
-        // if (parsed.term) actualFilter = {...actualFilter, term: parsed.term}
-
         dispatch(getUsersTC(currentPage, pageSize, {term: "", friend: null}))
     }, [])
 
 
-    useEffect(() => {
-        history.push({
-            pathname: "/users",
-            search: `?term=${filter.term}&friend=${filter.friend}`,
-        })
-    }, [filter])
+    if (!isAuth) {
+        return <Redirect to={'/login'}/>
+    }
 
     return (
         <div className={style.containerUsers}>

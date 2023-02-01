@@ -6,6 +6,7 @@ import {ActionsTypes} from "./Types";
 import {ProfileReducer} from "./profile-reducer";
 import {UsersReducer} from "./users-reducer";
 import {appReducer} from "./app-reducer";
+import {chatWSReducer} from "./chat-ws-reducer";
 
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
         usersPage: UsersReducer,
         auth: authReducer,
         app: appReducer,
+        chat: chatWSReducer,
     }
 );
 

@@ -1,15 +1,15 @@
 import React, {Suspense, useEffect} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {Route} from "react-router-dom";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/Login/LoginPage";
+import {LoginPage} from "./components/Login/LoginPage";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Redux/Redux-store";
 import {InitializeAppTC} from "./Redux/app-reducer";
 import Preloader from "./components/common/Preloader";
 import UsersPage from "./components/Users/UsersPage";
+import {HeaderPage} from "./components/Header/HeaderPage";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
@@ -28,7 +28,7 @@ export const App = () => {
 
     return (
         <div className="app-wrapper">
-            <HeaderContainer/>
+            <HeaderPage/>
             <Navbar/>
             <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
             <Route path="/dialogs"
@@ -43,19 +43,3 @@ export const App = () => {
 
 };
 
-/*const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
-    initialized: state.app.initialized
-})
-
-export default compose<React.ComponentType>(
-    withRouter,
-    connect<MapStateToPropsType, MapDispatchToPropsType,
-        {}, AppRootStateType>(mapStateToProps, {
-        InitializeAppThunk: InitializeAppTC
-    })
-)
-(App)
-
-
-
-*/

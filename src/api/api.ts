@@ -3,6 +3,7 @@ import {FilterType, UserType} from "../Redux/users-reducer";
 import {PhotosType, ProfileType} from "../Redux/profile-reducer";
 
 
+
 export enum ResultCodeEnum {
     Success = 0,
     Error = 1,
@@ -42,7 +43,7 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10,
-             filter:FilterType) {
+             filter: FilterType) {
         return instance.get<getUsersResponseType>(
             `users?page=${currentPage}&count=${pageSize}&term=${filter.term}&friend=${filter.friend}`)
             .then(response => response.data);

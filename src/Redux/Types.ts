@@ -7,6 +7,7 @@ import {
 
 } from "./profile-reducer";
 import {setInitializedType} from "./app-reducer";
+import {ActionsChatType} from "./chat-ws-reducer";
 
 export type ActionsTypes =
     | ActionsUsersType
@@ -14,6 +15,7 @@ export type ActionsTypes =
     | ActionsProfileType
     | ActionsDialogsType
     | setInitializedType
+    | ActionsChatType
 
 
 export type PostsType = {

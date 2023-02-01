@@ -1,18 +1,21 @@
 import React from 'react';
 import {useFormik} from 'formik';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../Redux/Redux-store";
+import {loginTC} from "../../Redux/auth-reducer";
 
 type FormikErrorType = {
     login?: string
     password?: string
     rememberMe?: boolean
-    captcha?: string
-}
-type PropsType = {
-    Login: (login: string, password: string, rememberMe: boolean, captcha?: string) => void
-    captchaURl: string | null
+    captcha?: string | null
 }
 
-const LoginForm = (props: PropsType) => {
+
+const LoginForm = () => {
+    const dispatch = useDispatch()
+    const captchaURl = useSelector<AppRootStateType, string | null>(state => state.auth.captchaURl)
+
     const formik = useFormik({
         initialValues: {
             login: '',
@@ -21,7 +24,7 @@ const LoginForm = (props: PropsType) => {
             captcha: "",
         },
         onSubmit: values => {
-            props.Login(values.login, values.password, values.rememberMe, values.captcha)
+            dispatch(loginTC(values.login, values.password, values.rememberMe, values.captcha))
             formik.resetForm()
         },
 
@@ -73,9 +76,8 @@ const LoginForm = (props: PropsType) => {
             />
 
 
-
-            {props.captchaURl && <div><img src={props.captchaURl} alt="captcha"/></div>}
-            {props.captchaURl && <input
+            {captchaURl && <div><img src={captchaURl} alt="captcha"/></div>}
+            {captchaURl && <input
                 placeholder="enter the captcha"
                 type="text"
                 name="captcha"
