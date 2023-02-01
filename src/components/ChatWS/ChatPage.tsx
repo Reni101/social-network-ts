@@ -5,9 +5,11 @@ import {
 
 } from "../../Redux/chat-ws-reducer";
 import {AppRootStateType} from "../../Redux/Redux-store";
+import {Redirect} from "react-router-dom";
 
 export const ChatPage = () => {
     const dispatch = useDispatch()
+    const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
     const messages = useSelector<AppRootStateType, ChatMessageType[]>(state => state.chat.messages)
 
     useEffect(() => {
@@ -19,11 +21,15 @@ export const ChatPage = () => {
         }
     }, [])
 
+    if (!isAuth) {
+        return <Redirect to={'/login'}/>
+    }
+
 
     return (
         <div>
             {messages.map(el => {
-                return el.message
+                return <div>{el.userName} : {el.message}</div>
             })}
         </div>
     );

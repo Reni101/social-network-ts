@@ -3,6 +3,8 @@ import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/Redux-store";
 import {loginTC} from "../../Redux/auth-reducer";
+import style from './loginForm.module.css'
+import {Button, Checkbox, Input} from "antd";
 
 type FormikErrorType = {
     login?: string
@@ -46,48 +48,50 @@ const LoginForm = () => {
         },
     });
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>Login</div>
-            <input
-                name="login"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.login}
-            />
-            {formik.touched.login && formik.errors.login &&
-                <div style={{color: "red"}}>{formik.errors.login}</div>}
+        <div className={style.containerLogin}>
+            <form onSubmit={formik.handleSubmit}>
+                <h2>Login</h2>
 
-            <div>Password</div>
-            <input
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-            />
-            {formik.touched.password && formik.errors.password &&
-                <div style={{color: "red"}}>{formik.errors.password}</div>}
+                <Input name='login'
+                       type="text"
+                       onChange={formik.handleChange}
+                       value={formik.values.login}
+                       placeholder="Email"
+                />
+                {formik.touched.login && formik.errors.login &&
+                    <div style={{color: "red"}}>{formik.errors.login}</div>}
 
-            <div>Remember Me</div>
-            <input
-                type="checkbox"
-                name="rememberMe"
-                onChange={formik.handleChange}
-                checked={formik.values.rememberMe}
-            />
+                <h2>Password</h2>
+
+                <Input.Password
+                    name="password"
+                    type="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    placeholder="Password"
+                />
+                {formik.touched.password && formik.errors.password &&
+                    <div style={{color: "red"}}>{formik.errors.password}</div>}
 
 
-            {captchaURl && <div><img src={captchaURl} alt="captcha"/></div>}
-            {captchaURl && <input
-                placeholder="enter the captcha"
-                type="text"
-                name="captcha"
-                onChange={formik.handleChange}
-                value={formik.values.captcha}
-            />}
-            <div>
-                <button type="submit">Login</button>
-            </div>
-        </form>
+                <Checkbox name='rememberMe'
+                          onChange={formik.handleChange}
+                          checked={formik.values.rememberMe}>Remember me</Checkbox>
+
+
+                {captchaURl && <div><img src={captchaURl} alt="captcha"/></div>}
+                {captchaURl && <input
+                    placeholder="enter the captcha"
+                    type="text"
+                    name="captcha"
+                    onChange={formik.handleChange}
+                    value={formik.values.captcha}
+                />}
+                <div>
+                    <Button htmlType="submit">Login</Button>
+                </div>
+            </form>
+        </div>
     );
 };
 
