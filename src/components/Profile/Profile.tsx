@@ -4,18 +4,18 @@ import styleP from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../Redux/profile-reducer";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 type ProfilePropsType = {
-    profile: ProfileType
-    status: string
-    updateStatus: (status: string) => void
-    authorizedUserID: number
     isOwner: boolean
-    savePhoto: (file: File) => void
+
 }
 
 
 const Profile = React.memo((props: ProfilePropsType) => {
+    const profile = useSelector<AppRootStateType,ProfileType>(state => state.profilePage.profile!)
+
 
     return (
         <div className={styleP.profile}>
@@ -24,10 +24,7 @@ const Profile = React.memo((props: ProfilePropsType) => {
             <img className={styleP.contentIMG} src={contentIMG} alt="img"/>
 
             <ProfileInfo isOwner={props.isOwner}
-                         profile={props.profile}
-                         status={props.status}
-                         updateStatus={props.updateStatus}
-                         savePhoto={props.savePhoto}
+                         profile={profile}
 
             />
             {props.isOwner && <MyPostsContainer/>}

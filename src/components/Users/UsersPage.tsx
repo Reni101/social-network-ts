@@ -12,7 +12,7 @@ import {
     getPageSize, getTotalItemsCount,
     getUsersSelector
 } from "../../Redux/users-selectors";
-import {Redirect} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
 
@@ -49,7 +49,7 @@ const UsersPage = () => {
 
 
     if (!isAuth) {
-        return <Redirect to={'/login'}/>
+        return <Navigate to={'/login'}/>
     }
 
     return (

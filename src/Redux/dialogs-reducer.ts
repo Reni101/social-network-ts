@@ -29,6 +29,7 @@ let initialState = {
         {id: v1(), name: "Sasha"},
         {id: v1(), name: "Denis"},
     ] as Array<dialogs>,
+    newMessagesBody:""
 }
 
 

@@ -1,18 +1,20 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {updateStatusTC} from "../../../../Redux/profile-reducer";
+import {AppRootStateType} from "../../../../Redux/Redux-store";
 
-type PropsType = {
-    status: string
-    updateStatus: (status: string) => void
-}
 
-export const ProfileStatus = (props: PropsType) => {
 
+export const ProfileStatus = () => {
+
+    const dispatch = useDispatch()
+    const statusFromState = useSelector<AppRootStateType, string>(state => state.profilePage.status)
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [status, setStatus] = useState<string>(props.status)
+    const [status, setStatus] = useState<string>(statusFromState)
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setStatus(statusFromState)
+    }, [statusFromState])
 
     const activateEditMode = () => {
         setEditMode(true)
@@ -20,7 +22,7 @@ export const ProfileStatus = (props: PropsType) => {
 
     const deActivateEditMode = () => {
         setEditMode(false)
-        props.updateStatus(status)
+        dispatch(updateStatusTC(status))
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
@@ -29,7 +31,7 @@ export const ProfileStatus = (props: PropsType) => {
     return <>
         {!editMode
             ? <div>
-                <div onDoubleClick={activateEditMode}>{props.status || "Status not found"} </div>
+                <div onDoubleClick={activateEditMode}>{statusFromState || "Status not found"} </div>
             </div>
             : <div>
                 <input autoFocus

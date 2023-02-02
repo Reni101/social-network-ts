@@ -3,23 +3,19 @@ import styleDi from './Dialogs.module.css'
 import Message from "./MessageItem/Dialogs";
 import {DialogsPageType} from "../../Redux/Types";
 
-import DialogItem from "./Dialogitem/DialogsItem";
+import DialogItem from "./Dialogitem/DialogItem";
 import AddMessageForm from "./AddMessageForm";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 
-type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-    sendMessage: (messageBody: string) => void
-    //isAuth: boolean
-}
+export const Dialogs = () => {
+    const dialogsPage = useSelector<AppRootStateType, DialogsPageType>(state => state.dialogsPage)
 
-
-const Dialogs = (props: DialogsPropsType) => {
-
-    const mapDialogsItem = props.dialogsPage.dialogsData.map(e => {
+    const mapDialogsItem = dialogsPage.dialogsData.map(e => {
         return <DialogItem name={e.name} id={e.id} key={e.id}/>
     })
-    const mapMessageElement = props.dialogsPage.messagesData.map(e => {
+    const mapMessageElement = dialogsPage.messagesData.map(e => {
         return <Message message={e.message} id={e.id} key={e.id}/>
     })
 
@@ -32,11 +28,10 @@ const Dialogs = (props: DialogsPropsType) => {
 
             <div className={styleDi.messages}>
                 <div> {mapMessageElement} </div>
-               <AddMessageForm sendMessage={props.sendMessage}/>
+                <AddMessageForm/>
             </div>
         </div>
     )
         ;
 };
 
-export default Dialogs;

@@ -4,7 +4,7 @@ import {
     startMessagesListeningTC, stopMessagesListeningTC,
 } from "../../Redux/chat-ws-reducer";
 import {AppRootStateType} from "../../Redux/Redux-store";
-import {Redirect} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import style from './ChatPage.module.css'
 import {MessageForm} from "./MessageForm/MessageForm";
 import {MessagesChat} from "./Messages/MessagesChat";
@@ -23,7 +23,7 @@ export const ChatPage = () => {
     }, [])
 
     if (!isAuth) {
-        return <Redirect to={'/login'}/>
+        return <Navigate to={'/login'}/>
     }
 
 
