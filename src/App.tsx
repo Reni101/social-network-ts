@@ -18,7 +18,7 @@ import UsersPage from "./components/Users/UsersPage";
 import {LoginPage} from "./components/Login/LoginPage";
 import {ChatPage} from "./components/ChatWS/ChatPage";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {NavLink, Route, Routes, useLocation, Navigate} from "react-router-dom";
+import {NavLink, Route, Routes, Navigate} from "react-router-dom";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 
 
@@ -44,17 +44,12 @@ function getItem(
 
 
 export const App: React.FC = () => {
-
-    const params = useLocation()
-    const paramsURl = params.pathname.split("/")[1]
-
     const dispatch = useDispatch()
     const {token: {colorBgContainer},} = theme.useToken();
 
     const [collapsed, setCollapsed] = useState(false);
     const initialized = useSelector<AppRootStateType>(state => state.app.initialized)
     const myId = useSelector<AppRootStateType>(state => state.auth.userId)
-
 
     const items: MenuItem[] = [
         getItem(<NavLink to={`/profile/${myId}`}>Profile</NavLink>, 'profile',
@@ -79,7 +74,7 @@ export const App: React.FC = () => {
         <Layout style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
                 <Menu theme="dark"
-                      defaultSelectedKeys={[paramsURl]}
+                      selectable={false}
                       mode="inline"
                       items={items}
                 />

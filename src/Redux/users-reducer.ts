@@ -25,7 +25,7 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>,
-    filter: {} as FilterType
+
 
 }
 export type ActionsUsersType =
@@ -36,7 +36,7 @@ export type ActionsUsersType =
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
     | ReturnType<typeof toggleIsFollowingAC>
-    | ReturnType<typeof setFilterAС>
+
 
 
 export const UsersReducer = (state = initialState, action: ActionsUsersType): initialUsersStateType => {
@@ -79,9 +79,7 @@ export const UsersReducer = (state = initialState, action: ActionsUsersType): in
                     : [...state.followingInProgress.filter(id => id !== action.userId)]
             }
         }
-        case "SET_TERM": {
-            return {...state, filter: action.filter}
-        }
+
         default:
             return state
 
@@ -92,7 +90,6 @@ export const UsersReducer = (state = initialState, action: ActionsUsersType): in
 export const followAC = (userID: number) => ({type: "FOLLOW", userID} as const)
 export const unFollowAc = (userID: number) => ({type: "UNFOLLOW", userID} as const)
 export const setUsersAС = (users: Array<UserType>) => ({type: "SET_USERS", users} as const)
-export const setFilterAС = (filter: FilterType) => ({type: "SET_TERM", filter} as const)
 export const setCurrentPageAC = (currentPage: number) => ({
     type: "SET_CURRENT_PAGE",
     currentPage
@@ -115,12 +112,8 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
 export const getUsersTC = (currentPage: number, pageSize: number,
                            filter: FilterType): AppThunk => async dispatch => {
     dispatch(toggleIsFetchingAC(true));
-    dispatch(setFilterAС(filter))
-    dispatch(setCurrentPageAC(currentPage))
-
-
     let res = await usersAPI.getUsers(currentPage, pageSize, filter)
-
+    dispatch(setCurrentPageAC(currentPage))
     dispatch(setUsersAС(res.items))
     dispatch(setTotalUsersCountAC(res.totalCount))
 

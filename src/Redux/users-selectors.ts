@@ -22,6 +22,3 @@ export const getIsFetching = (state: AppRootStateType) => {
 export const getFollowingInProgress = (state: AppRootStateType) => {
     return state.usersPage.followingInProgress
 }
-export const getFilter = (state: AppRootStateType) => {
-    return state.usersPage.filter
-}

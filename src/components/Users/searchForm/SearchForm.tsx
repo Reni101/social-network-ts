@@ -1,22 +1,15 @@
 import React from 'react';
 import style from './SearchForm.module.css'
 import {useFormik} from "formik";
-
-import {FilterType,} from "../../../Redux/users-reducer";
 import {Button, Select} from "antd";
-
 import Input from "antd/lib/input/Input";
 
-
-type FormikErrorType = {
-    term?: string
-    onlyFriend: string
-
-}
 type PropsType = {
-    onFilterChanged: (filter: FilterType) => void
-}
+    termQuery: string,
+    friendQuery: string
+    setSearchParams: ({}: { name: string, friend: string } | {}) => void
 
+}
 
 export const SearchForm = (props: PropsType) => {
     const handleChange = (value: string) => {
@@ -25,29 +18,24 @@ export const SearchForm = (props: PropsType) => {
 
     const formik = useFormik({
         initialValues: {
-            term: '',
-            onlyFriend: "all"
-
-
+            term: props.termQuery,
+            onlyFriend: props.friendQuery
         },
         onSubmit: values => {
-            let filterFriend = null
-            if (values.onlyFriend === "all") filterFriend = null
-            if (values.onlyFriend === "myFriend") filterFriend = true
-            props.onFilterChanged({term: values.term, friend: filterFriend})
-        },
-
-        validate: (values: FormikErrorType) => {
-
+            props.setSearchParams({name: values.term, friend: values.onlyFriend})
         },
     });
     return (
         <form onSubmit={formik.handleSubmit} className={style.containerForm}>
 
-            <Input placeholder="Basic usage" onChange={formik.handleChange} name="term"/>
+            <Input
+                defaultValue={formik.values.term}
+                placeholder="Basic usage"
+                onChange={formik.handleChange}
+                name="term"/>
 
             <Select
-                defaultValue="all"
+                defaultValue={formik.values.onlyFriend || "all"}
                 style={{width: 120}}
                 onChange={handleChange}
                 options={[
@@ -55,10 +43,7 @@ export const SearchForm = (props: PropsType) => {
                     {value: 'myFriend', label: 'my friend'},
                 ]}
             />
-            <div>
-
-                <Button htmlType="submit" type="primary" onClick={formik.handleChange}>Search</Button>
-            </div>
+            <Button htmlType="submit" type="primary">Search</Button>
         </form>
     );
 };

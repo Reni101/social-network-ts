@@ -1,5 +1,5 @@
-import React, { useEffect} from 'react';
-import {FilterType, followTC, getUsersTC, unfollowTC} from "../../Redux/users-reducer";
+import React, {useCallback, useEffect} from 'react';
+import {followTC, getUsersTC, unfollowTC} from "../../Redux/users-reducer";
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User/User";
 import style from './Users.module.css'
@@ -7,12 +7,12 @@ import {SearchForm} from "./searchForm/SearchForm";
 import {useDispatch, useSelector} from "react-redux";
 import {
     getCurrentPage,
-    getFilter,
+
     getFollowingInProgress,
     getPageSize, getTotalItemsCount,
     getUsersSelector
 } from "../../Redux/users-selectors";
-import {Navigate} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
 
@@ -21,20 +21,20 @@ const UsersPage = () => {
     const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
     const users = useSelector(getUsersSelector)
     const pageSize = useSelector(getPageSize)
-    const currentPage = useSelector(getCurrentPage)
+    let currentPage = useSelector(getCurrentPage)
     const totalItemsCount = useSelector(getTotalItemsCount)
     const followingInProgress = useSelector(getFollowingInProgress)
-    const filter = useSelector(getFilter)
 
 
-    const onFilterChanged = (filter: FilterType) => {
-        dispatch(getUsersTC(1, pageSize, filter))
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const termQuery = searchParams.get('name') || ''
+    const friendQuery = searchParams.get('friend') || ''
+    const filter = {
+        term: termQuery,
+        friend: (friendQuery === 'myFriend')
     }
 
-    const onPageChanged = (pageNumber: number) => {
-        dispatch(getUsersTC(pageNumber, pageSize,
-            {term: filter.term, friend: filter.friend}))
-    }
     const followHandler = (userId: number) => {
         dispatch(followTC(userId))
     }
@@ -43,9 +43,13 @@ const UsersPage = () => {
     }
 
 
-    useEffect(() => {
-        dispatch(getUsersTC(currentPage, pageSize, {term: "", friend: null}))
+    const onPageChanged = useCallback((pageNumber: number) => {
+        dispatch(getUsersTC(pageNumber, pageSize, filter))
     }, [])
+
+    useEffect(() => {
+        dispatch(getUsersTC(1, pageSize, filter))
+    }, [termQuery, friendQuery])
 
 
     if (!isAuth) {
@@ -57,7 +61,11 @@ const UsersPage = () => {
             <h2>Users</h2>
 
             <SearchForm
-                onFilterChanged={onFilterChanged}
+
+                friendQuery={friendQuery}
+                termQuery={termQuery}
+                setSearchParams={setSearchParams}
+
             />
 
             <Paginator onPageChanged={onPageChanged}
@@ -71,6 +79,7 @@ const UsersPage = () => {
                                    followThunk={followHandler}
                                    unfollowThunk={unfollowHandler}
             />)}
+            {!users.length && <div>not found</div>}
         </div>
     );
 };
