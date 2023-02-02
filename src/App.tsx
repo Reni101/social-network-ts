@@ -7,18 +7,18 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import type {MenuProps} from 'antd';
-import {Breadcrumb, Layout, Menu, theme} from 'antd';
+import {Breadcrumb, Layout, Menu, Spin, theme} from 'antd';
 
 import {HeaderPage} from "./components/Header/HeaderPage";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Redux/Redux-store";
 import {InitializeAppTC} from "./Redux/app-reducer";
-import Preloader from "./components/common/Preloader";
+
 import UsersPage from "./components/Users/UsersPage";
 import {LoginPage} from "./components/Login/LoginPage";
 import {ChatPage} from "./components/ChatWS/ChatPage";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {NavLink, Route, Routes, useLocation} from "react-router-dom";
+import {NavLink, Route, Routes, useLocation, Navigate} from "react-router-dom";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 
 
@@ -46,20 +46,22 @@ function getItem(
 export const App: React.FC = () => {
 
     const params = useLocation()
+    const paramsURl = params.pathname.split("/")[1]
+
     const dispatch = useDispatch()
     const {token: {colorBgContainer},} = theme.useToken();
 
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
     const initialized = useSelector<AppRootStateType>(state => state.app.initialized)
     const myId = useSelector<AppRootStateType>(state => state.auth.userId)
 
 
     const items: MenuItem[] = [
-        getItem(<NavLink to={`/profile/${myId}`}>Profile</NavLink>, '/profile',
+        getItem(<NavLink to={`/profile/${myId}`}>Profile</NavLink>, 'profile',
             <PieChartOutlined/>),
-        getItem(<NavLink to="/dialogs">Message</NavLink>, '/dialogs', <DesktopOutlined/>),
-        getItem(<NavLink to="/users">Users</NavLink>, '/users', <UserOutlined/>),
-        getItem(<NavLink to="/chat">Chat</NavLink>, '/chat', <WechatOutlined/>),
+        getItem(<NavLink to="/dialogs">Message</NavLink>, 'dialogs', <DesktopOutlined/>),
+        getItem(<NavLink to="/users">Users</NavLink>, 'users', <UserOutlined/>),
+        getItem(<NavLink to="/chat">Chat</NavLink>, 'chat', <WechatOutlined/>),
 
     ];
 
@@ -69,15 +71,15 @@ export const App: React.FC = () => {
 
 
     if (!initialized) {
-        return <Preloader/>
+        return <Spin tip="Loading" size="large" style={{margin: " 25% 50%"}}>
+        </Spin>
     }
 
     return (
         <Layout style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div style={{height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)'}}/>
                 <Menu theme="dark"
-                      defaultSelectedKeys={[params.pathname]}
+                      defaultSelectedKeys={[paramsURl]}
                       mode="inline"
                       items={items}
                 />
@@ -90,17 +92,20 @@ export const App: React.FC = () => {
                     </Breadcrumb>
                     <div style={{padding: 24, minHeight: 360, background: colorBgContainer}}>
                         <Routes>
-                            <Route path="/profile/:userId" element={<ProfileContainer/>}/>
+                            <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                             <Route path="/dialogs" element={<DialogsContainer/>}/>
                             <Route path="/users" element={<UsersPage/>}/>
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/chat" element={<ChatPage/>}/>
+
+
+                            <Route path="*" element={<Navigate to={`/chat`}/>}/>
                         </Routes>
                     </div>
                 </Content>
 
 
-                <Footer style={{textAlign: 'center'}}>Ant Design ©2023 Created by Ant UED</Footer>
+                <Footer style={{textAlign: 'center'}}>© Created by Maxim Dmitriev</Footer>
             </Layout>
 
         </Layout>

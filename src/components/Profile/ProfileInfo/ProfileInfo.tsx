@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './ProfileInfo.module.css'
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 import {ProfileType, savePhotoTC} from "../../../Redux/profile-reducer";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import UserAvatar from '../../../img/UsersAvatar.jpg'

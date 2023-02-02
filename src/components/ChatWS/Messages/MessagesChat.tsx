@@ -3,6 +3,7 @@ import {ChatMessageType} from "../../../Redux/chat-ws-reducer";
 import style from './MessageChat.module.css'
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../Redux/Redux-store";
+import {NavLink} from "react-router-dom";
 
 
 export const MessagesChat = React.memo(() => {
@@ -28,7 +29,9 @@ export const MessagesChat = React.memo(() => {
         <div className={style.messagesContainer} onScroll={scrollHandler}>
             {messages.map((el, index) => {
                 return < div key={index + Date.now()} className={style.message}>
-                    <img src={el.photo} alt="" className={style.avatar}/>
+                    <NavLink to={'/profile/' + el.userId}>
+                        <img src={el.photo} alt="" className={style.avatar}/>
+                    </NavLink>
                     <span className={style.text}>{el.userName}: </span>
                     <span>{el.message}</span>
                 </div>

@@ -6,7 +6,7 @@ import {Navigate, useParams} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
 
 export const ProfileContainer = () => {
-    const {userId} = useParams()
+    let {userId} = useParams()
     const dispatch = useDispatch()
 
     const authorizedUserID = useSelector<AppRootStateType, number>(state => state.auth.userId!)

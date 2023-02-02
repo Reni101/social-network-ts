@@ -11,6 +11,7 @@ export const DialogsContainer = () => {
     }
     return (
         <>
+            <h2>In progress...</h2>
             <Dialogs/>
         </>
     );

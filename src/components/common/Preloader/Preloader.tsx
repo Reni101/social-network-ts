@@ -1,11 +1,11 @@
 import React from 'react';
-import loader from "../../img/loader.gif";
-
+import {Spin} from "antd";
 const Preloader = () => {
 
     return (
-        <div >
-            <img src={loader} alt="1" />
+        <div  >
+            <Spin tip="Loading" size="large">
+            </Spin>
         </div>
     );
 };

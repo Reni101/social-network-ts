@@ -3,8 +3,8 @@ import style from './SearchForm.module.css'
 import {useFormik} from "formik";
 
 import {FilterType,} from "../../../Redux/users-reducer";
-import {Button, Select, Space} from "antd";
-import {json} from "stream/consumers";
+import {Button, Select} from "antd";
+
 import Input from "antd/lib/input/Input";
 
 
@@ -47,7 +47,6 @@ export const SearchForm = (props: PropsType) => {
             <Input placeholder="Basic usage" onChange={formik.handleChange} name="term"/>
 
             <Select
-
                 defaultValue="all"
                 style={{width: 120}}
                 onChange={handleChange}

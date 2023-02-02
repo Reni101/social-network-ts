@@ -44,7 +44,7 @@ export type PhotosType = {
 
 let initialState = {
     postsData: [
-        {id: v1(), message: "My first post", likeCount: 0},
+        {id: v1(), message: "In progress...", likeCount: 0},
     ] as Array<PostsDataType>,
 
     profile: null as ProfileType | null,
