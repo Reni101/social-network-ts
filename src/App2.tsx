@@ -2,7 +2,7 @@ import React, {Suspense, useEffect, useState} from 'react';
 import './index.css';
 import {
     DesktopOutlined,
-
+    WechatOutlined,
     PieChartOutlined,
     UserOutlined,
 } from '@ant-design/icons';
@@ -49,7 +49,7 @@ const App2: React.FC = () => {
             <PieChartOutlined/>),
         getItem(<NavLink to="/dialogs">Message</NavLink>, '/dialogs', <DesktopOutlined/>),
         getItem(<NavLink to="/users">Users</NavLink>, '/users', <UserOutlined/>),
-        getItem(<NavLink to="/chat">Chat</NavLink>, '/chat', <UserOutlined/>),
+        getItem(<NavLink to="/chat">Chat</NavLink>, '/chat', <WechatOutlined/>),
 
     ];
 
