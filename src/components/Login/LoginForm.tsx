@@ -18,6 +18,8 @@ const LoginForm = () => {
     const dispatch = useDispatch()
     const captchaURl = useSelector<AppRootStateType, string | null>(state => state.auth.captchaURl)
 
+
+
     const formik = useFormik({
         initialValues: {
             login: '',
@@ -64,6 +66,7 @@ const LoginForm = () => {
                 <h2>Password</h2>
 
                 <Input.Password
+                    autoComplete="on"
                     name="password"
                     type="password"
                     onChange={formik.handleChange}
