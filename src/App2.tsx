@@ -54,7 +54,7 @@ const App2: React.FC = () => {
     ];
 
 
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const dispathc = useDispatch()
     const initialized = useSelector<AppRootStateType>(state => state.app.initialized)
 
@@ -73,12 +73,13 @@ const App2: React.FC = () => {
 
     return (
         <Layout style={{minHeight: '100vh'}}>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+            <Sider collapsible collapsed={collapsed}  onCollapse={(value) => setCollapsed(value) }>
                 <div style={{height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)'}}/>
                 <Menu theme="dark"
                       defaultSelectedKeys={['/profile']}
                       mode="inline"
-                      items={items}/>
+                      items={items}
+                />
             </Sider>
             <Layout className="site-layout">
                 <HeaderPage/>

@@ -11,11 +11,11 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
     authorizedUserID: number
     isOwner: boolean
-    savePhoto: (file: any) => void
+    savePhoto: (file: File) => void
 }
 
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = React.memo((props: ProfilePropsType) => {
 
     return (
         <div className={styleP.profile}>
@@ -34,6 +34,6 @@ const Profile = (props: ProfilePropsType) => {
 
         </div>
     );
-};
+})
 
 export default Profile;

@@ -17,7 +17,7 @@ type PropsType = {
 }
 
 
-const ProfileInfo = (props: PropsType) => {
+const ProfileInfo = React.memo((props: PropsType) => {
     const [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
@@ -40,14 +40,14 @@ const ProfileInfo = (props: PropsType) => {
                 : <div>{props.status || "Status not found"} </div>}
             {editMode ? <ProfileDataForm profile={props.profile} isOwner={props.isOwner} toEditMode={() => {
                     setEditMode(false)
-                }} /> :
+                }}/> :
                 <ProfileData profile={props.profile} isOwner={props.isOwner} toEditMode={() => {
                     setEditMode(true)
                 }}/>}
 
         </div>
     );
-};
+})
 
 export default ProfileInfo;
 

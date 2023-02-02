@@ -2,10 +2,10 @@ import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
-    getProfileThunkCreator,
-    getStatusThunkCreator,
+    getProfileTC,
+    getStatusTC,
     ProfileType, savePhotoTC,
-    updateStatusThunkCreator
+    updateStatusTC
 } from "../../Redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
@@ -79,9 +79,9 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {},
         AppRootStateType>(mapStateToProps, {
-        getProfileThunk: getProfileThunkCreator,
-        getStatusThunk: getStatusThunkCreator,
-        updateStatusThunk: updateStatusThunkCreator,
+        getProfileThunk: getProfileTC,
+        getStatusThunk: getStatusTC,
+        updateStatusThunk: updateStatusTC,
         savePhotoThunk:savePhotoTC
     }),
     withRouter,

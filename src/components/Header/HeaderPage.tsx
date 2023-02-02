@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/Redux-store";
 import {logoutTC} from "../../Redux/auth-reducer";
-import {Layout, theme} from "antd";
+import {Button, Layout, theme} from "antd";
 
 const {Header} = Layout;
 
@@ -27,7 +27,7 @@ export const HeaderPage = () => {
             <Header style={{padding: 0, background: colorBgContainer}}>
 
                 <div className={styleH.loginBlock}>
-                    {isAuth ? <div>{login} - <button onClick={logoutHandler}>Log out</button></div>
+                    {isAuth ? <div>{login} - <Button onClick={logoutHandler}>Log out</Button></div>
                         : <NavLink to='/login'>Login </NavLink>}
                 </div>
 

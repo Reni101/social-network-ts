@@ -52,7 +52,7 @@ let initialState = {
 
 }
 export type ActionsProfileType =
-    | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof savePhotoSuccessAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof addPostAC>
@@ -78,8 +78,7 @@ export const ProfileReducer = (state = initialState, action: ActionsProfileType)
             return {...state, status: action.status}
         }
         case "SAVE_PHOTO_SUCCESS": {
-//@ts-ignore пофиксить!
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
 
         default:
@@ -99,25 +98,25 @@ export const setStatusAC = (status: string) => ({
     type: SET_STATUS,
     status
 } as const)
-export const savePhotoSuccess = (photos: PhotosType) => ({
+export const savePhotoSuccessAC = (photos: PhotosType) => ({
     type: 'SAVE_PHOTO_SUCCESS',
     photos
 } as const)
 
 //========================Thunk Creator======================
 
-export const getProfileThunkCreator = (userid: string): AppThunk => async dispatch => {
+export const getProfileTC = (userid: string): AppThunk => async dispatch => {
     let response = await profileAPI.getProfile(userid)
     dispatch(setUserProfileAC(response.data))
 }
 
-export const getStatusThunkCreator = (userid: string): AppThunk => async dispatch => {
+export const getStatusTC = (userid: string): AppThunk => async dispatch => {
     let response = await profileAPI.getStatus(userid)
     dispatch(setStatusAC(response.data))
 
 }
 
-export const updateStatusThunkCreator = (status: string): AppThunk => async dispatch => {
+export const updateStatusTC = (status: string): AppThunk => async dispatch => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status))
@@ -128,7 +127,7 @@ export const updateStatusThunkCreator = (status: string): AppThunk => async disp
 export const savePhotoTC = (file: any): AppThunk => async dispatch => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+        dispatch(savePhotoSuccessAC(response.data.data.photos))
     }
 
 }

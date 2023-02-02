@@ -15,7 +15,7 @@ export const MessageForm = () => {
         setMessageFromTextArea(e.currentTarget.value)
     }
     const sendMessageHandler = async () => {
-        if (messageFromTextArea === "") return// fix
+        if (messageFromTextArea.trim() === "") return// fix
         await dispatch(sendMessage(messageFromTextArea))
         setMessageFromTextArea('')
 
