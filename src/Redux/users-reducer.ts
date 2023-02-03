@@ -36,7 +36,7 @@ export type ActionsUsersType =
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
     | ReturnType<typeof toggleIsFollowingAC>
-
+    | ReturnType<typeof setCurrentPageSizeAC>
 
 
 export const UsersReducer = (state = initialState, action: ActionsUsersType): initialUsersStateType => {
@@ -79,6 +79,8 @@ export const UsersReducer = (state = initialState, action: ActionsUsersType): in
                     : [...state.followingInProgress.filter(id => id !== action.userId)]
             }
         }
+        case "SET_CURRENT_PAGE_SIZE":
+            return {...state, pageSize: action.currentPageSize}
 
         default:
             return state
@@ -93,6 +95,10 @@ export const setUsersAС = (users: Array<UserType>) => ({type: "SET_USERS", user
 export const setCurrentPageAC = (currentPage: number) => ({
     type: "SET_CURRENT_PAGE",
     currentPage
+} as const)
+export const setCurrentPageSizeAC = (currentPageSize: number) => ({
+    type: "SET_CURRENT_PAGE_SIZE",
+    currentPageSize
 } as const)
 export const setTotalUsersCountAC = (totalCount: number) => ({
     type: "SET_TOTAL_COUNT",
@@ -114,6 +120,7 @@ export const getUsersTC = (currentPage: number, pageSize: number,
     dispatch(toggleIsFetchingAC(true));
     let res = await usersAPI.getUsers(currentPage, pageSize, filter)
     dispatch(setCurrentPageAC(currentPage))
+    dispatch(setCurrentPageSizeAC(pageSize))
     dispatch(setUsersAС(res.items))
     dispatch(setTotalUsersCountAC(res.totalCount))
 

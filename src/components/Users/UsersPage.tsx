@@ -20,8 +20,8 @@ const UsersPage = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
     const users = useSelector(getUsersSelector)
-    const pageSize = useSelector(getPageSize)
-    let currentPage = useSelector(getCurrentPage)
+    const currentPageSize = useSelector(getPageSize)
+    const currentPage = useSelector(getCurrentPage)
     const totalItemsCount = useSelector(getTotalItemsCount)
     const followingInProgress = useSelector(getFollowingInProgress)
 
@@ -43,12 +43,12 @@ const UsersPage = () => {
     }
 
 
-    const onPageChanged = useCallback((pageNumber: number) => {
+    const onPageChanged = useCallback((pageNumber: number, pageSize: number) => {
         dispatch(getUsersTC(pageNumber, pageSize, filter))
-    }, [])
+    }, [filter])
 
     useEffect(() => {
-        dispatch(getUsersTC(1, pageSize, filter))
+        dispatch(getUsersTC(1, currentPageSize, filter))
     }, [termQuery, friendQuery])
 
 
@@ -69,8 +69,9 @@ const UsersPage = () => {
             />
 
             <Paginator onPageChanged={onPageChanged}
+                       currentPageSize={currentPageSize}
                        currentPage={currentPage}
-                       pageSize={pageSize}
+                       pageSize={currentPageSize}
                        totalItemsCount={totalItemsCount}/>
 
             {users.map(el => <User user={el}
