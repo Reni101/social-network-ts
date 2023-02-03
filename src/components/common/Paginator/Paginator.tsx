@@ -16,7 +16,6 @@ export const Paginator: FC<PropsType> = React.memo(({totalItemsCount, pageSize, 
     const changePageHandler = (page: number) => {
         if (page === currentPage) return
         onPageChanged(page)
-
     }
     return (
         <div className={style.containerPaginator}>
