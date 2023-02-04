@@ -53,7 +53,7 @@ const UsersPage = () => {
 
 
     if (!isAuth) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/login'}/>
     }
 
     return (

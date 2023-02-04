@@ -91,10 +91,9 @@ export const App: React.FC = () => {
                             <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                             <Route path="/dialogs" element={<DialogsContainer/>}/>
                             <Route path="/users" element={<UsersPage/>}/>
-                            <Route path="/" element={<LoginPage/>}/>
+                            <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/chat" element={<ChatPage/>}/>
                             <Route path="/notFound" element={<NotFoundPage/>}/>
-
 
                             <Route path="*" element={<Navigate to={`/notFound`}/>}/>
                         </Routes>

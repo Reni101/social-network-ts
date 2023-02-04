@@ -7,8 +7,9 @@ import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
     const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
+    const authorizedUserID = useSelector<AppRootStateType, number>(state => state.auth.userId!)
     if (isAuth) {
-        return <Navigate to={`/users`}/>
+        return <Navigate to={`/profile/${authorizedUserID}`}/>
     }
     return (
         <div>

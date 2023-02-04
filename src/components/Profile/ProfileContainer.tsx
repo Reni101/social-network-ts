@@ -14,13 +14,13 @@ export const ProfileContainer = () => {
     const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
 
     useEffect(() => {
-        dispatch(getProfileTC(userId!))
-        dispatch(getStatusTC(userId!))
+        dispatch(getProfileTC(userId ? userId : authorizedUserID.toString()))
+        dispatch(getStatusTC(userId ? userId : authorizedUserID.toString()))
     }, [userId])
 
 
     if (!isAuth) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/login'}/>
     }
 
     return (

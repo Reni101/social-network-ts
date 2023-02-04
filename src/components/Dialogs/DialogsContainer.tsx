@@ -7,7 +7,7 @@ import {Navigate} from "react-router-dom";
 export const DialogsContainer = () => {
     const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
     if (!isAuth) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/login'}/>
     }
     return (
         <>

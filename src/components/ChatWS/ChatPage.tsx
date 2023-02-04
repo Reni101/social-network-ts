@@ -23,7 +23,7 @@ export const ChatPage = () => {
     }, [])
 
     if (!isAuth) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/login'}/>
     }
 
 
