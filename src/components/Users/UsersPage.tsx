@@ -3,7 +3,6 @@ import {followTC, getUsersTC, unfollowTC} from "../../Redux/users-reducer";
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User/User";
 import style from './Users.module.css'
-import {SearchForm} from "./searchForm/SearchForm";
 import {useDispatch, useSelector} from "react-redux";
 import {
     getCurrentPage,
@@ -14,6 +13,7 @@ import {
 } from "../../Redux/users-selectors";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/Redux-store";
+import {friendType, Search} from "./Search/Search";
 
 
 const UsersPage = () => {
@@ -29,7 +29,7 @@ const UsersPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const termQuery = searchParams.get('name') || ''
-    const friendQuery = searchParams.get('friend') || ''
+    const friendQuery = (searchParams.get('friend') || "all") as friendType
     const filter = {
         term: termQuery,
         friend: (friendQuery === 'myFriend')
@@ -53,20 +53,16 @@ const UsersPage = () => {
 
 
     if (!isAuth) {
-        return <Navigate to={'/login'}/>
+        return <Navigate to={'/'}/>
     }
 
     return (
         <div className={style.containerUsers}>
             <h2>Users</h2>
 
-            <SearchForm
-
-                friendQuery={friendQuery}
-                termQuery={termQuery}
-                setSearchParams={setSearchParams}
-
-            />
+            <Search friendQuery={friendQuery}
+                    termQuery={termQuery}
+                    setSearchParams={setSearchParams}/>
 
             <Paginator onPageChanged={onPageChanged}
                        currentPageSize={currentPageSize}
@@ -80,7 +76,7 @@ const UsersPage = () => {
                                    followThunk={followHandler}
                                    unfollowThunk={unfollowHandler}
             />)}
-            {!users.length && <div>not found</div>}
+            {!users.length && <div>users not found</div>}
         </div>
     );
 };

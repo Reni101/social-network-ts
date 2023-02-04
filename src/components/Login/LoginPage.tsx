@@ -8,7 +8,7 @@ import LoginForm from "./LoginForm";
 export const LoginPage = () => {
     const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
     if (isAuth) {
-        return <Navigate to={`/chat`}/>
+        return <Navigate to={`/users`}/>
     }
     return (
         <div>

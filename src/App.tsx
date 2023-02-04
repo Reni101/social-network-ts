@@ -20,6 +20,7 @@ import {ChatPage} from "./components/ChatWS/ChatPage";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {NavLink, Route, Routes, Navigate} from "react-router-dom";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {NotFoundPage} from "./components/NotFound/NotFoundPage";
 
 
 //const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -90,11 +91,12 @@ export const App: React.FC = () => {
                             <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                             <Route path="/dialogs" element={<DialogsContainer/>}/>
                             <Route path="/users" element={<UsersPage/>}/>
-                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/" element={<LoginPage/>}/>
                             <Route path="/chat" element={<ChatPage/>}/>
+                            <Route path="/notFound" element={<NotFoundPage/>}/>
 
 
-                            <Route path="*" element={<Navigate to={`/chat`}/>}/>
+                            <Route path="*" element={<Navigate to={`/notFound`}/>}/>
                         </Routes>
                     </div>
                 </Content>
