@@ -31,14 +31,13 @@ export const Search = (props: PropsType) => {
         <div className={style.container}>
 
             <Input
-                defaultValue={props.termQuery}
+                defaultValue={term}
                 placeholder="Basic usage"
                 onChange={inputHandler}
                 name="term"/>
 
             <Select
-                defaultValue={props.friendQuery}
-                value={onlyFriend}
+                defaultValue={onlyFriend}
                 style={{width: 120}}
                 onChange={selectHandler}
                 options={[
