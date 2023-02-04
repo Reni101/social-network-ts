@@ -17,7 +17,7 @@ export const Search = (props: PropsType) => {
     const [onlyFriend, setOnlyFriend] = useState<friendType>(props.friendQuery)
 
 
-    const selectHandler = (value: "all" | "myFriend") => {
+    const selectHandler = (value: friendType) => {
         setOnlyFriend(value)
     }
     const inputHandler = (e: any) => {
