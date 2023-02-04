@@ -1,5 +1,5 @@
 import React from 'react';
-import contentIMG from "../../img/content .jpg";
+import contentIMG from "../../assets/content .jpg";
 import styleP from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";

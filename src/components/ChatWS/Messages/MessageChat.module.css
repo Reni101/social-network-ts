@@ -8,7 +8,7 @@
 
 .message {
     border: 1px solid #1677ff;
-    background-color: #cdd4de;
+    background-color: rgba(22, 119, 255, 0.5);
     margin: 10px;
     padding: 10px;
 }

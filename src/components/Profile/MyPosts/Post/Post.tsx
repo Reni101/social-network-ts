@@ -1,6 +1,6 @@
 import React from 'react';
 import stylePo from "./Post.module.css"
-import avatar from "../../../../img/avatar.png";
+import avatar from "../../../../assets/avatar.png";
 
 type PostPropsType = {
     text: string

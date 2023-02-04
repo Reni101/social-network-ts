@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {NavLink} from "react-router-dom";
-import UserAvatar from "../../../img/UsersAvatar.jpg";
+import UserAvatar from "../../../assets/UsersAvatar.jpg";
 import {UserType} from "../../../Redux/users-reducer";
 import {Button} from "antd";
 

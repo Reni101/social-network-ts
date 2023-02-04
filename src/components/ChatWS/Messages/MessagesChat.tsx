@@ -4,6 +4,7 @@ import style from './MessageChat.module.css'
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../Redux/Redux-store";
 import {NavLink} from "react-router-dom";
+import avatar from '../../../assets/UsersAvatar.jpg'
 
 
 export const MessagesChat = React.memo(() => {
@@ -30,7 +31,7 @@ export const MessagesChat = React.memo(() => {
             {messages.map((el, index) => {
                 return < div key={index + Date.now()} className={style.message}>
                     <NavLink to={'/profile/' + el.userId}>
-                        <img src={el.photo} alt="" className={style.avatar}/>
+                        <img src={el.photo ? el.photo : avatar} alt="" className={style.avatar}/>
                     </NavLink>
                     <span className={style.text}>{el.userName}: </span>
                     <span>{el.message}</span>
