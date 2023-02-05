@@ -14,7 +14,6 @@ type PropsType = {
 
 export const Paginator: FC<PropsType> = React.memo(({totalItemsCount, currentPageSize, currentPage, onPageChanged}) => {
     const changePageHandler = (page: number, pageSize: number) => {
-
         if ((pageSize === currentPageSize) && (page === currentPage)) return;
         onPageChanged(page, pageSize)
     }
@@ -23,6 +22,7 @@ export const Paginator: FC<PropsType> = React.memo(({totalItemsCount, currentPag
 
 
             <Pagination current={currentPage}
+                        defaultPageSize={currentPageSize}
                         defaultCurrent={1}
                         total={totalItemsCount}
                         pageSizeOptions={['5', "10", "20"]}

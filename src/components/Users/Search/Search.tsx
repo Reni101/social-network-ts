@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {KeyboardEventHandler, useState} from 'react';
 import style from './Search.module.css'
 import Input from "antd/lib/input/Input";
 import {Button, Select} from "antd";
@@ -26,17 +26,22 @@ export const Search = (props: PropsType) => {
     const buttonHandler = () => {
         props.setSearchParams({name: term, friend: onlyFriend})
     }
-
+    const pressEnter = (e: any) => {
+        e.key === "Enter" && buttonHandler()
+    }
     return (
         <div className={style.container}>
 
             <Input
+                onKeyUp={pressEnter}
+                autoFocus
                 defaultValue={term}
                 placeholder="Basic usage"
                 onChange={inputHandler}
                 name="term"/>
 
             <Select
+
                 defaultValue={onlyFriend}
                 style={{width: 120}}
                 onChange={selectHandler}

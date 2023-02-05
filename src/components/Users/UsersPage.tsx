@@ -57,7 +57,7 @@ const UsersPage = () => {
     }
 
     return (
-        <div className={style.containerUsers}>
+        <div className={style.container}>
             <h2>Users</h2>
 
             <Search friendQuery={friendQuery}
@@ -70,13 +70,15 @@ const UsersPage = () => {
                        pageSize={currentPageSize}
                        totalItemsCount={totalItemsCount}/>
 
-            {users.map(el => <User user={el}
-                                   key={el.id}
-                                   followingInProgress={followingInProgress}
-                                   followThunk={followHandler}
-                                   unfollowThunk={unfollowHandler}
-            />)}
-            {!users.length && <div>users not found</div>}
+           <div className={style.userContainer}>
+               {users.map(el => <User user={el}
+                                      key={el.id}
+                                      followingInProgress={followingInProgress}
+                                      followThunk={followHandler}
+                                      unfollowThunk={unfollowHandler}
+               />)}
+               {!users.length && <div>users not found</div>}
+           </div>
         </div>
     );
 };
