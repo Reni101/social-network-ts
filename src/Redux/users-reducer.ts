@@ -118,6 +118,8 @@ export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
 export const getUsersTC = (currentPage: number, pageSize: number,
                            filter: FilterType): AppThunk => async dispatch => {
     dispatch(toggleIsFetchingAC(true));
+
+    if (!filter.friend) filter.friend = null
     let res = await usersAPI.getUsers(currentPage, pageSize, filter)
     dispatch(setCurrentPageAC(currentPage))
     dispatch(setCurrentPageSizeAC(pageSize))

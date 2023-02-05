@@ -30,6 +30,7 @@ const UsersPage = () => {
 
     const termQuery = searchParams.get('name') || ''
     const friendQuery = (searchParams.get('friend') || "all") as friendType
+
     const filter = {
         term: termQuery,
         friend: (friendQuery === 'myFriend')

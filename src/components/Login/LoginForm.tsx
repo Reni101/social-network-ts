@@ -83,7 +83,7 @@ const LoginForm = () => {
 
 
                 {captchaURl && <div><img src={captchaURl} alt="captcha"/></div>}
-                {captchaURl && <input
+                {captchaURl && <Input
                     placeholder="enter the captcha"
                     type="text"
                     name="captcha"
