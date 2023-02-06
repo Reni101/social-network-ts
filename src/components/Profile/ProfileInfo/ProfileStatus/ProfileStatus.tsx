@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {updateStatusTC} from "../../../../Redux/profile-reducer";
 import {AppRootStateType} from "../../../../Redux/Redux-store";
-
+import {Input} from "antd";
 
 
 export const ProfileStatus = () => {
@@ -30,18 +30,16 @@ export const ProfileStatus = () => {
 
     return <>
         {!editMode
-            ? <div>
-                <div onDoubleClick={activateEditMode}>{statusFromState || "Status not found"} </div>
-            </div>
+            ? <div onDoubleClick={activateEditMode}>status: {statusFromState || "Status not found"} </div>
             : <div>
-                <input autoFocus
-                       onBlur={deActivateEditMode}
-                       value={status}
-                       onChange={onStatusChange}
-                />
-
-
-            </div>}
+                status:<Input autoFocus
+                              style={{width: "200px",position:"absolute"}}
+                              onBlur={deActivateEditMode}
+                              value={status}
+                              onChange={onStatusChange}
+            />
+            </div>
+        }
 
     </>
 

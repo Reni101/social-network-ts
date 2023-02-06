@@ -1,16 +1,12 @@
-.profile {
-    grid-area: c;
-    background-color: blueviolet;
-    color: white;
-    padding: 5px;
-
-}
-.main {
-    text-align: center;
-}
-
-div .contentIMG {
-    width: 900px;
+.profileContainer {
+    max-width: 80%;
     margin: 0 auto;
+    position: relative;
+    height: 70vh;
 }
 
+.profileContainer > img {
+    width: 100%;
+    border-radius: 8px
+
+}

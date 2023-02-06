@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {DialogsReducer} from "./dialogs-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 import {authReducer} from "./auth-reducer";
 import thunk from 'redux-thunk';
 import {profileReducer} from "./profile-reducer";
@@ -12,7 +12,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 const rootReducer = combineReducers({
         profilePage: profileReducer,
-        dialogsPage: DialogsReducer,
+        dialogsPage: dialogsReducer,
         usersPage: usersReducer,
         auth: authReducer,
         app: appReducer,

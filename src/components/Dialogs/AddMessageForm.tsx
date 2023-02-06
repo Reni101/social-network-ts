@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
-import {sendMessageActionCreator} from "../../Redux/dialogs-reducer";
+import {sendMessageAC} from "../../Redux/dialogs-reducer";
 
 
 type FormikType = {
@@ -15,7 +15,7 @@ const AddMessageForm = () => {
             Text: '',
         },
         onSubmit: values => {
-            dispatch(sendMessageActionCreator(values.Text))
+            dispatch(sendMessageAC({messageBody:values.Text}))
             formik.resetForm()
         },
         validate: (values: FormikType) => {

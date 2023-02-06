@@ -4,7 +4,7 @@ export type PostsType = {
     message: string
     likeCount: number
 };
-export type messages = {
+export type messagesDialogs = {
     id: string
     message: string
 };
@@ -14,7 +14,7 @@ export type dialogs = {
 };
 
 export type DialogsPageType = {
-    messagesData: Array<messages>
+    messagesData: Array<messagesDialogs>
     dialogsData: Array<dialogs>
     newMessagesBody: string
 }

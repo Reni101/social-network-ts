@@ -4,9 +4,6 @@ import {chatAPI, StatusType} from "../api/chat-ws-api";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ChatMessageType} from "./Types";
 
-
-
-
 const slice = createSlice({
     name: "chatWSReducer",
     initialState: {
@@ -56,6 +53,7 @@ export const startMessagesListeningTC = () => async (dispatch: AppDispatch) => {
     chatAPI.subscribe('status-changed', statusChangedHandlerCreator(dispatch))
 
 }
+
 export const stopMessagesListeningTC = () => async (dispatch: AppDispatch) => {
     chatAPI.unsubscribe('messages-received', newMessageHandlerCreator(dispatch))
     chatAPI.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
