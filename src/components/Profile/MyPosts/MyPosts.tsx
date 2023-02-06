@@ -1,29 +1,20 @@
-import React, {memo} from 'react';
+import React from 'react';
 import styleMP from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {PostsType} from "../../../Redux/Types";
-import AddPostForm from "./AddPostForm";
+import {AddPostForm} from "./AddPostForm";
+import {useAppSelector} from "../../../Redux/Redux-store";
 
 
-
-type MyPostsPropsType = {
-    postsData: Array<PostsType>
-    addPost: (text: string) => void
-}
-
-
-const MyPosts = memo((props: MyPostsPropsType) => {
-        const mapPost = props.postsData.map((e) => {
+export const MyPosts = ( ) => {
+    const postsData= useAppSelector(state => state.profilePage.postsData)
+        const mapPost = postsData.map((e) => {
             return <Post key={e.id} text={e.message} likeCount={e.likeCount}/>
         })
-
-
-
         return (
             <div className={styleMP.item}>
                 Add post
                 <div>
-                    <AddPostForm addPost={props.addPost} />
+                    <AddPostForm />
 
                 </div>
 
@@ -35,7 +26,6 @@ const MyPosts = memo((props: MyPostsPropsType) => {
 
             </div>
         );
-    })
+    }
 ;
 
-export default MyPosts;

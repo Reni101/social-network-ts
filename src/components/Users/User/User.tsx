@@ -2,8 +2,9 @@ import React, {FC} from 'react';
 import style from './User.module.css'
 import {NavLink} from "react-router-dom";
 import UserAvatar from "../../../assets/UsersAvatar.jpg";
-import {UserType} from "../../../Redux/users-reducer";
+
 import {Button} from "antd";
+import {UserType} from "../../../Redux/Types";
 
 
 type PropsType = {

@@ -1,15 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ChatMessageType} from "../../../Redux/chat-ws-reducer";
 import style from './MessageChat.module.css'
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../Redux/Redux-store";
+import {useAppSelector} from "../../../Redux/Redux-store";
 import {NavLink} from "react-router-dom";
 import avatar from '../../../assets/UsersAvatar.jpg'
+import {ChatMessageType} from "../../../Redux/Types";
 
 
 export const MessagesChat = React.memo(() => {
 
-    const messages = useSelector<AppRootStateType, ChatMessageType[]>(state => state.chat.messages)
+    const messages = useAppSelector<ChatMessageType[]>(state => state.chat.messages)
     const messagesAnchorRef = useRef<HTMLDivElement>(null);
     const [isAutoScroll, setIsAutoScroll] = useState(true)
 

@@ -1,34 +1,25 @@
-import {AppThunk} from "./Redux-store";
-
+import {AppDispatch} from "./Redux-store";
 import {getAuthUserDataTC} from "./auth-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export type initialStateType = typeof initialState
-
-const initialState = {
-    initialized: false
-};
-
-export const appReducer = (state = initialState, action: setInitializedType): initialStateType => {
-    switch (action.type) {
-        case 'SET_INITIALIZED_SUCCESSED':
-            return {
-                ...state, initialized: action.value
-            }
-        default:
-            return state
+const slice = createSlice({
+    name: "appReducer",
+    initialState: {initialized: false},
+    reducers: {
+        setInitialized(state, action: PayloadAction<{ value: boolean }>) {
+            state.initialized = action.payload.value
+        }
     }
-}
-
-//========================Action Creator======================
-export type setInitializedType = ReturnType<typeof setInitialized>
-export const setInitialized = (value: boolean) => ({type: 'SET_INITIALIZED_SUCCESSED', value} as const)
+})
+export const appReducer = slice.reducer
+export const {setInitialized} = slice.actions
 
 //========================Thunk Creator======================
-export const InitializeAppTC = (): AppThunk => dispatch => {
+export const InitializeAppTC = () => (dispatch:AppDispatch) => {
     let promise = dispatch(getAuthUserDataTC())
     Promise.all([promise])
         .then(() => {
-            dispatch(setInitialized(true))
+            dispatch(setInitialized({value: true}))
         })
 }
 

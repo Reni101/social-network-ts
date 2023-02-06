@@ -1,5 +1,6 @@
-import {addPostAC, PostsDataType, ProfileReducer, ProfileType} from "../Redux/profile-reducer";
+import {addPostAC, profileReducer } from "../Redux/profile-reducer";
 import {v1} from "uuid";
+import {PostsDataType, ProfileType} from "../Redux/Types";
 
 
 test('new post should be added', () => {
@@ -13,8 +14,8 @@ test('new post should be added', () => {
 
     }
     //2. action
-    let action = addPostAC("new Text")
-    let newState = ProfileReducer(initialState, action)
+    let action = addPostAC({text:"new Text"})
+    let newState = profileReducer(initialState, action)
 
     //3. expectation
     expect(newState.postsData.length).toBe(2)

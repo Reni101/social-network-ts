@@ -1,4 +1,4 @@
-import {followAC, initialUsersStateType, unFollowAc, UsersReducer,} from "../Redux/users-reducer";
+import {followAC, initialUsersStateType, unFollowAC, usersReducer,} from "../Redux/users-reducer";
 
 
 let state: initialUsersStateType;
@@ -50,13 +50,13 @@ beforeEach(() => {
 
 
 test("follow success", () => {
-    const newState = UsersReducer(state, followAC(1))
+    const newState = usersReducer(state, followAC({userID: 1}))
     expect(newState.users[0].followed).toBe(false)
     expect(newState.users[1].followed).toBe(true)
 
 })
 test("unfollow unFollowAc", () => {
-    const newState = UsersReducer(state, unFollowAc(2))
+    const newState = usersReducer(state, unFollowAC({userID: 2}))
     expect(newState.users[0].followed).toBe(false)
     expect(newState.users[2].followed).toBe(false)
 

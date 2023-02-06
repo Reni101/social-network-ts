@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import {ProfileType, savePhotoTC} from "../../../Redux/profile-reducer";
+import { savePhotoTC} from "../../../Redux/profile-reducer";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import UserAvatar from '../../../assets/UsersAvatar.jpg'
 
@@ -9,6 +9,7 @@ import {ProfileData} from "./ProfileData/ProfileData";
 import {ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../Redux/Redux-store";
+import {ProfileType} from "../../../Redux/Types";
 
 type PropsType = {
     profile: ProfileType

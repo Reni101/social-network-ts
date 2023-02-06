@@ -1,4 +1,5 @@
-import {ChatMessageType} from "../Redux/chat-ws-reducer";
+import {ChatMessageType} from "../Redux/Types";
+
 
 const subcribers = {
     'messages-received': [] as MessagesReceivedSubscriberType[],

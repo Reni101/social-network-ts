@@ -20,9 +20,8 @@ test("loginTC", async () => {
     const thunk = loginTC("maximor-2008@tut.by", "12334", true)
 
     const dispatchMock = jest.fn()
-    const getStateMock = jest.fn()
 
-    await thunk(dispatchMock, getStateMock, {})
+    await thunk(dispatchMock)
     expect(dispatchMock).toBeCalledTimes(1)
 })
 

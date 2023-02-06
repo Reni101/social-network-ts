@@ -1,6 +1,5 @@
 import axios from "axios";
-import {FilterType, UserType} from "../Redux/users-reducer";
-import {PhotosType, ProfileType} from "../Redux/profile-reducer";
+import {FilterType, PhotosType, ProfileType, UserType} from "../Redux/Types";
 
 
 

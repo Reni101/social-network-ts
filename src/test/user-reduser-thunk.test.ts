@@ -18,9 +18,9 @@ test("followThunkCreator", async () => {
     const thunk = followTC(1)
 
     const dispatchMock = jest.fn()
-    const getStateMock = jest.fn()
 
-    await thunk(dispatchMock, getStateMock, {})
+
+    await thunk(dispatchMock)
     expect(dispatchMock).toBeCalledTimes(3)
 
 })
@@ -53,9 +53,8 @@ test("getUsersThunkCreator working correct", async () => {
     const thunk = getUsersTC(1, 5, {term: "", friend: null})
 
     const dispatchMock = jest.fn()
-    const getStateMock = jest.fn()
 
-    await thunk(dispatchMock, getStateMock, {})
+    await thunk(dispatchMock,)
     expect(dispatchMock).toBeCalledTimes(6)
 
 })

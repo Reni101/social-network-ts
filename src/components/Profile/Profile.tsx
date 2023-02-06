@@ -2,10 +2,9 @@ import React from 'react';
 import contentIMG from "../../assets/content .jpg";
 import styleP from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType} from "../../Redux/profile-reducer";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../Redux/Redux-store";
+import {useAppSelector} from "../../Redux/Redux-store";
+import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileType} from "../../Redux/Types";
 
 type ProfilePropsType = {
     isOwner: boolean
@@ -14,8 +13,7 @@ type ProfilePropsType = {
 
 
 const Profile = React.memo((props: ProfilePropsType) => {
-    const profile = useSelector<AppRootStateType,ProfileType>(state => state.profilePage.profile!)
-
+    const profile = useAppSelector<ProfileType>(state => state.profilePage.profile!)
 
     return (
         <div className={styleP.profile}>
@@ -27,7 +25,7 @@ const Profile = React.memo((props: ProfilePropsType) => {
                          profile={profile}
 
             />
-            {props.isOwner && <MyPostsContainer/>}
+            {props.isOwner && <MyPosts/>}
 
         </div>
     );

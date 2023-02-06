@@ -1,160 +1,99 @@
-import {PhotosType} from "./profile-reducer";
 import {ResponseType, ResultCodeEnum, usersAPI} from "../api/api";
-import {AppThunk} from "./Redux-store";
-import {Dispatch} from "redux";
+import {AppDispatch} from "./Redux-store";
+import {FilterType, UserType} from "./Types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-
-export type initialUsersStateType = typeof initialState
-export type UserType = {
-    name: string,
-    id: number,
-    uniqueUrlName: null | string
-    photos: PhotosType,
-    followed: boolean,
-    status: string,
-}
-export type FilterType = {
-    term: string | null,
-    friend: null | boolean
-}
-
-let initialState = {
-    users: [] as Array<UserType>,
-    pageSize: 10,
-    totalItemsCount: 1,
-    currentPage: 1,
-    isFetching: false,
-    followingInProgress: [] as Array<number>,
-
-
-}
-export type ActionsUsersType =
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAc>
-    | ReturnType<typeof setUsersAС>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
-    | ReturnType<typeof toggleIsFollowingAC>
-    | ReturnType<typeof setCurrentPageSizeAC>
-
-
-export const UsersReducer = (state = initialState, action: ActionsUsersType): initialUsersStateType => {
-    switch (action.type) {
-        case "FOLLOW": {
-            return {
-                ...state,
-                users: state.users.map((el) => el.id === action.userID ?
-                    {...el, followed: true} : el)
-            }
-        }
-        case "UNFOLLOW" : {
-            return {
-                ...state,
-                users: state.users.map((el) => el.id === action.userID ?
-                    {...el, followed: false} : el)
-            }
-        }
-        case "SET_USERS": {
-            return {...state, users: action.users}
-        }
-        case "SET_CURRENT_PAGE": {
-
-            return {...state, currentPage: action.currentPage}
-        }
-        case "SET_TOTAL_COUNT": {
-
-            return {...state, totalItemsCount: action.totalCount}
-        }
-        case "TOGGLE_IS_FETCHING": {
-
-            return {...state, isFetching: action.isFetching}
-        }
-        case "TOGGLE_IS_FOLLOWING": {
-
-            return {
-                ...state,
-                followingInProgress: action.isFollowing
-                    ? [...state.followingInProgress, action.userId]
-                    : [...state.followingInProgress.filter(id => id !== action.userId)]
-            }
-        }
-        case "SET_CURRENT_PAGE_SIZE":
-            return {...state, pageSize: action.currentPageSize}
-
-        default:
-            return state
-
+const slice = createSlice({
+    name: "usersReducer",
+    initialState: {
+        users: [] as Array<UserType>,
+        pageSize: 10,
+        totalItemsCount: 1,
+        currentPage: 1,
+        isFetching: false,
+        followingInProgress: [] as Array<number>,
+    },
+    reducers: {
+        followAC(state, action: PayloadAction<{ userID: number }>) {
+            const index = state.users.findIndex(el => el.id === action.payload.userID)
+            state.users[index] = {...state.users[index], followed: true}
+        },
+        unFollowAC(state, action: PayloadAction<{ userID: number }>) {
+            const index = state.users.findIndex(el => el.id === action.payload.userID)
+            state.users[index] = {...state.users[index], followed: false}
+        },
+        setUsersAС(state, action: PayloadAction<{ users: Array<UserType> }>) {
+            state.users = action.payload.users
+        },
+        setCurrentPageAC(state, action: PayloadAction<{ currentPage: number }>) {
+            state.currentPage = action.payload.currentPage
+        },
+        setCurrentPageSizeAC(state, action: PayloadAction<{ currentPageSize: number }>) {
+            state.pageSize = action.payload.currentPageSize
+        },
+        setTotalUsersCountAC(state, action: PayloadAction<{ totalCount: number }>) {
+            state.totalItemsCount = action.payload.totalCount
+        },
     }
-};
+})
 
-//========================Action Creator======================
-export const followAC = (userID: number) => ({type: "FOLLOW", userID} as const)
-export const unFollowAc = (userID: number) => ({type: "UNFOLLOW", userID} as const)
-export const setUsersAС = (users: Array<UserType>) => ({type: "SET_USERS", users} as const)
-export const setCurrentPageAC = (currentPage: number) => ({
-    type: "SET_CURRENT_PAGE",
-    currentPage
-} as const)
-export const setCurrentPageSizeAC = (currentPageSize: number) => ({
-    type: "SET_CURRENT_PAGE_SIZE",
-    currentPageSize
-} as const)
-export const setTotalUsersCountAC = (totalCount: number) => ({
-    type: "SET_TOTAL_COUNT",
-    totalCount
-} as const)
-export const toggleIsFetchingAC = (isFetching: boolean) => ({
-    type: "TOGGLE_IS_FETCHING",
-    isFetching
-} as const)
-export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
-    type: "TOGGLE_IS_FOLLOWING",
-    userId,
-    isFollowing,
-} as const)
+export const usersReducer = slice.reducer
+export const {
+    followAC, unFollowAC, setUsersAС,
+    setCurrentPageAC, setCurrentPageSizeAC,
+    setTotalUsersCountAC,
+} = slice.actions
+export type initialUsersStateType = ReturnType<typeof slice.getInitialState>
 
 //========================Thunk Creator======================
 export const getUsersTC = (currentPage: number, pageSize: number,
-                           filter: FilterType): AppThunk => async dispatch => {
-    dispatch(toggleIsFetchingAC(true));
+                           filter: FilterType) => async (dispatch: AppDispatch) => {
+
 
     if (!filter.friend) filter.friend = null
     let res = await usersAPI.getUsers(currentPage, pageSize, filter)
-    dispatch(setCurrentPageAC(currentPage))
-    dispatch(setCurrentPageSizeAC(pageSize))
-    dispatch(setUsersAС(res.items))
-    dispatch(setTotalUsersCountAC(res.totalCount))
+    dispatch(setCurrentPageAC({currentPage}))
+    dispatch(setCurrentPageSizeAC({currentPageSize: pageSize}))
+    dispatch(setUsersAС({users: res.items}))
+    dispatch(setTotalUsersCountAC({totalCount: res.totalCount}))
 
-    dispatch(toggleIsFetchingAC(false))
 
 }
 
-export const followUnfollow = async (dispatch: Dispatch, userId: number,
+export const followUnfollow = async (dispatch: AppDispatch, userId: number,
                                      apiMethod: (userId: number) => Promise<ResponseType>,
-                                     actionCreator: (userid: number) => ActionsUsersType) => {
-    dispatch(toggleIsFollowingAC(true, userId))
+                                     actionCreator: typeof followAC | typeof unFollowAC) => {
     let res = await apiMethod(userId)
     if (res.resultCode === ResultCodeEnum.Success) {
-        dispatch(actionCreator(userId))
+        dispatch(actionCreator({userID: userId}))
     }
 
-    dispatch(toggleIsFollowingAC(false, userId))
 }
 
-export const followTC = (userId: number): AppThunk => async dispatch => {
+export const followTC = (userId: number) => async (dispatch:AppDispatch) => {
     let apiMethod = usersAPI.followUser.bind(usersAPI)
-    let actionCreator = followAC
-    await followUnfollow(dispatch, userId, apiMethod, actionCreator)
+    await followUnfollow(dispatch, userId, apiMethod, followAC)
 }
 
-export const unfollowTC = (userId: number): AppThunk => async dispatch => {
+export const unfollowTC = (userId: number) => async (dispatch:AppDispatch) => {
     let apiMethod = usersAPI.unfollowUser.bind(usersAPI)
-    let actionCreator = unFollowAc
-    await followUnfollow(dispatch, userId, apiMethod, actionCreator)
+    await followUnfollow(dispatch, userId, apiMethod, unFollowAC)
 
 }
 
 
-
-
+//         case "TOGGLE_IS_FOLLOWING": {
+//
+//             return {
+//                 ...state,
+//                 followingInProgress: action.isFollowing
+//                     ? [...state.followingInProgress, action.userId]
+//                     : [...state.followingInProgress.filter(id => id !== action.userId)]
+//             }
+//         }
+// export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
+//     type: "TOGGLE_IS_FOLLOWING",
+//     userId,
+//     isFollowing,
+// } as const)
+//

@@ -1,21 +1,21 @@
 import React from 'react';
 import {useFormik} from "formik";
+import {addPostAC} from "../../../Redux/profile-reducer";
+import {useAppDispatch} from "../../../Redux/Redux-store";
 
-type PropsType = {
-    addPost: (text: string) => void
-}
 
-const AddPostForm = (props: PropsType) => {
+export const AddPostForm = () => {
+    const dispatch = useAppDispatch()
     const formik = useFormik({
         initialValues: {
             sendPost: '',
         },
         onSubmit: values => {
-            props.addPost(values.sendPost)
+            dispatch(addPostAC({text: values.sendPost}))
             formik.resetForm()
         },
         validate: (values) => {
-            const errors:{sendPost?:string} = {}
+            const errors: { sendPost?: string } = {}
 
             if (!values.sendPost) {
                 errors.sendPost = "Required"
@@ -46,4 +46,3 @@ const AddPostForm = (props: PropsType) => {
 };
 
 
-export default AddPostForm;
