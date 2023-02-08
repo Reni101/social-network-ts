@@ -1,63 +1,55 @@
-import {followTC, getUsersTC} from "../Redux/users-reducer";
-import {getUsersResponseType, ResponseType, usersAPI} from "../api/api";
+import { followTC, getUsersTC } from '../Redux/users-reducer'
+import { getUsersResponseType, ResponseType, usersAPI } from '../api/api'
 
-
-jest.mock("../api/api")
+jest.mock('../api/api')
 
 const userAPIMock = usersAPI as jest.Mocked<typeof usersAPI>
 
+test('followThunkCreator', async () => {
+	const result: ResponseType = {
+		data: {},
+		messages: [],
+		fieldsErrors: [],
+		resultCode: 0
+	}
+	userAPIMock.followUser.mockReturnValue(Promise.resolve(result))
+	const thunk = followTC(1)
 
-test("followThunkCreator", async () => {
-    const result: ResponseType = {
-        data: {},
-        messages: [],
-        fieldsErrors: [],
-        resultCode: 0,
-    }
-    userAPIMock.followUser.mockReturnValue(Promise.resolve(result))
-    const thunk = followTC(1)
+	const dispatchMock = jest.fn()
 
-    const dispatchMock = jest.fn()
-
-
-    await thunk(dispatchMock)
-    expect(dispatchMock).toBeCalledTimes(3)
-
+	await thunk(dispatchMock)
+	expect(dispatchMock).toBeCalledTimes(3)
 })
 
-test("getUsersThunkCreator working correct", async () => {
-    const result: getUsersResponseType = {
-        items: [
-            {
-                name: "Maxim",
-                id: 22,
-                uniqueUrlName: null,
-                photos: {small: null, large: null},
-                followed: false,
-                status: ""
-            },
-            {
-                name: "Maxim1",
-                id: 23,
-                uniqueUrlName: null,
-                photos: {small: null, large: null},
-                followed: false,
-                status: ""
-            }],
-        totalCount: 2,
-        error: null
-    }
+test('getUsersThunkCreator working correct', async () => {
+	const result: getUsersResponseType = {
+		items: [
+			{
+				name: 'Maxim',
+				id: 22,
+				uniqueUrlName: null,
+				photos: { small: null, large: null },
+				followed: false,
+				status: ''
+			},
+			{
+				name: 'Maxim1',
+				id: 23,
+				uniqueUrlName: null,
+				photos: { small: null, large: null },
+				followed: false,
+				status: ''
+			}
+		],
+		totalCount: 2,
+		error: null
+	}
 
+	userAPIMock.getUsers.mockReturnValue(Promise.resolve(result))
+	const thunk = getUsersTC(1, 5, { term: '', friend: null })
 
-    userAPIMock.getUsers.mockReturnValue(Promise.resolve(result))
-    const thunk = getUsersTC(1, 5, {term: "", friend: null})
+	const dispatchMock = jest.fn()
 
-    const dispatchMock = jest.fn()
-
-    await thunk(dispatchMock,)
-    expect(dispatchMock).toBeCalledTimes(6)
-
+	await thunk(dispatchMock)
+	expect(dispatchMock).toBeCalledTimes(6)
 })
-
-
-

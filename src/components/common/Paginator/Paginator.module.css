@@ -1,15 +1,14 @@
-.containerPaginator{
-    margin: 20px auto 20px;
+.containerPaginator {
+	margin: 20px auto 20px;
 }
 
 .pageNumber {
-    padding: 5px;
-    margin: 4px;
-    border:1px solid grey;
-    cursor: pointer;
+	padding: 5px;
+	margin: 4px;
+	border: 1px solid grey;
+	cursor: pointer;
 }
 
 .pageNumber.selectedPage {
-    font-weight: bold;
-
+	font-weight: bold;
 }

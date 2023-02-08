@@ -1,8 +1,8 @@
-.container{
-    margin: 10px auto 10px;
-    display: flex;
-    gap: 10px
+.container {
+	margin: 10px auto 10px;
+	display: flex;
+	gap: 10px;
 }
 .container input {
-    max-width: 200px;
+	max-width: 200px;
 }

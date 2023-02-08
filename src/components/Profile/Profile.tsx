@@ -1,28 +1,22 @@
-import React from 'react';
+import React from 'react'
 import styleP from './Profile.module.css'
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {useAppSelector} from "../../Redux/Redux-store";
-import {ProfileType} from "../../Redux/Types";
+import { ProfileInfo } from './ProfileInfo/ProfileInfo'
+import { useAppSelector } from '../../Redux/Redux-store'
+import { ProfileType } from '../../Redux/Types'
 
 type ProfilePropsType = {
-    isOwner: boolean
-
+	isOwner: boolean
 }
 
+export const Profile = React.memo((props: ProfilePropsType) => {
+	const profile = useAppSelector<ProfileType>(
+		state => state.profilePage.profile!
+	)
 
-const Profile = React.memo((props: ProfilePropsType) => {
-    const profile = useAppSelector<ProfileType>(state => state.profilePage.profile!)
-
-    return (
-        <div className={styleP.profileContainer}>
-            <ProfileInfo isOwner={props.isOwner}
-                         profile={profile}
-
-            />
-            {/*{props.isOwner && <MyPosts/>}*/}
-
-        </div>
-    );
+	return (
+		<div className={styleP.profileContainer}>
+			<ProfileInfo isOwner={props.isOwner} profile={profile} />
+			{/*{props.isOwner && <MyPosts/>}*/}
+		</div>
+	)
 })
-
-export default Profile;
