@@ -21,9 +21,6 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { ProfileContainer } from './components/Profile/ProfileContainer'
 import { NotFoundPage } from './components/NotFound/NotFoundPage'
 import { Preloader } from './components/common/Preloader/Preloader'
-
-//const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-
 const { Content, Footer, Sider } = Layout
 
 type MenuItem = Required<MenuProps>['items'][number]

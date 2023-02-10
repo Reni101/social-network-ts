@@ -3,8 +3,8 @@ import styleH from './Header.module.css'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../../Redux/Redux-store'
-import { logoutTC } from '../../Redux/auth-reducer'
 import { Button, Layout, theme } from 'antd'
+import { logoutTC } from '../../Redux/auth-reducer'
 
 const { Header } = Layout
 

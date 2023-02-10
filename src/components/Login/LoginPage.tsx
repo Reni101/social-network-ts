@@ -12,6 +12,7 @@ export const LoginPage = () => {
 	if (isAuth) {
 		return <Navigate to={`/profile/${authorizedUserID}`} />
 	}
+
 	return (
 		<div>
 			<LoginForm />
