@@ -37,8 +37,8 @@ export const { getCaptchaUrlAC, setAuthUserDataAC } = slice.actions
 
 export const getAuthUserDataTC = () => async (dispatch: AppDispatch) => {
 	const res = await authAPI.getAuthMe()
-	if (res.data.resultCode === ResultCodeEnum.Success) {
-		let { id, email, login } = res.data.data
+	if (res.resultCode === ResultCodeEnum.Success) {
+		let { id, email, login } = res.data
 		dispatch(setAuthUserDataAC({ userId: id, email, login, isAuth: true }))
 	}
 }

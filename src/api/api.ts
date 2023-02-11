@@ -62,7 +62,9 @@ export const usersAPI = {
 
 export const authAPI = {
 	getAuthMe() {
-		return instance.get<ResponseType<AuthResType>>(`auth/me`)
+		return instance
+			.get<ResponseType<AuthResType>>(`auth/me`)
+			.then(res => res.data)
 	},
 	login(
 		email: string,
