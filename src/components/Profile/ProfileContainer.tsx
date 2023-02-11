@@ -9,7 +9,9 @@ export const ProfileContainer = () => {
 	let { userId } = useParams()
 	const dispatch = useDispatch()
 
-	const authorizedUserID = useSelector<AppRootStateType, number>(state => state.auth.userId!)
+	const authorizedUserID = useSelector<AppRootStateType, number>(
+		state => state.auth.userId!
+	)
 	const isOwner = +userId! === authorizedUserID
 	const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
 

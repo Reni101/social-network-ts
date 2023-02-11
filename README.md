@@ -66,8 +66,9 @@ ___
 - **react-test-renderer** and **@types/react-test-renderer**
 - **redux**
 - **redux-toolkit**
-- **redux-form** and **@types/redux-form**
+- **Formik**
 - **redux-thunk**
 - **reselect**
 - **typescript**
 - **uuid** and **@types/uuid**
+- **storybook**

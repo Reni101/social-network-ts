@@ -1,24 +1,24 @@
 .dialogs {
-  display: grid;
-  grid-template-columns: 2fr 10fr;
-  background-color: blueviolet;
+	display: grid;
+	grid-template-columns: 2fr 10fr;
+	background-color: blueviolet;
 }
 
 .item {
-  padding: 2px;
+	padding: 2px;
 }
 
 .item a {
-  text-decoration: none;
-  color: white;
-  padding: 2px;
+	text-decoration: none;
+	color: white;
+	padding: 2px;
 }
 .message {
-  color: white;
-  padding: 2px;
+	color: white;
+	padding: 2px;
 }
 
 .item a.active {
-  color: black;
-  font-weight: bold;
+	color: black;
+	font-weight: bold;
 }
