@@ -4,7 +4,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const slice = createSlice({
 	name: 'appReducer',
-	initialState: { initialized: false },
+	initialState: {
+		initialized: false
+	},
 	reducers: {
 		setInitialized(state, action: PayloadAction<{ value: boolean }>) {
 			state.initialized = action.payload.value

@@ -21,6 +21,7 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { ProfileContainer } from './components/Profile/ProfileContainer'
 import { NotFoundPage } from './components/NotFound/NotFoundPage'
 import { Preloader } from './components/common/Preloader/Preloader'
+
 const { Content, Footer, Sider } = Layout
 
 type MenuItem = Required<MenuProps>['items'][number]
@@ -67,10 +68,10 @@ export const App: React.FC = () => {
 		),
 		getItem(<NavLink to='/chat'>Chat</NavLink>, 'chat', <WechatOutlined />)
 	]
-
+	console.log(items)
 	useEffect(() => {
 		dispatch(InitializeAppTC())
-	}, [])
+	}, [dispatch])
 
 	if (!initialized) {
 		return <Preloader />
