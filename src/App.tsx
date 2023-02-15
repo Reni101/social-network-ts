@@ -6,14 +6,12 @@ import {
 	UserOutlined,
 	WechatOutlined
 } from '@ant-design/icons'
-import type { MenuProps } from 'antd'
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
-
 import { HeaderPage } from './components/Header/HeaderPage'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from './Redux/Redux-store'
 import { InitializeAppTC } from './Redux/app-reducer'
-import UsersPage from './components/Users/UsersPage'
+import { UsersPage } from './components/Users/UsersPage'
 import { LoginPage } from './components/Login/LoginPage'
 import { ChatPage } from './components/ChatWS/ChatPage'
 import { DialogsContainer } from './components/Dialogs/DialogsContainer'
@@ -21,24 +19,9 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { ProfileContainer } from './components/Profile/ProfileContainer'
 import { NotFoundPage } from './components/NotFound/NotFoundPage'
 import { Preloader } from './components/common/Preloader/Preloader'
+import { getItem, MenuItem } from './MenuItemData'
 
 const { Content, Footer, Sider } = Layout
-
-type MenuItem = Required<MenuProps>['items'][number]
-
-function getItem(
-	label: React.ReactNode,
-	key: React.Key,
-	icon?: React.ReactNode,
-	children?: MenuItem[]
-): MenuItem {
-	return {
-		key,
-		icon,
-		children,
-		label
-	} as MenuItem
-}
 
 export const App: React.FC = () => {
 	const dispatch = useDispatch()
@@ -68,7 +51,7 @@ export const App: React.FC = () => {
 		),
 		getItem(<NavLink to='/chat'>Chat</NavLink>, 'chat', <WechatOutlined />)
 	]
-	console.log(items)
+
 	useEffect(() => {
 		dispatch(InitializeAppTC())
 	}, [dispatch])

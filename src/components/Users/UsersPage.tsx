@@ -15,7 +15,7 @@ import { Navigate, useSearchParams } from 'react-router-dom'
 import { AppRootStateType } from '../../Redux/Redux-store'
 import { friendType, Search } from './Search/Search'
 
-const UsersPage = () => {
+export const UsersPage = () => {
 	const dispatch = useDispatch()
 	const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
 	const users = useSelector(getUsersSelector)
@@ -37,6 +37,7 @@ const UsersPage = () => {
 	const followHandler = (userId: number) => {
 		dispatch(followTC(userId))
 	}
+
 	const unfollowHandler = (userId: number) => {
 		dispatch(unfollowTC(userId))
 	}
