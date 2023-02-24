@@ -1,6 +1,8 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+
 import { LoginForm } from '../components/Login/LoginForm'
+
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 
 export default {

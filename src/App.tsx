@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import style from './App.module.css'
-import { DesktopOutlined, PieChartOutlined, UserOutlined, WechatOutlined } from '@ant-design/icons'
 import { Breadcrumb, Layout, Menu } from 'antd'
-import { HeaderPage } from './components/Header/HeaderPage'
-import { useDispatch } from 'react-redux'
-import { useAppSelector } from './Redux/Redux-store'
-import { InitializeAppTC } from './Redux/app-reducer'
 import { NavLink } from 'react-router-dom'
+import {
+	DesktopOutlined,
+	PieChartOutlined,
+	UserOutlined,
+	WechatOutlined
+} from '@ant-design/icons'
+
+import style from './App.module.css'
+import { HeaderPage } from './components/Header/HeaderPage'
+import { useAppDispatch, useAppSelector } from './Redux/Redux-store'
+import { InitializeAppTC } from './Redux/app-reducer'
 import { Preloader } from './components/common/Preloader/Preloader'
 import { getItem, MenuItem } from './MenuItemData'
 import { Routers } from './components/Routers/Routes'
@@ -14,7 +19,7 @@ import { Routers } from './components/Routers/Routes'
 const { Content, Footer, Sider } = Layout
 
 export const App: React.FC = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const [collapsed, setCollapsed] = useState(false)
 	const initialized = useAppSelector<boolean>(state => state.app.initialized)

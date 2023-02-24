@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate, useSearchParams } from 'react-router-dom'
+
 import { followTC, getUsersTC, unfollowTC } from '../../Redux/users-reducer'
 import { Paginator } from '../common/Paginator/Paginator'
-import { User } from './User/User'
-import style from './Users.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+
 import {
 	getCurrentPage,
 	getFollowingInProgress,
@@ -11,8 +12,12 @@ import {
 	getTotalItemsCount,
 	getUsersSelector
 } from '../../Redux/users-selectors'
-import { Navigate, useSearchParams } from 'react-router-dom'
+
 import { AppRootStateType } from '../../Redux/Redux-store'
+
+import { User } from './User/User'
+import style from './Users.module.css'
+
 import { friendType, Search } from './Search/Search'
 
 export const UsersPage = () => {

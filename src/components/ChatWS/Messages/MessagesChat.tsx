@@ -1,23 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
-import style from './MessageChat.module.css'
-import { useAppSelector } from '../../../Redux/Redux-store'
 import { NavLink } from 'react-router-dom'
+
+import { useAppSelector } from '../../../Redux/Redux-store'
 import avatar from '../../../assets/UsersAvatar.jpg'
 import { ChatMessageType } from '../../../Redux/Types'
 
+import style from './MessageChat.module.css'
+
 export const MessagesChat = React.memo(() => {
-	const messages = useAppSelector<ChatMessageType[]>(
-		state => state.chat.messages
-	)
+	const messages = useAppSelector<ChatMessageType[]>(state => state.chat.messages)
 	const messagesAnchorRef = useRef<HTMLDivElement>(null)
 	const [isAutoScroll, setIsAutoScroll] = useState(true)
 
 	const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
 		const element = e.currentTarget
 		if (
-			Math.abs(
-				element.scrollHeight - element.scrollTop - element.clientHeight
-			) < 300
+			Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) <
+			300
 		) {
 			!isAutoScroll && setIsAutoScroll(true)
 		} else {

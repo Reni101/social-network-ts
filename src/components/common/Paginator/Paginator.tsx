@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
-import style from './Paginator.module.css'
+
 import { Pagination } from 'antd'
+
+import style from './Paginator.module.css'
 
 type PropsType = {
 	pageSize: number

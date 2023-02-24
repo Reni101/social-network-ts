@@ -1,6 +1,7 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { AppDispatch } from './Redux-store'
 import { getAuthUserDataTC } from './auth-reducer'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const slice = createSlice({
 	name: 'appReducer',

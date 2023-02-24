@@ -1,9 +1,10 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
+
+import { Paginator } from '../components/common/Paginator/Paginator'
 
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
-import { Paginator } from '../components/common/Paginator/Paginator'
-import { action } from '@storybook/addon-actions'
 
 export default {
 	title: 'Example/Paginator',
@@ -12,9 +13,7 @@ export default {
 	decorators: [ReduxStoreProviderDecorator]
 } as ComponentMeta<typeof Paginator>
 
-const Template: ComponentStory<typeof Paginator> = args => (
-	<Paginator {...args} />
-)
+const Template: ComponentStory<typeof Paginator> = args => <Paginator {...args} />
 
 export const Paginators = Template.bind({})
 

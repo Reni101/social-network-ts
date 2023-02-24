@@ -1,7 +1,9 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { ResponseType, ResultCodeEnum, usersAPI } from '../api/api'
+
 import { AppDispatch } from './Redux-store'
 import { FilterType, UserType } from './Types'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const slice = createSlice({
 	name: 'usersReducer',
@@ -15,36 +17,23 @@ const slice = createSlice({
 	},
 	reducers: {
 		followAC(state, action: PayloadAction<{ userID: number }>) {
-			const index = state.users.findIndex(
-				el => el.id === action.payload.userID
-			)
+			const index = state.users.findIndex(el => el.id === action.payload.userID)
 			state.users[index] = { ...state.users[index], followed: true }
 		},
 		unFollowAC(state, action: PayloadAction<{ userID: number }>) {
-			const index = state.users.findIndex(
-				el => el.id === action.payload.userID
-			)
+			const index = state.users.findIndex(el => el.id === action.payload.userID)
 			state.users[index] = { ...state.users[index], followed: false }
 		},
 		setUsersAС(state, action: PayloadAction<{ users: Array<UserType> }>) {
 			state.users = action.payload.users
 		},
-		setCurrentPageAC(
-			state,
-			action: PayloadAction<{ currentPage: number }>
-		) {
+		setCurrentPageAC(state, action: PayloadAction<{ currentPage: number }>) {
 			state.currentPage = action.payload.currentPage
 		},
-		setCurrentPageSizeAC(
-			state,
-			action: PayloadAction<{ currentPageSize: number }>
-		) {
+		setCurrentPageSizeAC(state, action: PayloadAction<{ currentPageSize: number }>) {
 			state.pageSize = action.payload.currentPageSize
 		},
-		setTotalUsersCountAC(
-			state,
-			action: PayloadAction<{ totalCount: number }>
-		) {
+		setTotalUsersCountAC(state, action: PayloadAction<{ totalCount: number }>) {
 			state.totalItemsCount = action.payload.totalCount
 		}
 	}

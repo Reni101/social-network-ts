@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
+
 import { sendMessageAC } from '../../Redux/dialogs-reducer'
 
 type FormikType = {

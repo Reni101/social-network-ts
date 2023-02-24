@@ -1,5 +1,6 @@
-import { addPostAC, profileReducer } from '../Redux/profile-reducer'
 import { v1 } from 'uuid'
+
+import { addPostAC, profileReducer } from '../Redux/profile-reducer'
 import { PostsDataType, ProfileType } from '../Redux/Types'
 
 test('new post should be added', () => {

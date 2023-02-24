@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
+import thunk from 'redux-thunk'
+import { configureStore } from '@reduxjs/toolkit'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+
 import { dialogsReducer } from './dialogs-reducer'
 import { authReducer } from './auth-reducer'
-import thunk from 'redux-thunk'
 import { profileReducer } from './profile-reducer'
 import { usersReducer } from './users-reducer'
 import { appReducer } from './app-reducer'
 import { chatWSReducer } from './chat-ws-reducer'
-import { configureStore } from '@reduxjs/toolkit'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 const rootReducer = combineReducers({
 	profilePage: profileReducer,
@@ -27,8 +28,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> =
-	useSelector
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 //@ts-ignore
 window.store = store

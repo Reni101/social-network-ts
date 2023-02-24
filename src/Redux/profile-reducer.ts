@@ -1,8 +1,10 @@
 import { v1 } from 'uuid'
-import { PhotosType, PostsDataType, PostsType, ProfileType } from './Types'
-import { profileAPI } from '../api/api'
-import { AppDispatch } from './Redux-store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { profileAPI } from '../api/api'
+
+import { PhotosType, PostsDataType, PostsType, ProfileType } from './Types'
+import { AppDispatch } from './Redux-store'
 
 const slice = createSlice({
 	name: 'profileReducer',
@@ -23,19 +25,13 @@ const slice = createSlice({
 			}
 			state.postsData = [...state.postsData, newPost]
 		},
-		setUserProfileAC(
-			state,
-			action: PayloadAction<{ profile: ProfileType }>
-		) {
+		setUserProfileAC(state, action: PayloadAction<{ profile: ProfileType }>) {
 			state.profile = action.payload.profile
 		},
 		setStatusAC(state, action: PayloadAction<{ status: string }>) {
 			state.status = action.payload.status
 		},
-		savePhotoSuccessAC(
-			state,
-			action: PayloadAction<{ photos: PhotosType }>
-		) {
+		savePhotoSuccessAC(state, action: PayloadAction<{ photos: PhotosType }>) {
 			state.profile!.photos = action.payload.photos
 		}
 	}
@@ -47,25 +43,22 @@ export const { addPostAC, setUserProfileAC, setStatusAC, savePhotoSuccessAC } =
 
 //========================Thunk Creator======================
 
-export const getProfileTC =
-	(userid: string) => async (dispatch: AppDispatch) => {
-		let response = await profileAPI.getProfile(userid)
-		dispatch(setUserProfileAC({ profile: response.data }))
-	}
+export const getProfileTC = (userid: string) => async (dispatch: AppDispatch) => {
+	let response = await profileAPI.getProfile(userid)
+	dispatch(setUserProfileAC({ profile: response.data }))
+}
 
-export const getStatusTC =
-	(userid: string) => async (dispatch: AppDispatch) => {
-		let response = await profileAPI.getStatus(userid)
-		dispatch(setStatusAC({ status: response.data }))
-	}
+export const getStatusTC = (userid: string) => async (dispatch: AppDispatch) => {
+	let response = await profileAPI.getStatus(userid)
+	dispatch(setStatusAC({ status: response.data }))
+}
 
-export const updateStatusTC =
-	(status: string) => async (dispatch: AppDispatch) => {
-		let response = await profileAPI.updateStatus(status)
-		if (response.data.resultCode === 0) {
-			dispatch(setStatusAC({ status: status }))
-		}
+export const updateStatusTC = (status: string) => async (dispatch: AppDispatch) => {
+	let response = await profileAPI.updateStatus(status)
+	if (response.data.resultCode === 0) {
+		dispatch(setStatusAC({ status: status }))
 	}
+}
 
 export const savePhotoTC = (file: File) => async (dispatch: AppDispatch) => {
 	let response = await profileAPI.savePhoto(file)

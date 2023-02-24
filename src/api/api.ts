@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { FilterType, PhotosType, ProfileType, UserType } from '../Redux/Types'
 
 export enum ResultCodeEnum {
@@ -37,11 +38,7 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-	getUsers(
-		currentPage: number = 1,
-		pageSize: number = 10,
-		filter: FilterType
-	) {
+	getUsers(currentPage: number = 1, pageSize: number = 10, filter: FilterType) {
 		return instance
 			.get<getUsersResponseType>(
 				`users?page=${currentPage}&count=${pageSize}&term=${filter.term}&friend=${filter.friend}`
@@ -62,18 +59,11 @@ export const usersAPI = {
 
 export const authAPI = {
 	getAuthMe() {
-		return instance
-			.get<ResponseType<AuthResType>>(`auth/me`)
-			.then(res => res.data)
+		return instance.get<ResponseType<AuthResType>>('auth/me').then(res => res.data)
 	},
-	login(
-		email: string,
-		password: string,
-		rememberMe: boolean,
-		captcha?: string
-	) {
+	login(email: string, password: string, rememberMe: boolean, captcha?: string) {
 		return instance
-			.post<ResponseType<LoginType>>(`auth/login`, {
+			.post<ResponseType<LoginType>>('auth/login', {
 				email,
 				password,
 				rememberMe,
@@ -82,19 +72,19 @@ export const authAPI = {
 			.then(res => res.data)
 	},
 	logout() {
-		return instance.delete<ResponseType>(`auth/login`)
+		return instance.delete<ResponseType>('auth/login')
 	}
 }
 
 export const profileAPI = {
 	getProfile(userid: string) {
-		return instance.get<ProfileType>(`profile/` + userid)
+		return instance.get<ProfileType>('profile/' + userid)
 	},
 	getStatus(userid: string) {
 		return instance.get(`profile/status/${userid}`)
 	},
 	updateStatus(status: string) {
-		return instance.put<ResponseType>(`profile/status`, { status })
+		return instance.put<ResponseType>('profile/status', { status })
 	},
 	savePhoto(photoFile: File) {
 		let formData = new FormData()

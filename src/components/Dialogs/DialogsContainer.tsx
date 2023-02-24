@@ -1,8 +1,12 @@
 import React from 'react'
-import { Dialogs } from './Dialogs'
+
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../Redux/Redux-store'
+
 import { Navigate } from 'react-router-dom'
+
+import { AppRootStateType } from '../../Redux/Redux-store'
+
+import { Dialogs } from './Dialogs'
 
 export const DialogsContainer = () => {
 	const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)

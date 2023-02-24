@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { Navigate } from 'react-router-dom'
+
 import {
 	startMessagesListeningTC,
 	stopMessagesListeningTC
 } from '../../Redux/chat-ws-reducer'
 import { AppRootStateType } from '../../Redux/Redux-store'
-import { Navigate } from 'react-router-dom'
+
 import style from './ChatPage.module.css'
 import { MessageForm } from './MessageForm/MessageForm'
 import { MessagesChat } from './Messages/MessagesChat'

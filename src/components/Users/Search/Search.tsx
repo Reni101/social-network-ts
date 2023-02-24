@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import style from './Search.module.css'
+
 import Input from 'antd/lib/input/Input'
 import { Button, Select } from 'antd'
+
+import style from './Search.module.css'
 
 export type friendType = 'all' | 'myFriend'
 
@@ -17,15 +19,19 @@ export const Search = (props: PropsType) => {
 	const selectHandler = (value: friendType) => {
 		setOnlyFriend(value)
 	}
+
 	const inputHandler = (e: any) => {
 		setTerm(e.target.value)
 	}
+
 	const buttonHandler = () => {
 		props.setSearchParams({ name: term, friend: onlyFriend })
 	}
+
 	const pressEnter = (e: any) => {
 		e.key === 'Enter' && buttonHandler()
 	}
+
 	return (
 		<div className={style.container}>
 			<Input

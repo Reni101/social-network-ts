@@ -1,10 +1,12 @@
 import React, { FC } from 'react'
-import style from './User.module.css'
 import { NavLink } from 'react-router-dom'
+import { Button } from 'antd'
+
 import UserAvatar from '../../../assets/UsersAvatar.jpg'
 
-import { Button } from 'antd'
 import { UserType } from '../../../Redux/Types'
+
+import style from './User.module.css'
 
 type PropsType = {
 	user: UserType
@@ -23,17 +25,9 @@ export const User: FC<PropsType> = ({
 			<div>
 				<NavLink to={'/profile/' + user.id}>
 					<img
-						src={
-							user.photos.small !== null
-								? user.photos.small
-								: UserAvatar
-						}
+						src={user.photos.small !== null ? user.photos.small : UserAvatar}
 						alt='imgAvatar'
-						style={{
-							width: '50px',
-							height: '50px',
-							marginTop: '5px'
-						}}
+						className={style.userAvatar}
 					/>
 				</NavLink>
 			</div>
@@ -41,9 +35,7 @@ export const User: FC<PropsType> = ({
 				{user.followed ? (
 					<Button
 						type='primary'
-						disabled={followingInProgress.some(
-							id => id === user.id
-						)}
+						disabled={followingInProgress.some(id => id === user.id)}
 						onClick={() => {
 							unfollowThunk(user.id)
 						}}
@@ -52,9 +44,7 @@ export const User: FC<PropsType> = ({
 					</Button>
 				) : (
 					<Button
-						disabled={followingInProgress.some(
-							id => id === user.id
-						)}
+						disabled={followingInProgress.some(id => id === user.id)}
 						onClick={() => {
 							followThunk(user.id)
 						}}
@@ -63,13 +53,8 @@ export const User: FC<PropsType> = ({
 					</Button>
 				)}
 			</div>
-
-			<div>{user.name} </div>
-			<div>
-				{' '}
-				status:{' '}
-				{user.status !== null ? user.status : 'статус не найден'}{' '}
-			</div>
+			{user.name}
+			<div> status: {user.status !== null ? user.status : 'статус не найден'} </div>
 		</div>
 	)
 }

@@ -1,7 +1,9 @@
-import { AppDispatch } from './Redux-store'
 import { Dispatch } from 'redux'
-import { chatAPI, StatusType } from '../api/chat-ws-api'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { chatAPI, StatusType } from '../api/chat-ws-api'
+
+import { AppDispatch } from './Redux-store'
 import { ChatMessageType } from './Types'
 
 const slice = createSlice({
@@ -11,10 +13,7 @@ const slice = createSlice({
 		status: 'pending' as StatusType
 	},
 	reducers: {
-		setMessagesAC(
-			state,
-			action: PayloadAction<{ messages: ChatMessageType[] }>
-		) {
+		setMessagesAC(state, action: PayloadAction<{ messages: ChatMessageType[] }>) {
 			return {
 				...state,
 				messages: [...state.messages, ...action.payload.messages]

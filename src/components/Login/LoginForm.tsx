@@ -1,10 +1,12 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Checkbox, Input } from 'antd'
+
 import { AppRootStateType } from '../../Redux/Redux-store'
 import { loginTC } from '../../Redux/auth-reducer'
+
 import style from './loginForm.module.css'
-import { Button, Checkbox, Input } from 'antd'
 
 type FormikErrorType = {
 	login?: string
@@ -28,12 +30,7 @@ export const LoginForm = () => {
 		},
 		onSubmit: values => {
 			dispatch(
-				loginTC(
-					values.login,
-					values.password,
-					values.rememberMe,
-					values.captcha
-				)
+				loginTC(values.login, values.password, values.rememberMe, values.captcha)
 			)
 			formik.resetForm()
 		},
@@ -42,9 +39,7 @@ export const LoginForm = () => {
 			const errors: FormikErrorType = {}
 			if (!values.login) {
 				errors.login = 'Required'
-			} else if (
-				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.login)
-			) {
+			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.login)) {
 				errors.login = 'Invalid email address'
 			}
 
@@ -116,6 +111,7 @@ export const LoginForm = () => {
 					<a
 						href={'https://social-network.samuraijs.com/'}
 						target={'_blank'}
+						rel='noreferrer'
 					>
 						{' '}
 						here

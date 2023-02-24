@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-
 import TextArea from 'antd/es/input/TextArea'
 import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
+
 import { sendMessage } from '../../../Redux/chat-ws-reducer'
+
 import style from './MessageForm.module.css'
 
 export const MessageForm = () => {

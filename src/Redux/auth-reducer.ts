@@ -1,6 +1,8 @@
-import { authAPI, ResultCodeEnum, securityAPI } from '../api/api'
-import { AppDispatch } from './Redux-store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { authAPI, ResultCodeEnum, securityAPI } from '../api/api'
+
+import { AppDispatch } from './Redux-store'
 
 const slice = createSlice({
 	name: 'authReducer',

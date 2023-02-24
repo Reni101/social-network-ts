@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
-import { Profile } from './Profile'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfileTC, getStatusTC } from '../../Redux/profile-reducer'
 import { Navigate, useParams } from 'react-router-dom'
+
+import { getProfileTC, getStatusTC } from '../../Redux/profile-reducer'
 import { AppRootStateType } from '../../Redux/Redux-store'
+
+import { Profile } from './Profile'
 
 export const ProfileContainer = () => {
 	let { userId } = useParams()

@@ -1,6 +1,7 @@
 import { v1 } from 'uuid'
-import { dialogs, messagesDialogs } from './Types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { dialogs, messagesDialogs } from './Types'
 
 const slice = createSlice({
 	name: 'dialogsReducer',

@@ -1,12 +1,16 @@
 import React from 'react'
+
+import { useSelector } from 'react-redux'
+
+import { DialogsPageType } from '../../Redux/Types'
+
+import { AppRootStateType } from '../../Redux/Redux-store'
+
 import styleDi from './Dialogs.module.css'
 import Message from './MessageItem/Dialogs'
-import { DialogsPageType } from '../../Redux/Types'
 
 import { DialogItem } from './Dialogitem/DialogItem'
 import { AddMessageForm } from './AddMessageForm'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../Redux/Redux-store'
 
 export const Dialogs = () => {
 	const dialogsPage = useSelector<AppRootStateType, DialogsPageType>(
