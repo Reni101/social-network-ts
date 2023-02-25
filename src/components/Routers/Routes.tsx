@@ -15,6 +15,7 @@ export const Routers = () => {
 		<div className={style.routes}>
 			<Routes>
 				<Route path='/profile/:userId?' element={<ProfileContainer />} />
+				<Route></Route>
 				<Route path='/dialogs' element={<DialogsContainer />} />
 				<Route path='/users' element={<UsersPage />} />
 				<Route path='/login' element={<LoginPage />} />

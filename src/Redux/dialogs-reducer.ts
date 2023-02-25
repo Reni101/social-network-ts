@@ -1,37 +1,47 @@
-import { v1 } from 'uuid'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { dialogs, messagesDialogs } from './Types'
+import { dialogsAPI, messageItems, userDialog } from '../api/api'
+
+export const getAllDialogsTC = createAsyncThunk('getAllDialogs', async (_, thunkAPI) => {
+	const res = await dialogsAPI.getAllDialogs()
+	return res
+})
+
+export const sendMessageTC = createAsyncThunk(
+	'sendMessage',
+	async (param: { userId: number; message: string }, thunkAPI) => {
+		const res = await dialogsAPI.sendMessage(param.userId, param.message)
+		return res
+	}
+)
+export const getAllMessagesTC = createAsyncThunk(
+	'getAllMessage',
+	async (param: { userId: number }, thunkAPI) => {
+		const res = await dialogsAPI.getAllMessages(param.userId)
+		return res
+	}
+)
 
 const slice = createSlice({
 	name: 'dialogsReducer',
 	initialState: {
-		messagesData: [
-			{ id: v1(), message: 'Hi' },
-			{ id: v1(), message: 'How are you?' },
-			{ id: v1(), message: 'Privet' },
-			{ id: v1(), message: 'Bye' },
-			{ id: v1(), message: 'You are great' }
-		] as Array<messagesDialogs>,
-		dialogsData: [
-			{ id: v1(), name: 'Maxim' },
-			{ id: v1(), name: 'Evgeny' },
-			{ id: v1(), name: 'Andrey' },
-			{ id: v1(), name: 'Sasha' },
-			{ id: v1(), name: 'Denis' }
-		] as Array<dialogs>,
-		newMessagesBody: ''
-	},
-	reducers: {
-		sendMessageAC(state, action: PayloadAction<{ messageBody: string }>) {
-			const newMessage = {
-				id: v1(),
-				message: action.payload.messageBody
-			}
-			state.messagesData = [...state.messagesData, newMessage]
+		dialogsData: [] as userDialog[],
+		userMessages: {
+			items: [] as messageItems[],
+			totalCount: 0 as number
 		}
-	}
+	},
+	reducers: {},
+	extraReducers: builder =>
+		builder
+			.addCase(getAllDialogsTC.fulfilled, (state, action) => {
+				state.dialogsData = action.payload
+			})
+			.addCase(getAllMessagesTC.fulfilled, (state, action) => {
+				state.userMessages.items = action.payload.items
+				state.userMessages.totalCount = action.payload.totalCount
+			})
+			.addCase(sendMessageTC.fulfilled, (state, action) => {})
 })
 
 export const dialogsReducer = slice.reducer
-export const { sendMessageAC } = slice.actions

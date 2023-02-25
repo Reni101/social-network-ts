@@ -1,0 +1,12 @@
+
+.dialogItem_wrapper{
+    border: 1px solid red;
+    margin: 10px;
+    padding: 10px;
+}
+.dialogItem_wrapper:hover{
+    background-color: #dad7d7;
+}
+.dialogItem_wrapper>img{
+    border-radius: 50%;
+}

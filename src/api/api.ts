@@ -2,33 +2,6 @@ import axios from 'axios'
 
 import { FilterType, PhotosType, ProfileType, UserType } from '../Redux/Types'
 
-export enum ResultCodeEnum {
-	Success = 0,
-	Error = 1,
-	CaptchaIsRequired = 10
-}
-
-export type getUsersResponseType = {
-	items: Array<UserType>
-	totalCount: number
-	error: null | string
-}
-export type ResponseType<T = {}> = {
-	data: T
-	messages: string[]
-	fieldsErrors: string[]
-	resultCode: ResultCodeEnum
-}
-
-export type AuthResType = {
-	id: number
-	login: string
-	email: string
-}
-export type LoginType = {
-	userId: number
-}
-
 const instance = axios.create({
 	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
 	withCredentials: true,
@@ -105,4 +78,92 @@ export const securityAPI = {
 	getCaptcha() {
 		return instance.get<{ url: string }>('security/get-captcha-url')
 	}
+}
+export const dialogsAPI = {
+	getAllDialogs() {
+		return instance.get<Array<userDialog>>('dialogs').then(res => res.data)
+	},
+	getAllMessages(userId: number) {
+		return instance
+			.get<ResponseMessagesUser>(`/dialogs/${userId}/messages`)
+			.then(res => res.data)
+	},
+	sendMessage(userId: number, message: string) {
+		return instance
+			.post<ResponseType<MessageRes>>(`dialogs/${userId}/messages`, {
+				body: message
+			})
+			.then(res => res.data)
+	}
+}
+
+export enum ResultCodeEnum {
+	Success = 0,
+	Error = 1,
+	CaptchaIsRequired = 10
+}
+
+export type getUsersResponseType = {
+	items: Array<UserType>
+	totalCount: number
+	error: null | string
+}
+
+export type ResponseType<T = {}> = {
+	data: T
+	messages: string[]
+	fieldsErrors: string[]
+	resultCode: ResultCodeEnum
+}
+
+export type AuthResType = {
+	id: number
+	login: string
+	email: string
+}
+
+export type LoginType = {
+	userId: number
+}
+
+export type userDialog = {
+	id: number
+	userName: string
+	hasNewMessages: boolean
+	lastDialogActivityDate: string
+	lastUserActivityDate: string
+	newMessagesCount: number
+	photos: PhotosType
+}
+
+export type MessageRes = {
+	id: string
+	body: string
+	translatedBody?: any
+	addedAt: string
+	senderId: number
+	senderName: string
+	recipientId: number
+	recipientName: string
+	viewed: boolean
+	deletedBySender: boolean
+	deletedByRecipient: boolean
+	isSpam: boolean
+	distributionId?: any
+}
+export type messageItems = {
+	id: string
+	body: string
+	translatedBody: null | string
+	addedAt: string
+	senderId: number
+	senderName: string
+	recipientId: number
+	viewed: boolean
+}
+
+export type ResponseMessagesUser = {
+	items: messageItems[]
+	totalCount: number
+	error: null | string
 }

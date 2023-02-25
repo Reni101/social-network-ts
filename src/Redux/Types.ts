@@ -3,20 +3,7 @@ export type PostsType = {
 	message: string
 	likeCount: number
 }
-export type messagesDialogs = {
-	id: string
-	message: string
-}
-export type dialogs = {
-	id: string
-	name: string
-}
 
-export type DialogsPageType = {
-	messagesData: Array<messagesDialogs>
-	dialogsData: Array<dialogs>
-	newMessagesBody: string
-}
 export type PostsDataType = {
 	id: string
 	message: string
