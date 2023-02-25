@@ -31,6 +31,7 @@ export const MessagesItem = (props: PropsType) => {
 	useEffect(() => {
 		dispatch(getAllMessagesTC({ userId: props.userId }))
 	}, [])
+
 	return (
 		<div className={styles.wrapper}>
 			{messages.map(m => {
