@@ -24,6 +24,7 @@ export const DialogItems = (props: PropsType) => {
 			{dialogsData.map(item => {
 				return (
 					<div
+						key={item.id}
 						className={styles.dialogItem_wrapper}
 						onClick={() => showMessagesHandler(item.id)}
 					>

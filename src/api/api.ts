@@ -90,7 +90,7 @@ export const dialogsAPI = {
 	},
 	sendMessage(userId: number, message: string) {
 		return instance
-			.post<ResponseType<MessageRes>>(`dialogs/${userId}/messages`, {
+			.post<ResponseType<{ message: MessageRes }>>(`dialogs/${userId}/messages`, {
 				body: message
 			})
 			.then(res => res.data)
@@ -139,7 +139,7 @@ export type userDialog = {
 export type MessageRes = {
 	id: string
 	body: string
-	translatedBody?: any
+	translatedBody: null | string
 	addedAt: string
 	senderId: number
 	senderName: string

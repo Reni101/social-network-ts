@@ -41,7 +41,19 @@ const slice = createSlice({
 				state.userMessages.items = action.payload.items
 				state.userMessages.totalCount = action.payload.totalCount
 			})
-			.addCase(sendMessageTC.fulfilled, (state, action) => {})
+			.addCase(sendMessageTC.fulfilled, (state, action) => {
+				const newMessage: messageItems = {
+					body: action.payload.data.message.body,
+					id: action.payload.data.message.id,
+					translatedBody: action.payload.data.message.translatedBody,
+					addedAt: action.payload.data.message.addedAt,
+					senderId: action.payload.data.message.senderId,
+					senderName: action.payload.data.message.senderName,
+					recipientId: action.payload.data.message.recipientId,
+					viewed: action.payload.data.message.viewed
+				}
+				state.userMessages.items.push(newMessage)
+			})
 })
 
 export const dialogsReducer = slice.reducer
