@@ -11,7 +11,7 @@ export const MessageForm = () => {
 	const dispatch = useDispatch()
 
 	const [messageFromTextArea, setMessageFromTextArea] = useState<string>('')
-	const setMessageHandler = (e: any) => {
+	const setMessageHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		setMessageFromTextArea(e.currentTarget.value)
 	}
 	const sendMessageHandler = async () => {

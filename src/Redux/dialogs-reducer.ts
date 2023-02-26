@@ -31,7 +31,11 @@ const slice = createSlice({
 			totalCount: 0 as number
 		}
 	},
-	reducers: {},
+	reducers: {
+		clearUserMessagesAC(state) {
+			state.userMessages.items = []
+		}
+	},
 	extraReducers: builder =>
 		builder
 			.addCase(getAllDialogsTC.fulfilled, (state, action) => {
@@ -57,3 +61,4 @@ const slice = createSlice({
 })
 
 export const dialogsReducer = slice.reducer
+export const { clearUserMessagesAC } = slice.actions

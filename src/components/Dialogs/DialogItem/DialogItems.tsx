@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
+import { Spin } from 'antd'
 import defaultAvatar from '../../../assets/UsersAvatar.jpg'
 import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
@@ -8,7 +9,7 @@ type PropsType = {
 	showMessagesHandler: (userId: number) => void
 }
 
-export const DialogItems = (props: PropsType) => {
+export const DialogItems = memo((props: PropsType) => {
 	const dispatch = useAppDispatch()
 	const dialogsData = useAppSelector(state => state.dialogsPage.dialogsData)
 
@@ -19,6 +20,11 @@ export const DialogItems = (props: PropsType) => {
 	useEffect(() => {
 		dispatch(getAllDialogsTC())
 	}, [dispatch])
+
+	if (!dialogsData.length) {
+		return <Spin tip='Loading' size='large'></Spin>
+	}
+
 	return (
 		<>
 			{dialogsData.map(item => {
@@ -39,4 +45,4 @@ export const DialogItems = (props: PropsType) => {
 			})}
 		</>
 	)
-}
+})

@@ -20,15 +20,15 @@ export const Search = (props: PropsType) => {
 		setOnlyFriend(value)
 	}
 
-	const inputHandler = (e: any) => {
-		setTerm(e.target.value)
+	const inputHandler = (e: React.FormEvent<HTMLInputElement>) => {
+		setTerm(e.currentTarget.value)
 	}
 
 	const buttonHandler = () => {
 		props.setSearchParams({ name: term, friend: onlyFriend })
 	}
 
-	const pressEnter = (e: any) => {
+	const pressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		e.key === 'Enter' && buttonHandler()
 	}
 

@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Input } from 'antd'
-import { getAllMessagesTC, sendMessageTC } from '../../../Redux/dialogs-reducer'
+import React, { memo, useEffect, useState } from 'react'
+import { Button, Input, Spin } from 'antd'
+import {
+	clearUserMessagesAC,
+	getAllMessagesTC,
+	sendMessageTC
+} from '../../../Redux/dialogs-reducer'
 import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
 import styles from './MessagesItem.module.css'
 
@@ -9,10 +13,11 @@ type PropsType = {
 	showMessagesHandler: (userId: number) => void
 }
 
-export const MessagesItem = (props: PropsType) => {
+export const MessagesItem = memo((props: PropsType) => {
 	const dispatch = useAppDispatch()
 	const messages = useAppSelector(state => state.dialogsPage.userMessages.items)
-	const ownerId = useAppSelector(state => state.profilePage.profile?.userId)
+
+	const ownerId = useAppSelector(state => state.auth.userId)
 	const [sendMessage, setSendMessage] = useState('')
 
 	const onClickHandler = () => {
@@ -24,13 +29,20 @@ export const MessagesItem = (props: PropsType) => {
 		props.showMessagesHandler(0)
 	}
 
-	const onChangeHandler = (e: any) => {
+	const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
 		setSendMessage(e.currentTarget.value)
 	}
 
 	useEffect(() => {
 		dispatch(getAllMessagesTC({ userId: props.userId }))
+		return () => {
+			dispatch(clearUserMessagesAC())
+		}
 	}, [])
+
+	if (!messages.length) {
+		return <Spin tip='Loading' size='large'></Spin>
+	}
 
 	return (
 		<div className={styles.wrapper}>
@@ -44,7 +56,7 @@ export const MessagesItem = (props: PropsType) => {
 						>
 							{m.senderName}{' '}
 						</div>{' '}
-						{m.body} viewed: {m.viewed ? 'viewed   ' : 'not viewed   '}
+						<b>{m.body}</b> viewed: {m.viewed ? 'viewed   ' : 'not viewed   '}
 						data:{m.addedAt}
 					</div>
 				)
@@ -60,4 +72,4 @@ export const MessagesItem = (props: PropsType) => {
 			<Button onClick={goBackHandler}> go back </Button>
 		</div>
 	)
-}
+})
