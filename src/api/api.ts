@@ -84,7 +84,7 @@ export const dialogsAPI = {
 	getAllDialogs() {
 		return instance.get<Array<userDialog>>('dialogs').then(res => res.data)
 	},
-	getMessagesFromUser(userId: number, page?: number) {
+	getMessagesFromUser(userId: number, page: number = 1) {
 		return instance
 			.get<ResponseMessagesUser>(`/dialogs/${userId}/messages?page=${page}`)
 			.then(res => res.data)
@@ -145,8 +145,8 @@ export type MessageRes = {
 	senderId: number
 	senderName: string
 	recipientId: number
-	recipientName: string
 	viewed: boolean
+	recipientName: string
 	deletedBySender: boolean
 	deletedByRecipient: boolean
 	isSpam: boolean

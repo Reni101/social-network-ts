@@ -3,9 +3,8 @@ import { Button, Input, Spin } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import {
 	clearUserMessagesAC,
-	getAllMessagesTC,
-	sendMessageTC,
-	showMoreMessagesTC
+	getMessagesFromUserTC,
+	sendMessageTC
 } from '../../../Redux/dialogs-reducer'
 import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
 import styles from './MessagesItem.module.css'
@@ -21,7 +20,6 @@ export const MessagesItem = () => {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const userId = Number(searchParams.get('userIdChat') || '')
 	const [sendMessage, setSendMessage] = useState('')
-	const [currentPage, setCurrentPage] = useState(2)
 
 	const sendMessageHandler = () => {
 		dispatch(sendMessageTC({ userId, message: sendMessage }))
@@ -37,16 +35,15 @@ export const MessagesItem = () => {
 	}
 
 	const nextPageHandler = () => {
-		dispatch(showMoreMessagesTC({ userId, page: currentPage }))
-		setCurrentPage(prevState => prevState + 1)
+		dispatch(getMessagesFromUserTC({ userId }))
 	}
 
 	useEffect(() => {
-		dispatch(getAllMessagesTC({ userId }))
+		dispatch(getMessagesFromUserTC({ userId }))
 		return () => {
 			dispatch(clearUserMessagesAC())
 		}
-	}, [])
+	}, [dispatch])
 
 	if (!messages.length) {
 		return <Spin tip='Loading' size='large'></Spin>
@@ -80,7 +77,7 @@ export const MessagesItem = () => {
 			<Button onClick={goBackHandler}> go back </Button>
 			<Button
 				onClick={nextPageHandler}
-				disabled={messages.length === totalMessagesCount}
+				disabled={messages.length >= totalMessagesCount}
 			>
 				show more
 			</Button>
