@@ -84,9 +84,9 @@ export const dialogsAPI = {
 	getAllDialogs() {
 		return instance.get<Array<userDialog>>('dialogs').then(res => res.data)
 	},
-	getAllMessages(userId: number) {
+	getMessagesFromUser(userId: number, page?: number) {
 		return instance
-			.get<ResponseMessagesUser>(`/dialogs/${userId}/messages`)
+			.get<ResponseMessagesUser>(`/dialogs/${userId}/messages?page=${page}`)
 			.then(res => res.data)
 	},
 	sendMessage(userId: number, message: string) {

@@ -1,40 +1,48 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Input, Spin } from 'antd'
+import { useSearchParams } from 'react-router-dom'
 import {
 	clearUserMessagesAC,
 	getAllMessagesTC,
-	sendMessageTC
+	sendMessageTC,
+	showMoreMessagesTC
 } from '../../../Redux/dialogs-reducer'
 import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
 import styles from './MessagesItem.module.css'
 
-type PropsType = {
-	userId: number
-	showMessagesHandler: (userId: number) => void
-}
-
-export const MessagesItem = memo((props: PropsType) => {
+export const MessagesItem = () => {
 	const dispatch = useAppDispatch()
 	const messages = useAppSelector(state => state.dialogsPage.userMessages.items)
-
 	const ownerId = useAppSelector(state => state.auth.userId)
-	const [sendMessage, setSendMessage] = useState('')
+	const totalMessagesCount = useAppSelector(
+		state => state.dialogsPage.userMessages.totalCount
+	)
 
-	const onClickHandler = () => {
-		dispatch(sendMessageTC({ userId: props.userId, message: sendMessage }))
+	const [searchParams, setSearchParams] = useSearchParams()
+	const userId = Number(searchParams.get('userIdChat') || '')
+	const [sendMessage, setSendMessage] = useState('')
+	const [currentPage, setCurrentPage] = useState(2)
+
+	const sendMessageHandler = () => {
+		dispatch(sendMessageTC({ userId, message: sendMessage }))
 		setSendMessage('')
 	}
 
 	const goBackHandler = () => {
-		props.showMessagesHandler(0)
+		setSearchParams({ userIdChat: '' })
 	}
 
 	const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
 		setSendMessage(e.currentTarget.value)
 	}
 
+	const nextPageHandler = () => {
+		dispatch(showMoreMessagesTC({ userId, page: currentPage }))
+		setCurrentPage(prevState => prevState + 1)
+	}
+
 	useEffect(() => {
-		dispatch(getAllMessagesTC({ userId: props.userId }))
+		dispatch(getAllMessagesTC({ userId }))
 		return () => {
 			dispatch(clearUserMessagesAC())
 		}
@@ -68,8 +76,14 @@ export const MessagesItem = memo((props: PropsType) => {
 				onChange={onChangeHandler}
 				value={sendMessage}
 			/>
-			<Button onClick={onClickHandler}> Send </Button>
+			<Button onClick={sendMessageHandler}> Send </Button>
 			<Button onClick={goBackHandler}> go back </Button>
+			<Button
+				onClick={nextPageHandler}
+				disabled={messages.length === totalMessagesCount}
+			>
+				show more
+			</Button>
 		</div>
 	)
-})
+}

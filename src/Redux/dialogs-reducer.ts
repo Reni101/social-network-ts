@@ -15,9 +15,16 @@ export const sendMessageTC = createAsyncThunk(
 	}
 )
 export const getAllMessagesTC = createAsyncThunk(
-	'getAllMessage',
+	'getMessagesFromUser',
 	async (param: { userId: number }, thunkAPI) => {
-		const res = await dialogsAPI.getAllMessages(param.userId)
+		const res = await dialogsAPI.getMessagesFromUser(param.userId)
+		return res
+	}
+)
+export const showMoreMessagesTC = createAsyncThunk(
+	'showMoreMessagesTC',
+	async (param: { userId: number; page: number }) => {
+		const res = await dialogsAPI.getMessagesFromUser(param.userId, param.page)
 		return res
 	}
 )
@@ -34,6 +41,7 @@ const slice = createSlice({
 	reducers: {
 		clearUserMessagesAC(state) {
 			state.userMessages.items = []
+			state.userMessages.totalCount = 0
 		}
 	},
 	extraReducers: builder =>
@@ -57,6 +65,12 @@ const slice = createSlice({
 					viewed: action.payload.data.message.viewed
 				}
 				state.userMessages.items.push(newMessage)
+			})
+			.addCase(showMoreMessagesTC.fulfilled, (state, action) => {
+				state.userMessages.items = [
+					...action.payload.items,
+					...state.userMessages.items
+				]
 			})
 })
 
