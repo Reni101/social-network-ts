@@ -12,7 +12,7 @@ import style from './App.module.css'
 import { HeaderPage } from './components/Header/HeaderPage'
 import { useAppDispatch, useAppSelector } from './Redux/Redux-store'
 import { InitializeAppTC } from './Redux/app-reducer'
-import { Preloader } from './components/common/Preloader/Preloader'
+import { Preloader } from './common/Preloader/Preloader'
 import { getItem, MenuItem } from './MenuItemData'
 import { Routers } from './components/Routers/Routes'
 
@@ -46,7 +46,11 @@ export const App: React.FC = () => {
 
 	return (
 		<Layout className={style.app_wrapper}>
-			<Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
+			<Sider
+				collapsible
+				collapsed={collapsed}
+				onCollapse={value => setCollapsed(value)}
+			>
 				<Menu theme='dark' selectable={false} mode='inline' items={items} />
 			</Sider>
 			<Layout className='site-layout'>

@@ -1,8 +1,8 @@
 import React, { memo, useEffect } from 'react'
-import { Spin } from 'antd'
 import defaultAvatar from '../../../assets/UsersAvatar.jpg'
 import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
+import { Preloader } from '../../../common/Preloader/Preloader'
 import styles from './DialogItem.module.css'
 
 type PropsType = {
@@ -22,7 +22,7 @@ export const DialogItems = memo((props: PropsType) => {
 	}, [dispatch])
 
 	if (!dialogsData.length) {
-		return <Spin tip='Loading' size='large'></Spin>
+		return <Preloader />
 	}
 
 	return (

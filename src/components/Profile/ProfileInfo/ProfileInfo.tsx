@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import UserAvatar from '../../../assets/UsersAvatar.jpg'
-import { Preloader } from '../../common/Preloader/Preloader'
+import { Preloader } from '../../../common/Preloader/Preloader'
 import { AppRootStateType } from '../../../Redux/Redux-store'
 import { ProfileType } from '../../../Redux/Types'
 import { UploadPhoto } from '../UploadPhoto/UploadPhoto'

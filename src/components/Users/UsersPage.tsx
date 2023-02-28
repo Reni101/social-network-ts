@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useSearchParams } from 'react-router-dom'
 
 import { followTC, getUsersTC, unfollowTC } from '../../Redux/users-reducer'
-import { Paginator } from '../common/Paginator/Paginator'
+import { Paginator } from '../../common/Paginator/Paginator'
 
 import {
 	getCurrentPage,
@@ -15,6 +15,7 @@ import {
 
 import { AppRootStateType } from '../../Redux/Redux-store'
 
+import { Preloader } from '../../common/Preloader/Preloader'
 import { User } from './User/User'
 import style from './Users.module.css'
 
@@ -51,7 +52,7 @@ export const UsersPage = () => {
 		(pageNumber: number, pageSize: number) => {
 			dispatch(getUsersTC(pageNumber, pageSize, filter))
 		},
-		[filter]
+		[filter, dispatch]
 	)
 
 	useEffect(() => {
@@ -61,7 +62,9 @@ export const UsersPage = () => {
 	if (!isAuth) {
 		return <Navigate to={'/login'} />
 	}
-
+	if (!users.length) {
+		return <Preloader />
+	}
 	return (
 		<div className={style.container}>
 			<h2>Users</h2>

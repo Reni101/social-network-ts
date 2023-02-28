@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import styles from './Dialogs.module.css'
+import { Container } from '../../common/Container/Container'
+
 import { DialogItems } from './DialogItem/DialogItems'
 import { MessagesItem } from './MessagesItems/MessagesItem'
 
@@ -13,7 +14,7 @@ export const Dialogs = () => {
 	}
 
 	return (
-		<div className={styles.wrapper}>
+		<Container>
 			{showMessages ? (
 				<MessagesItem
 					userId={userIdForShow}
@@ -22,6 +23,6 @@ export const Dialogs = () => {
 			) : (
 				<DialogItems showMessagesHandler={showMessagesHandler} />
 			)}
-		</div>
+		</Container>
 	)
 }

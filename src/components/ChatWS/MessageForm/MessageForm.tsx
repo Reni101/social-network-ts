@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import TextArea from 'antd/es/input/TextArea'
-import { Button } from 'antd'
+import { Button, Input } from 'antd'
 import { useDispatch } from 'react-redux'
 
 import { sendMessage } from '../../../Redux/chat-ws-reducer'
@@ -10,23 +9,22 @@ import style from './MessageForm.module.css'
 export const MessageForm = () => {
 	const dispatch = useDispatch()
 
-	const [messageFromTextArea, setMessageFromTextArea] = useState<string>('')
-	const setMessageHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
-		setMessageFromTextArea(e.currentTarget.value)
+	const [messageFromInput, setMessageFromInput] = useState<string>('')
+	const setMessageHandler = (e: React.FormEvent<HTMLInputElement>) => {
+		setMessageFromInput(e.currentTarget.value)
 	}
-	const sendMessageHandler = async () => {
-		if (messageFromTextArea.trim() === '') return // fix
-		await dispatch(sendMessage(messageFromTextArea))
-		setMessageFromTextArea('')
+	const sendMessageHandler = () => {
+		if (messageFromInput.trim() === '') return // fix
+		dispatch(sendMessage(messageFromInput))
+		setMessageFromInput('')
 	}
 	return (
 		<div className={style.formContainer}>
-			<TextArea
-				autoSize={true}
+			<Input
 				autoFocus
 				style={{ width: '300px' }}
 				onChange={setMessageHandler}
-				value={messageFromTextArea}
+				value={messageFromInput}
 			/>
 
 			<Button onClick={sendMessageHandler}>Send message</Button>

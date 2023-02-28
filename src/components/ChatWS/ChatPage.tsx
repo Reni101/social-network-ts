@@ -9,6 +9,7 @@ import {
 } from '../../Redux/chat-ws-reducer'
 import { AppRootStateType } from '../../Redux/Redux-store'
 
+import { Container } from '../../common/Container/Container'
 import style from './ChatPage.module.css'
 import { MessageForm } from './MessageForm/MessageForm'
 import { MessagesChat } from './Messages/MessagesChat'
@@ -22,16 +23,16 @@ export const ChatPage = () => {
 		return () => {
 			dispatch(stopMessagesListeningTC())
 		}
-	}, [])
+	}, [dispatch])
 
 	if (!isAuth) {
 		return <Navigate to={'/login'} />
 	}
 
 	return (
-		<div className={style.container}>
+		<Container className={style.chatWS}>
 			<MessagesChat />
 			<MessageForm />
-		</div>
+		</Container>
 	)
 }

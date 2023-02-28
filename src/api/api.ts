@@ -79,6 +79,7 @@ export const securityAPI = {
 		return instance.get<{ url: string }>('security/get-captcha-url')
 	}
 }
+
 export const dialogsAPI = {
 	getAllDialogs() {
 		return instance.get<Array<userDialog>>('dialogs').then(res => res.data)
