@@ -1,10 +1,35 @@
 import { Dispatch } from 'redux'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { chatAPI, StatusType } from '../api/chat-ws-api'
-
-import { AppDispatch } from './Redux-store'
 import { ChatMessageType } from './Types'
+
+export const startMessagesListeningTC = createAsyncThunk(
+	'chatWSReducer/startMessagesListeningTC',
+	async (_, { dispatch, rejectWithValue }) => {
+		try {
+			chatAPI.start()
+			chatAPI.subscribe('messages-received', newMessageHandlerCreator(dispatch))
+			chatAPI.subscribe('status-changed', statusChangedHandlerCreator(dispatch))
+			return
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
+
+export const stopMessagesListeningTC = createAsyncThunk(
+	'',
+	async (_, { dispatch, rejectWithValue }) => {
+		try {
+			chatAPI.unsubscribe('messages-received', newMessageHandlerCreator(dispatch))
+			chatAPI.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
+			chatAPI.stop()
+			return
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
 
 const slice = createSlice({
 	name: 'chatWSReducer',
@@ -21,16 +46,18 @@ const slice = createSlice({
 		},
 		statusChangedAC(state, action: PayloadAction<{ status: StatusType }>) {
 			state.status = action.payload.status
-		},
-		clearMessagesAC(state) {
-			state.messages = []
 		}
-	}
+	},
+	extraReducers: builder =>
+		builder.addCase(stopMessagesListeningTC.fulfilled, state => {
+			state.messages = []
+		})
 })
 export const chatWSReducer = slice.reducer
-export const { setMessagesAC, statusChangedAC, clearMessagesAC } = slice.actions
+export const { setMessagesAC, statusChangedAC } = slice.actions
 
 let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null
+
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
 	if (_newMessageHandler === null) {
 		_newMessageHandler = messages => {
@@ -41,6 +68,7 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
 }
 
 let _statusChangedHandler: ((status: StatusType) => void) | null = null
+
 const statusChangedHandlerCreator = (dispatch: Dispatch) => {
 	if (_statusChangedHandler === null) {
 		_statusChangedHandler = status => {
@@ -48,19 +76,6 @@ const statusChangedHandlerCreator = (dispatch: Dispatch) => {
 		}
 	}
 	return _statusChangedHandler
-}
-
-export const startMessagesListeningTC = () => async (dispatch: AppDispatch) => {
-	chatAPI.start()
-	chatAPI.subscribe('messages-received', newMessageHandlerCreator(dispatch))
-	chatAPI.subscribe('status-changed', statusChangedHandlerCreator(dispatch))
-}
-
-export const stopMessagesListeningTC = () => async (dispatch: AppDispatch) => {
-	chatAPI.unsubscribe('messages-received', newMessageHandlerCreator(dispatch))
-	chatAPI.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
-	chatAPI.stop()
-	dispatch(clearMessagesAC())
 }
 
 export const sendMessage = (message: string) => {

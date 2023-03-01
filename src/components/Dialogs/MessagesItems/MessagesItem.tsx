@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Input, Spin } from 'antd'
+import { Button, Spin } from 'antd'
 import { useSearchParams } from 'react-router-dom'
+import TextArea from 'antd/es/input/TextArea'
 import {
 	clearUserMessagesAC,
 	getMessagesFromUserTC,
@@ -30,7 +31,7 @@ export const MessagesItem = () => {
 		setSearchParams({ userIdChat: '' })
 	}
 
-	const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+	const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setSendMessage(e.currentTarget.value)
 	}
 
@@ -67,7 +68,7 @@ export const MessagesItem = () => {
 				)
 			})}
 
-			<Input
+			<TextArea
 				autoFocus
 				defaultValue={sendMessage}
 				onChange={onChangeHandler}

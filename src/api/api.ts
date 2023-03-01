@@ -82,7 +82,7 @@ export const securityAPI = {
 
 export const dialogsAPI = {
 	getAllDialogs() {
-		return instance.get<Array<userDialog>>('dialogs').then(res => res.data)
+		return instance.get<Array<usersDialog>>('dialogs').then(res => res.data)
 	},
 	getMessagesFromUser(userId: number, page: number = 1) {
 		return instance
@@ -127,7 +127,7 @@ export type LoginType = {
 	userId: number
 }
 
-export type userDialog = {
+export type usersDialog = {
 	id: number
 	userName: string
 	hasNewMessages: boolean

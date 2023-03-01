@@ -1,8 +1,6 @@
 import { v1 } from 'uuid'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
 import { profileAPI } from '../api/api'
-
 import { PhotosType, PostsDataType, PostsType, ProfileType } from './Types'
 import { AppDispatch } from './Redux-store'
 

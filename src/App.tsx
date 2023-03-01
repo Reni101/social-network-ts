@@ -11,7 +11,7 @@ import {
 import style from './App.module.css'
 import { HeaderPage } from './components/Header/HeaderPage'
 import { useAppDispatch, useAppSelector } from './Redux/Redux-store'
-import { InitializeAppTC } from './Redux/app-reducer'
+import { initializeAppTC } from './Redux/app-reducer'
 import { Preloader } from './common/Preloader/Preloader'
 import { getItem, MenuItem } from './MenuItemData'
 import { Routers } from './components/Routers/Routes'
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
 	]
 
 	useEffect(() => {
-		dispatch(InitializeAppTC())
+		dispatch(initializeAppTC())
 	}, [dispatch])
 
 	if (!initialized) {

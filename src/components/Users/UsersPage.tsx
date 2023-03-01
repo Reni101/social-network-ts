@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useSearchParams } from 'react-router-dom'
-
 import { followTC, getUsersTC, unfollowTC } from '../../Redux/users-reducer'
 import { Paginator } from '../../common/Paginator/Paginator'
 
@@ -13,22 +11,21 @@ import {
 	getUsersSelector
 } from '../../Redux/users-selectors'
 
-import { AppRootStateType } from '../../Redux/Redux-store'
-
 import { Preloader } from '../../common/Preloader/Preloader'
+import { useAppDispatch, useAppSelector } from '../../Redux/Redux-store'
 import { User } from './User/User'
 import style from './Users.module.css'
 
 import { friendType, Search } from './Search/Search'
 
 export const UsersPage = () => {
-	const dispatch = useDispatch()
-	const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
-	const users = useSelector(getUsersSelector)
-	const currentPageSize = useSelector(getPageSize)
-	const currentPage = useSelector(getCurrentPage)
-	const totalItemsCount = useSelector(getTotalItemsCount)
-	const followingInProgress = useSelector(getFollowingInProgress)
+	const dispatch = useAppDispatch()
+	const isAuth = useAppSelector(state => state.auth.isAuth)
+	const users = useAppSelector(getUsersSelector)
+	const currentPageSize = useAppSelector(getPageSize)
+	const currentPage = useAppSelector(getCurrentPage)
+	const totalItemsCount = useAppSelector(getTotalItemsCount)
+	const followingInProgress = useAppSelector(getFollowingInProgress)
 
 	const [searchParams, setSearchParams] = useSearchParams()
 

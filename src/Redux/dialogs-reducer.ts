@@ -1,37 +1,42 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { dialogsAPI, messageItems, ResponseMessagesUser, usersDialog } from '../api/api'
 
-import { dialogsAPI, messageItems, userDialog } from '../api/api'
-
-export const getAllDialogsTC = createAsyncThunk('getAllDialogs', async () => {
-	return await dialogsAPI.getAllDialogs()
-})
+export const getAllDialogsTC = createAsyncThunk(
+	'dialogsReducer/getAllDialogsTC',
+	async () => {
+		return await dialogsAPI.getAllDialogs()
+	}
+)
 
 export const sendMessageTC = createAsyncThunk(
-	'sendMessage',
+	'dialogsReducer/sendMessageTC',
 	async (param: { userId: number; message: string }) => {
 		return await dialogsAPI.sendMessage(param.userId, param.message)
 	}
 )
 
-export const getMessagesFromUserTC = createAsyncThunk(
-	'getMessagesFromUser',
-	async (param: { userId: number }, { dispatch, getState }) => {
-		//const state = getState() as AppRootStateType
-		//const currentPage = state.dialogsPage.userMessages.currentPage
-
-		//@ts-ignore
-		const currentPage = getState().dialogsPage.userMessages.currentPage
-
-		const res = await dialogsAPI.getMessagesFromUser(param.userId, currentPage)
-		dispatch(incrementCurrentPage())
-		return res
+export const getMessagesFromUserTC = createAsyncThunk<
+	ResponseMessagesUser,
+	{ userId: number },
+	{ state: any }
+>(
+	'dialogsReducer/getMessagesFromUserTC',
+	async (param, { dispatch, getState, rejectWithValue }) => {
+		try {
+			const currentPage = getState().dialogsPage.userMessages.currentPage
+			const res = await dialogsAPI.getMessagesFromUser(param.userId, currentPage)
+			dispatch(incrementCurrentPage())
+			return res
+		} catch (e) {
+			return rejectWithValue('')
+		}
 	}
 )
 
 const slice = createSlice({
 	name: 'dialogsReducer',
 	initialState: {
-		dialogsData: [] as userDialog[],
+		dialogsData: [] as usersDialog[],
 		userMessages: {
 			items: [] as messageItems[],
 			totalCount: 0 as number,
@@ -69,6 +74,7 @@ const slice = createSlice({
 					distributionId,
 					...newMessage
 				} = action.payload.data.message
+
 				state.userMessages.items.push(newMessage)
 			})
 })

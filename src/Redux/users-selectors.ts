@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-
 import { AppRootStateType } from './Redux-store'
 
 const getUsers = (state: AppRootStateType) => {

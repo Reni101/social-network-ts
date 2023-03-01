@@ -1,16 +1,19 @@
-.message{
-    border: 1px solid navy;
-    padding: 10px;
-    margin: 10px;
+.message {
+	border: 1px solid navy;
+	padding: 10px;
+	margin: 10px;
 }
-.wrapper>input {
-    margin: 10px;
-    padding: 10px;
-    max-width: 200px;
+.wrapper > textarea {
+	max-width: 200px;
+	margin: 10px;
+	padding: 10px;
+}
+.wrapper > button {
+    margin: 5px;
 }
 .owner {
-    color: blueviolet;
+	color: blueviolet;
 }
-.userName{
-    color: red;
+.userName {
+	color: red;
 }

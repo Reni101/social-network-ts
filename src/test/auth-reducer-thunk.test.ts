@@ -14,12 +14,17 @@ test('loginTC is working', async () => {
 		resultCode: ResultCodeEnum.Success
 	}
 	authAPIMock.login.mockReturnValue(Promise.resolve(result))
-	const thunk = loginTC('maximor-2008@tut.by', '12334', true)
+	const thunk = loginTC({
+		email: 'maximor-2008@tut.by',
+		password: '12334',
+		rememberMe: true
+	})
 
 	const dispatchMock = jest.fn()
+	const getStateMock = jest.fn()
 
-	await thunk(dispatchMock)
-	expect(dispatchMock).toBeCalledTimes(1)
+	await thunk(dispatchMock, getStateMock, '')
+	expect(dispatchMock).toBeCalledTimes(3)
 })
 
 test('getAuthUserDataTC', async () => {
@@ -38,9 +43,10 @@ test('getAuthUserDataTC', async () => {
 	const thunk = getAuthUserDataTC()
 
 	const dispatchMock = jest.fn()
+	const getStateMock = jest.fn()
 
-	await thunk(dispatchMock)
-	expect(dispatchMock).toBeCalledTimes(1)
+	await thunk(dispatchMock, getStateMock, '')
+	expect(dispatchMock).toBeCalledTimes(2)
 })
 
 afterEach(() => {

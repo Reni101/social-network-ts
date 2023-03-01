@@ -1,11 +1,11 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Button, Checkbox, Input } from 'antd'
 
-import { AppRootStateType } from '../../Redux/Redux-store'
 import { loginTC } from '../../Redux/auth-reducer'
 
+import { useAppSelector } from '../../Redux/Redux-store'
 import style from './loginForm.module.css'
 
 type FormikErrorType = {
@@ -17,9 +17,7 @@ type FormikErrorType = {
 
 export const LoginForm = () => {
 	const dispatch = useDispatch()
-	const captchaURl = useSelector<AppRootStateType, string | null>(
-		state => state.auth.captchaURl
-	)
+	const captchaURl = useAppSelector<string | null>(state => state.auth.captchaURl)
 
 	const formik = useFormik({
 		initialValues: {
@@ -30,8 +28,14 @@ export const LoginForm = () => {
 		},
 		onSubmit: values => {
 			dispatch(
-				loginTC(values.login, values.password, values.rememberMe, values.captcha)
+				loginTC({
+					email: values.login,
+					password: values.password,
+					rememberMe: values.rememberMe,
+					captcha: values.captcha
+				})
 			)
+
 			formik.resetForm()
 		},
 

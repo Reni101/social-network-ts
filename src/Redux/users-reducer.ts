@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { ResponseType, ResultCodeEnum, usersAPI } from '../api/api'
-
-import { AppDispatch } from './Redux-store'
 import { FilterType, UserType } from './Types'
+import { AppDispatch } from './Redux-store'
 
 const slice = createSlice({
 	name: 'usersReducer',

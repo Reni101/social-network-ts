@@ -1,17 +1,17 @@
 import React from 'react'
-import styleH from './Header.module.css'
 import { NavLink } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from '../../Redux/Redux-store'
+import { useDispatch } from 'react-redux'
 import { Button, Layout, theme } from 'antd'
 import { logoutTC } from '../../Redux/auth-reducer'
+import { useAppSelector } from '../../Redux/Redux-store'
+import styleH from './Header.module.css'
 
 const { Header } = Layout
 
 export const HeaderPage = () => {
 	const dispatch = useDispatch()
-	const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth)
-	const login = useSelector<AppRootStateType>(state => state.auth.login)
+	const isAuth = useAppSelector(state => state.auth.isAuth)
+	const login = useAppSelector(state => state.auth.login)
 	const logoutHandler = () => {
 		dispatch(logoutTC())
 	}
@@ -25,8 +25,7 @@ export const HeaderPage = () => {
 				<div className={styleH.loginBlock}>
 					{isAuth ? (
 						<div>
-							{login} -{' '}
-							<Button onClick={logoutHandler}>Log out</Button>
+							{login} - <Button onClick={logoutHandler}>Log out</Button>
 						</div>
 					) : (
 						<NavLink to='/login'>Login </NavLink>

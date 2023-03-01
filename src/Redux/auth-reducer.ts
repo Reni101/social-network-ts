@@ -1,8 +1,70 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { authAPI, ResultCodeEnum, securityAPI } from '../api/api'
 
-import { AppDispatch } from './Redux-store'
+export const getAuthUserDataTC = createAsyncThunk(
+	'authReducer/getAuthUserDataTC',
+	async (_, { rejectWithValue }) => {
+		try {
+			const res = await authAPI.getAuthMe()
+			return {
+				userId: res.data.id,
+				email: res.data.email,
+				login: res.data.email,
+				isAuth: true
+			}
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
+
+export const loginTC = createAsyncThunk<
+	undefined,
+	{ email: string; password: string; rememberMe: boolean; captcha?: string }
+>('authReducer/loginTC', async (param, { dispatch, rejectWithValue }) => {
+	try {
+		const res = await authAPI.login(
+			param.email,
+			param.password,
+			param.rememberMe,
+			param.captcha
+		)
+		if (res.resultCode === ResultCodeEnum.Success) {
+			await dispatch(getAuthUserDataTC())
+			return
+		}
+		if (res.resultCode === ResultCodeEnum.CaptchaIsRequired) {
+			await dispatch(getCaptchaURLTC())
+			return
+		}
+	} catch (e) {
+		return rejectWithValue('')
+	}
+})
+
+export const logoutTC = createAsyncThunk(
+	'authReducer/logoutTC',
+	async (_, { rejectWithValue }) => {
+		try {
+			await authAPI.logout()
+			return
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
+
+export const getCaptchaURLTC = createAsyncThunk(
+	'authReducer/getCaptchaURLTC',
+	async (_, { rejectWithValue }) => {
+		try {
+			const res = await securityAPI.getCaptcha()
+			return { url: res.data.url }
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
 
 const slice = createSlice({
 	name: 'authReducer',
@@ -13,66 +75,24 @@ const slice = createSlice({
 		isAuth: false,
 		captchaURl: null as string | null
 	},
-	reducers: {
-		setAuthUserDataAC(
-			state,
-			action: PayloadAction<{
-				userId: number | null
-				email: string | null
-				login: string | null
-				isAuth: boolean
-			}>
-		) {
-			state.userId = action.payload.userId
-			state.email = action.payload.email
-			state.login = action.payload.login
-			state.isAuth = action.payload.isAuth
-		},
-		getCaptchaUrlAC(state, action: PayloadAction<{ url: string }>) {
-			state.captchaURl = action.payload.url
-		}
-	}
+	reducers: {},
+	extraReducers: builder =>
+		builder
+			.addCase(getAuthUserDataTC.fulfilled, (state, action) => {
+				state.userId = action.payload.userId
+				state.email = action.payload.email
+				state.login = action.payload.login
+				state.isAuth = action.payload.isAuth
+			})
+			.addCase(logoutTC.fulfilled, state => {
+				state.userId = null
+				state.email = null
+				state.login = null
+				state.isAuth = false
+			})
+			.addCase(getCaptchaURLTC.fulfilled, (state, action) => {
+				state.captchaURl = action.payload.url
+			})
 })
 
 export const authReducer = slice.reducer
-export const { getCaptchaUrlAC, setAuthUserDataAC } = slice.actions
-
-export const getAuthUserDataTC = () => async (dispatch: AppDispatch) => {
-	const res = await authAPI.getAuthMe()
-	if (res.resultCode === ResultCodeEnum.Success) {
-		let { id, email, login } = res.data
-		dispatch(setAuthUserDataAC({ userId: id, email, login, isAuth: true }))
-	}
-}
-
-export const loginTC =
-	(email: string, password: string, rememberMe: boolean, captcha?: string) =>
-	async (dispatch: AppDispatch) => {
-		const res = await authAPI.login(email, password, rememberMe, captcha)
-		if (res.resultCode === ResultCodeEnum.Success) {
-			await dispatch(getAuthUserDataTC())
-		}
-		if (res.resultCode === ResultCodeEnum.CaptchaIsRequired) {
-			dispatch(getCaptchaURLTC())
-		}
-	}
-
-export const logoutTC = () => async (dispatch: AppDispatch) => {
-	const res = await authAPI.logout()
-	if (res.data.resultCode === 0) {
-		dispatch(
-			setAuthUserDataAC({
-				userId: null,
-				email: null,
-				login: null,
-				isAuth: false
-			})
-		)
-	}
-}
-
-export const getCaptchaURLTC = () => async (dispatch: AppDispatch) => {
-	const res = await securityAPI.getCaptcha()
-	const url = res.data.url
-	dispatch(getCaptchaUrlAC({ url }))
-}

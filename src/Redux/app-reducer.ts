@@ -1,26 +1,29 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { AppDispatch } from './Redux-store'
 import { getAuthUserDataTC } from './auth-reducer'
+
+export const initializeAppTC = createAsyncThunk(
+	'appReducer/InitAppTC',
+	async (_, { dispatch, rejectWithValue }) => {
+		try {
+			let promise = dispatch(getAuthUserDataTC())
+			await Promise.all([promise])
+			return { value: true }
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
 
 const slice = createSlice({
 	name: 'appReducer',
 	initialState: {
 		initialized: false
 	},
-	reducers: {
-		setInitialized(state, action: PayloadAction<{ value: boolean }>) {
+	reducers: {},
+	extraReducers: builder =>
+		builder.addCase(initializeAppTC.fulfilled, (state, action) => {
 			state.initialized = action.payload.value
-		}
-	}
+		})
 })
 export const appReducer = slice.reducer
-export const { setInitialized } = slice.actions
-
-//========================Thunk Creator======================
-export const InitializeAppTC = () => (dispatch: AppDispatch) => {
-	let promise = dispatch(getAuthUserDataTC())
-	Promise.all([promise]).then(() => {
-		dispatch(setInitialized({ value: true }))
-	})
-}
