@@ -6,6 +6,9 @@ export const getAuthUserDataTC = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			const res = await authAPI.getAuthMe()
+			if (res.resultCode === ResultCodeEnum.Error) {
+				return rejectWithValue('')
+			}
 			return {
 				userId: res.data.id,
 				email: res.data.email,
@@ -94,6 +97,9 @@ const slice = createSlice({
 
 			.addCase(getCaptchaURLTC.fulfilled, (state, action) => {
 				state.captchaURl = action.payload.url
+			})
+			.addCase(getAuthUserDataTC.rejected, state => {
+				state.isAuth = false
 			})
 })
 
