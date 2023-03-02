@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AxiosError } from 'axios'
 import { chatAPI, StatusType } from '../api/chat-ws-api'
+import { handleAsyncServerNetworkError } from '../utils/error-utils'
 import { ChatMessageType } from './types'
 
 export const startMessagesListeningTC = createAsyncThunk(
@@ -10,9 +12,12 @@ export const startMessagesListeningTC = createAsyncThunk(
 			chatAPI.start()
 			chatAPI.subscribe('messages-received', newMessageHandlerCreator(dispatch))
 			chatAPI.subscribe('status-changed', statusChangedHandlerCreator(dispatch))
-			return
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )
@@ -24,9 +29,12 @@ export const stopMessagesListeningTC = createAsyncThunk(
 			chatAPI.unsubscribe('messages-received', newMessageHandlerCreator(dispatch))
 			chatAPI.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
 			chatAPI.stop()
-			return
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )

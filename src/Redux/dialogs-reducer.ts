@@ -1,24 +1,34 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { AxiosError } from 'axios'
 import { dialogsAPI, messageItems, ResponseMessagesUser, usersDialogs } from '../api/api'
+import { handleAsyncServerNetworkError } from '../utils/error-utils'
 
 export const getAllDialogsTC = createAsyncThunk(
 	'dialogsReducer/getAllDialogsTC',
-	async (_, { rejectWithValue }) => {
+	async (_, { dispatch, rejectWithValue }) => {
 		try {
 			return await dialogsAPI.getAllDialogs()
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )
 
 export const sendMessageTC = createAsyncThunk(
 	'dialogsReducer/sendMessageTC',
-	async (param: { userId: number; message: string }, { rejectWithValue }) => {
+	async (param: { userId: number; message: string }, { dispatch, rejectWithValue }) => {
 		try {
 			return await dialogsAPI.sendMessage(param.userId, param.message)
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )
@@ -36,7 +46,11 @@ export const getMessagesFromUserTC = createAsyncThunk<
 			dispatch(incrementCurrentPageAC())
 			return res
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )

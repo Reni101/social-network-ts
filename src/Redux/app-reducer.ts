@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { AxiosError } from 'axios'
+import { handleAsyncServerNetworkError } from '../utils/error-utils'
 import { getAuthUserDataTC } from './auth-reducer'
+
 export type appStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 export const initializeAppTC = createAsyncThunk<{ value: boolean }, undefined>(
@@ -9,9 +12,14 @@ export const initializeAppTC = createAsyncThunk<{ value: boolean }, undefined>(
 		try {
 			let promise = dispatch(getAuthUserDataTC())
 			await Promise.all([promise])
+			dispatch(setAppError(null))
 			return { value: true }
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )

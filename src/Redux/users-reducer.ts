@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { AxiosError } from 'axios'
 import { usersAPI } from '../api/api'
+import { handleAsyncServerNetworkError } from '../utils/error-utils'
 import { FilterType, UserType } from './types'
 
 export const getUsersTC = createAsyncThunk(
 	'usersReducer/getUsersTC',
 	async (
 		param: { currentPage: number; pageSize: number; filter: FilterType },
-		{ rejectWithValue }
+		{ dispatch, rejectWithValue }
 	) => {
 		try {
 			if (!param.filter.friend) param.filter.friend = null
@@ -22,30 +24,42 @@ export const getUsersTC = createAsyncThunk(
 				currentPageSize: param.pageSize
 			}
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )
 
 export const followTC = createAsyncThunk(
 	'usersReducer/followTC',
-	async (param: { userId: number }, { rejectWithValue }) => {
+	async (param: { userId: number }, { dispatch, rejectWithValue }) => {
 		try {
 			await usersAPI.followUser(param.userId)
 			return param.userId
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )
 export const unfollowTC = createAsyncThunk(
 	'usersReducer/unfollowTC',
-	async (param: { userId: number }, { rejectWithValue }) => {
+	async (param: { userId: number }, { dispatch, rejectWithValue }) => {
 		try {
 			await usersAPI.unfollowUser(param.userId)
 			return param.userId
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )

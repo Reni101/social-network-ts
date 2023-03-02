@@ -1,35 +1,40 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { authAPI, ResultCodeEnum, securityAPI } from '../api/api'
-import { AppRootStateType } from './redux-store'
-import { setAppError } from './app-reducer'
+import { handleAsyncServerNetworkError, handleServerAppError } from '../utils/error-utils'
+import { setAppStatus } from './app-reducer'
 
 export const getAuthUserDataTC = createAsyncThunk<
 	{ userId: number; email: string; login: string; isAuth: boolean },
 	undefined
->('authReducer/getAuthUserDataTC', async (_, { rejectWithValue }) => {
+>('authReducer/getAuthUserDataTC', async (_, { dispatch, rejectWithValue }) => {
 	try {
 		const res = await authAPI.getAuthMe()
-		if (res.resultCode === ResultCodeEnum.Error) {
-			return rejectWithValue('')
-		}
-		return {
-			userId: res.data.id,
-			email: res.data.email,
-			login: res.data.email,
-			isAuth: true
+		if (res.resultCode === ResultCodeEnum.Success) {
+			return {
+				userId: res.data.id,
+				email: res.data.email,
+				login: res.data.email,
+				isAuth: true
+			}
+		} else {
+			return handleServerAppError(res.messages, dispatch, rejectWithValue)
 		}
 	} catch (e) {
-		return rejectWithValue('')
+		return handleAsyncServerNetworkError(
+			e as Error | AxiosError,
+			dispatch,
+			rejectWithValue
+		)
 	}
 })
 
 export const loginTC = createAsyncThunk<
 	undefined,
-	{ email: string; password: string; rememberMe: boolean; captcha?: string },
-	{ state: AppRootStateType }
+	{ email: string; password: string; rememberMe: boolean; captcha?: string }
 >('authReducer/loginTC', async (param, { dispatch, rejectWithValue }) => {
 	try {
+		dispatch(setAppStatus('loading'))
 		const res = await authAPI.login(
 			param.email,
 			param.password,
@@ -38,48 +43,56 @@ export const loginTC = createAsyncThunk<
 		)
 		if (res.resultCode === ResultCodeEnum.Success) {
 			await dispatch(getAuthUserDataTC())
+			dispatch(setAppStatus('succeeded'))
 			return
 		} else if (res.resultCode === ResultCodeEnum.CaptchaIsRequired) {
 			await dispatch(getCaptchaURLTC())
-			return
 		} else {
-			dispatch(setAppError(res.messages[0]))
-			return rejectWithValue('')
+			return handleServerAppError(res.messages, dispatch, rejectWithValue)
 		}
 	} catch (e) {
-		const err = e as Error | AxiosError
-		if (axios.isAxiosError(err)) {
-			const error = err.response?.data
-				? (err.response.data as { error: string }).error
-				: err.message
-			dispatch(setAppError(error))
-		} else {
-			dispatch(setAppError(`Native error ${err.message}`))
-		}
-		return rejectWithValue('')
+		return handleAsyncServerNetworkError(
+			e as Error | AxiosError,
+			dispatch,
+			rejectWithValue
+		)
 	}
 })
 
 export const logoutTC = createAsyncThunk(
 	'authReducer/logoutTC',
-	async (_, { rejectWithValue }) => {
+	async (_, { dispatch, rejectWithValue }) => {
 		try {
-			await authAPI.logout()
-			return
+			dispatch(setAppStatus('loading'))
+			const res = await authAPI.logout()
+			if (res.resultCode === ResultCodeEnum.Success) {
+				dispatch(setAppStatus('succeeded'))
+			} else {
+				return handleServerAppError(res.messages, dispatch, rejectWithValue)
+			}
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )
 
 export const getCaptchaURLTC = createAsyncThunk<{ url: string }, undefined>(
 	'authReducer/getCaptchaURLTC',
-	async (_, { rejectWithValue }) => {
+	async (_, { dispatch, rejectWithValue }) => {
 		try {
+			dispatch(setAppStatus('loading'))
 			const res = await securityAPI.getCaptcha()
 			return { url: res.data.url }
 		} catch (e) {
-			return rejectWithValue('')
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
 		}
 	}
 )

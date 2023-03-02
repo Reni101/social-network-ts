@@ -35,8 +35,6 @@ export const LoginForm = () => {
 					captcha: values.captcha
 				})
 			)
-
-			formik.resetForm()
 		},
 
 		validate: (values: FormikErrorType) => {
