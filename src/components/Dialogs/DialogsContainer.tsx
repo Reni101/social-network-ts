@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAppSelector } from '../../Redux/Redux-store'
+import { useAppSelector } from '../../Redux/redux-store'
 import { Dialogs } from './Dialogs'
 
 export const DialogsContainer = () => {

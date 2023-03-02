@@ -13,11 +13,12 @@ test('followThunkCreator', async () => {
 		resultCode: 0
 	}
 	userAPIMock.followUser.mockReturnValue(Promise.resolve(result))
-	const thunk = followTC(1)
+	const thunk = followTC({ userId: 1 })
 
 	const dispatchMock = jest.fn()
+	const getStateMock = jest.fn()
 
-	await thunk(dispatchMock)
+	await thunk(dispatchMock, getStateMock, '')
 	expect(dispatchMock).toBeCalledTimes(3)
 })
 
@@ -46,10 +47,16 @@ test('getUsersThunkCreator working correct', async () => {
 	}
 
 	userAPIMock.getUsers.mockReturnValue(Promise.resolve(result))
-	const thunk = getUsersTC(1, 5, { term: '', friend: null })
+
+	const thunk = getUsersTC({
+		currentPage: 1,
+		pageSize: 5,
+		filter: { term: '', friend: null }
+	})
 
 	const dispatchMock = jest.fn()
+	const getStateMock = jest.fn()
 
-	await thunk(dispatchMock)
+	await thunk(dispatchMock, getStateMock, '')
 	expect(dispatchMock).toBeCalledTimes(6)
 })

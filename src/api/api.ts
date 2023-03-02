@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { FilterType, PhotosType, ProfileType, UserType } from '../Redux/Types'
+import { FilterType, PhotosType, ProfileType, UserType } from '../Redux/types'
 
 const instance = axios.create({
 	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -16,17 +16,13 @@ export const usersAPI = {
 			.get<getUsersResponseType>(
 				`users?page=${currentPage}&count=${pageSize}&term=${filter.term}&friend=${filter.friend}`
 			)
-			.then(response => response.data)
+			.then(res => res.data)
 	},
 	followUser(userId: number) {
-		return instance
-			.post<ResponseType>(`follow/${userId}`)
-			.then(response => response.data)
+		return instance.post<ResponseType>(`follow/${userId}`).then(res => res.data)
 	},
 	unfollowUser(userId: number) {
-		return instance
-			.delete<ResponseType>(`follow/${userId}`)
-			.then(response => response.data)
+		return instance.delete<ResponseType>(`follow/${userId}`).then(res => res.data)
 	}
 }
 
@@ -51,26 +47,26 @@ export const authAPI = {
 
 export const profileAPI = {
 	getProfile(userid: string) {
-		return instance.get<ProfileType>('profile/' + userid)
+		return instance.get<ProfileType>('profile/' + userid).then(res => res.data)
 	},
 	getStatus(userid: string) {
-		return instance.get(`profile/status/${userid}`)
+		return instance.get(`profile/status/${userid}`).then(res => res.data)
 	},
 	updateStatus(status: string) {
-		return instance.put<ResponseType>('profile/status', { status })
+		return instance
+			.put<ResponseType>('profile/status', { status })
+			.then(res => res.data)
 	},
 	savePhoto(photoFile: File) {
 		let formData = new FormData()
 		formData.append('image', photoFile)
-		return instance.put<ResponseType<{ photos: PhotosType }>>(
-			'profile/photo',
-			formData,
-			{
+		return instance
+			.put<ResponseType<{ photos: PhotosType }>>('profile/photo', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
-			}
-		)
+			})
+			.then(res => res.data)
 	}
 }
 
@@ -82,7 +78,7 @@ export const securityAPI = {
 
 export const dialogsAPI = {
 	getAllDialogs() {
-		return instance.get<Array<usersDialog>>('dialogs').then(res => res.data)
+		return instance.get<Array<usersDialogs>>('dialogs').then(res => res.data)
 	},
 	getMessagesFromUser(userId: number, page: number = 1) {
 		return instance
@@ -127,7 +123,7 @@ export type LoginType = {
 	userId: number
 }
 
-export type usersDialog = {
+export type usersDialogs = {
 	id: number
 	userName: string
 	hasNewMessages: boolean

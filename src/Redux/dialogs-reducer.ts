@@ -1,17 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { dialogsAPI, messageItems, ResponseMessagesUser, usersDialog } from '../api/api'
+import { dialogsAPI, messageItems, ResponseMessagesUser, usersDialogs } from '../api/api'
 
 export const getAllDialogsTC = createAsyncThunk(
 	'dialogsReducer/getAllDialogsTC',
-	async () => {
-		return await dialogsAPI.getAllDialogs()
+	async (_, { rejectWithValue }) => {
+		try {
+			return await dialogsAPI.getAllDialogs()
+		} catch (e) {
+			return rejectWithValue('')
+		}
 	}
 )
 
 export const sendMessageTC = createAsyncThunk(
 	'dialogsReducer/sendMessageTC',
-	async (param: { userId: number; message: string }) => {
-		return await dialogsAPI.sendMessage(param.userId, param.message)
+	async (param: { userId: number; message: string }, { rejectWithValue }) => {
+		try {
+			return await dialogsAPI.sendMessage(param.userId, param.message)
+		} catch (e) {
+			return rejectWithValue('')
+		}
 	}
 )
 
@@ -25,7 +33,7 @@ export const getMessagesFromUserTC = createAsyncThunk<
 		try {
 			const currentPage = getState().dialogsPage.userMessages.currentPage
 			const res = await dialogsAPI.getMessagesFromUser(param.userId, currentPage)
-			dispatch(incrementCurrentPage())
+			dispatch(incrementCurrentPageAC())
 			return res
 		} catch (e) {
 			return rejectWithValue('')
@@ -36,11 +44,11 @@ export const getMessagesFromUserTC = createAsyncThunk<
 const slice = createSlice({
 	name: 'dialogsReducer',
 	initialState: {
-		dialogsData: [] as usersDialog[],
+		dialogsData: [] as usersDialogs[],
 		userMessages: {
 			items: [] as messageItems[],
-			totalCount: 0 as number,
-			currentPage: 1 as number
+			totalCount: 0,
+			currentPage: 1
 		}
 	},
 	reducers: {
@@ -49,7 +57,7 @@ const slice = createSlice({
 			state.userMessages.totalCount = 0
 			state.userMessages.currentPage = 1
 		},
-		incrementCurrentPage(state) {
+		incrementCurrentPageAC(state) {
 			state.userMessages.currentPage++
 		}
 	},
@@ -58,6 +66,7 @@ const slice = createSlice({
 			.addCase(getAllDialogsTC.fulfilled, (state, action) => {
 				state.dialogsData = action.payload
 			})
+
 			.addCase(getMessagesFromUserTC.fulfilled, (state, action) => {
 				state.userMessages.items = [
 					...action.payload.items,
@@ -65,6 +74,7 @@ const slice = createSlice({
 				]
 				state.userMessages.totalCount = action.payload.totalCount
 			})
+
 			.addCase(sendMessageTC.fulfilled, (state, action) => {
 				const {
 					recipientName,
@@ -80,4 +90,4 @@ const slice = createSlice({
 })
 
 export const dialogsReducer = slice.reducer
-export const { clearUserMessagesAC, incrementCurrentPage } = slice.actions
+export const { clearUserMessagesAC, incrementCurrentPageAC } = slice.actions

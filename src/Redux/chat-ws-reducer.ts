@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { chatAPI, StatusType } from '../api/chat-ws-api'
-import { ChatMessageType } from './Types'
+import { ChatMessageType } from './types'
 
 export const startMessagesListeningTC = createAsyncThunk(
 	'chatWSReducer/startMessagesListeningTC',

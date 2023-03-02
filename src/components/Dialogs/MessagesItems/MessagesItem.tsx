@@ -7,7 +7,7 @@ import {
 	getMessagesFromUserTC,
 	sendMessageTC
 } from '../../../Redux/dialogs-reducer'
-import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
+import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
 import styles from './MessagesItem.module.css'
 
 export const MessagesItem = () => {

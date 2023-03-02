@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useAppSelector } from '../../Redux/Redux-store'
-import { ProfileType } from '../../Redux/Types'
+import { useAppSelector } from '../../Redux/redux-store'
+import { ProfileType } from '../../Redux/types'
 
 import styleP from './Profile.module.css'
 import { ProfileInfo } from './ProfileInfo/ProfileInfo'

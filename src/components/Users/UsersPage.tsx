@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { followTC, getUsersTC, unfollowTC } from '../../Redux/users-reducer'
 import { Paginator } from '../../common/Paginator/Paginator'
@@ -12,7 +12,7 @@ import {
 } from '../../Redux/users-selectors'
 
 import { Preloader } from '../../common/Preloader/Preloader'
-import { useAppDispatch, useAppSelector } from '../../Redux/Redux-store'
+import { useAppDispatch, useAppSelector } from '../../Redux/redux-store'
 import { User } from './User/User'
 import style from './Users.module.css'
 
@@ -32,28 +32,30 @@ export const UsersPage = () => {
 	const termQuery = searchParams.get('name') || ''
 	const friendQuery = (searchParams.get('friend') || 'all') as friendType
 
-	const filter = {
-		term: termQuery,
-		friend: friendQuery === 'myFriend'
-	}
+	const filter = useMemo(() => {
+		return {
+			term: termQuery,
+			friend: friendQuery === 'myFriend'
+		}
+	}, [termQuery, friendQuery])
 
 	const followHandler = (userId: number) => {
-		dispatch(followTC(userId))
+		dispatch(followTC({ userId }))
 	}
 
 	const unfollowHandler = (userId: number) => {
-		dispatch(unfollowTC(userId))
+		dispatch(unfollowTC({ userId }))
 	}
 
 	const onPageChanged = useCallback(
 		(pageNumber: number, pageSize: number) => {
-			dispatch(getUsersTC(pageNumber, pageSize, filter))
+			dispatch(getUsersTC({ currentPage: pageNumber, pageSize, filter }))
 		},
 		[filter, dispatch]
 	)
 
 	useEffect(() => {
-		dispatch(getUsersTC(1, currentPageSize, filter))
+		dispatch(getUsersTC({ currentPage: 1, pageSize: currentPageSize, filter }))
 	}, [termQuery, friendQuery])
 
 	if (!isAuth) {
@@ -95,5 +97,3 @@ export const UsersPage = () => {
 		</div>
 	)
 }
-
-export default UsersPage

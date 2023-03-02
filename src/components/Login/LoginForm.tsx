@@ -5,7 +5,7 @@ import { Button, Checkbox, Input } from 'antd'
 
 import { loginTC } from '../../Redux/auth-reducer'
 
-import { useAppSelector } from '../../Redux/Redux-store'
+import { useAppSelector } from '../../Redux/redux-store'
 import style from './loginForm.module.css'
 
 type FormikErrorType = {

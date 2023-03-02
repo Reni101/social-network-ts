@@ -8,15 +8,6 @@ import { usersReducer } from './users-reducer'
 import { appReducer } from './app-reducer'
 import { chatWSReducer } from './chat-ws-reducer'
 
-// const rootReducer = combineReducers({
-// 	profilePage: profileReducer,
-// 	dialogsPage: dialogsReducer,
-// 	usersPage: usersReducer,
-// 	auth: authReducer,
-// 	app: appReducer,
-// 	chat: chatWSReducer
-// })
-
 export const store = configureStore({
 	reducer: {
 		profilePage: profileReducer,

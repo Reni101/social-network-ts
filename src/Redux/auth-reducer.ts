@@ -84,12 +84,14 @@ const slice = createSlice({
 				state.login = action.payload.login
 				state.isAuth = action.payload.isAuth
 			})
+
 			.addCase(logoutTC.fulfilled, state => {
 				state.userId = null
 				state.email = null
 				state.login = null
 				state.isAuth = false
 			})
+
 			.addCase(getCaptchaURLTC.fulfilled, (state, action) => {
 				state.captchaURl = action.payload.url
 			})

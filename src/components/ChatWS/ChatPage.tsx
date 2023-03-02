@@ -8,7 +8,7 @@ import {
 } from '../../Redux/chat-ws-reducer'
 
 import { Container } from '../../common/Container/Container'
-import { useAppDispatch, useAppSelector } from '../../Redux/Redux-store'
+import { useAppDispatch, useAppSelector } from '../../Redux/redux-store'
 import style from './ChatPage.module.css'
 import { MessageForm } from './MessageForm/MessageForm'
 import { MessagesChat } from './Messages/MessagesChat'

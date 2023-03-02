@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button, Layout, theme } from 'antd'
 import { logoutTC } from '../../Redux/auth-reducer'
-import { useAppSelector } from '../../Redux/Redux-store'
+import { useAppSelector } from '../../Redux/redux-store'
 import styleH from './Header.module.css'
 
 const { Header } = Layout

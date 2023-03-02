@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import { Input } from 'antd'
 import { updateStatusTC } from '../../../../Redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '../../../../Redux/Redux-store'
+import { useAppDispatch, useAppSelector } from '../../../../Redux/redux-store'
 
 export const ProfileStatus = () => {
 	const dispatch = useAppDispatch()
@@ -20,7 +20,7 @@ export const ProfileStatus = () => {
 
 	const deActivateEditMode = () => {
 		setEditMode(false)
-		dispatch(updateStatusTC(status))
+		dispatch(updateStatusTC({ status }))
 	}
 
 	const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {

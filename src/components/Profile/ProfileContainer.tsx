@@ -4,7 +4,7 @@ import { Navigate, useParams } from 'react-router-dom'
 
 import { getProfileTC, getStatusTC } from '../../Redux/profile-reducer'
 
-import { useAppSelector } from '../../Redux/Redux-store'
+import { useAppSelector } from '../../Redux/redux-store'
 import { Profile } from './Profile'
 
 export const ProfileContainer = () => {
@@ -14,10 +14,11 @@ export const ProfileContainer = () => {
 	const authorizedUserID = useAppSelector<number>(state => state.auth.userId!)
 	const isOwner = +userId! === authorizedUserID
 	const isAuth = useAppSelector(state => state.auth.isAuth)
+	const useridForUseEffect = { userid: userId ? userId : authorizedUserID.toString() }
 
 	useEffect(() => {
-		dispatch(getProfileTC(userId ? userId : authorizedUserID.toString()))
-		dispatch(getStatusTC(userId ? userId : authorizedUserID.toString()))
+		dispatch(getProfileTC(useridForUseEffect))
+		dispatch(getStatusTC(useridForUseEffect))
 	}, [userId])
 
 	if (!isAuth) {

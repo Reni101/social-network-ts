@@ -1,4 +1,4 @@
-import { ChatMessageType } from '../Redux/Types'
+import { ChatMessageType } from '../Redux/types'
 
 const subcribers = {
 	'messages-received': [] as MessagesReceivedSubscriberType[],
@@ -21,7 +21,7 @@ const openHandler = () => {
 }
 const errorHandler = () => {
 	notifySubscribersAboutStatus('error')
-	console.error('REFRESH PAGE')
+	// console.error('REFRESH PAGE')
 }
 const cleanUp = () => {
 	ws?.removeEventListener('close', closeHandler)

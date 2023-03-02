@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from 'react'
 import defaultAvatar from '../../../assets/UsersAvatar.jpg'
-import { useAppDispatch, useAppSelector } from '../../../Redux/Redux-store'
+import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
 import { Preloader } from '../../../common/Preloader/Preloader'
 import styles from './DialogItem.module.css'

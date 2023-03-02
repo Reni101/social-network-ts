@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { useAppSelector } from '../../../Redux/Redux-store'
+import { useAppSelector } from '../../../Redux/redux-store'
 import avatar from '../../../assets/UsersAvatar.jpg'
-import { ChatMessageType } from '../../../Redux/Types'
+import { ChatMessageType } from '../../../Redux/types'
 
 import style from './MessageChat.module.css'
 

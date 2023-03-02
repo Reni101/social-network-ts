@@ -2,10 +2,10 @@ import React from 'react'
 
 import UserAvatar from '../../../assets/UsersAvatar.jpg'
 import { Preloader } from '../../../common/Preloader/Preloader'
-import { ProfileType } from '../../../Redux/Types'
+import { ProfileType } from '../../../Redux/types'
 import { UploadPhoto } from '../UploadPhoto/UploadPhoto'
 
-import { useAppSelector } from '../../../Redux/Redux-store'
+import { useAppSelector } from '../../../Redux/redux-store'
 import { ProfileStatus } from './ProfileStatus/ProfileStatus'
 import style from './ProfileInfo.module.css'
 

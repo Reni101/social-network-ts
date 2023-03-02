@@ -2,7 +2,7 @@ import React, { ChangeEvent, useRef } from 'react'
 import { Button } from 'antd'
 
 import { savePhotoTC } from '../../../Redux/profile-reducer'
-import { useAppDispatch } from '../../../Redux/Redux-store'
+import { useAppDispatch } from '../../../Redux/redux-store'
 
 export const UploadPhoto = () => {
 	const dispatch = useAppDispatch()
@@ -14,7 +14,7 @@ export const UploadPhoto = () => {
 
 	const mainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files!.length) {
-			dispatch(savePhotoTC(e.target.files![0]))
+			dispatch(savePhotoTC({ file: e.target.files![0] }))
 		}
 	}
 	return (

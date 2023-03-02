@@ -1,100 +1,83 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { usersAPI } from '../api/api'
+import { FilterType, UserType } from './types'
 
-import { ResponseType, ResultCodeEnum, usersAPI } from '../api/api'
-import { FilterType, UserType } from './Types'
-import { AppDispatch } from './Redux-store'
+export const getUsersTC = createAsyncThunk(
+	'usersReducer/getUsersTC',
+	async (
+		param: { currentPage: number; pageSize: number; filter: FilterType },
+		{ rejectWithValue }
+	) => {
+		try {
+			if (!param.filter.friend) param.filter.friend = null
+			const res = await usersAPI.getUsers(
+				param.currentPage,
+				param.pageSize,
+				param.filter
+			)
+
+			return {
+				...res,
+				currentPage: param.currentPage,
+				currentPageSize: param.pageSize
+			}
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
+
+export const followTC = createAsyncThunk(
+	'usersReducer/followTC',
+	async (param: { userId: number }, { rejectWithValue }) => {
+		try {
+			await usersAPI.followUser(param.userId)
+			return param.userId
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
+export const unfollowTC = createAsyncThunk(
+	'usersReducer/unfollowTC',
+	async (param: { userId: number }, { rejectWithValue }) => {
+		try {
+			await usersAPI.unfollowUser(param.userId)
+			return param.userId
+		} catch (e) {
+			return rejectWithValue('')
+		}
+	}
+)
 
 const slice = createSlice({
 	name: 'usersReducer',
 	initialState: {
-		users: [] as Array<UserType>,
+		users: [] as UserType[],
 		pageSize: 10,
 		totalItemsCount: 1,
 		currentPage: 1,
-		isFetching: false,
-		followingInProgress: [] as Array<number>
+		followingInProgress: [] as number[]
 	},
-	reducers: {
-		followAC(state, action: PayloadAction<{ userID: number }>) {
-			const index = state.users.findIndex(el => el.id === action.payload.userID)
-			state.users[index] = { ...state.users[index], followed: true }
-		},
-		unFollowAC(state, action: PayloadAction<{ userID: number }>) {
-			const index = state.users.findIndex(el => el.id === action.payload.userID)
-			state.users[index] = { ...state.users[index], followed: false }
-		},
-		setUsersAС(state, action: PayloadAction<{ users: Array<UserType> }>) {
-			state.users = action.payload.users
-		},
-		setCurrentPageAC(state, action: PayloadAction<{ currentPage: number }>) {
-			state.currentPage = action.payload.currentPage
-		},
-		setCurrentPageSizeAC(state, action: PayloadAction<{ currentPageSize: number }>) {
-			state.pageSize = action.payload.currentPageSize
-		},
-		setTotalUsersCountAC(state, action: PayloadAction<{ totalCount: number }>) {
-			state.totalItemsCount = action.payload.totalCount
-		}
-	}
+	reducers: {},
+	extraReducers: builder =>
+		builder
+			.addCase(getUsersTC.fulfilled, (state, action) => {
+				state.currentPage = action.payload.currentPage
+				state.pageSize = action.payload.currentPageSize
+				state.users = action.payload.items
+				state.totalItemsCount = action.payload.totalCount
+			})
+			.addCase(followTC.fulfilled, (state, action) => {
+				const index = state.users.findIndex(el => el.id === action.payload)
+				state.users[index] = { ...state.users[index], followed: true }
+			})
+			.addCase(unfollowTC.fulfilled, (state, action) => {
+				const index = state.users.findIndex(el => el.id === action.payload)
+				state.users[index] = { ...state.users[index], followed: false }
+			})
 })
 
 export const usersReducer = slice.reducer
-export const {
-	followAC,
-	unFollowAC,
-	setUsersAС,
-	setCurrentPageAC,
-	setCurrentPageSizeAC,
-	setTotalUsersCountAC
-} = slice.actions
+
 export type initialUsersStateType = ReturnType<typeof slice.getInitialState>
-
-//========================Thunk Creator======================
-export const getUsersTC =
-	(currentPage: number, pageSize: number, filter: FilterType) =>
-	async (dispatch: AppDispatch) => {
-		if (!filter.friend) filter.friend = null
-		let res = await usersAPI.getUsers(currentPage, pageSize, filter)
-		dispatch(setCurrentPageAC({ currentPage }))
-		dispatch(setCurrentPageSizeAC({ currentPageSize: pageSize }))
-		dispatch(setUsersAС({ users: res.items }))
-		dispatch(setTotalUsersCountAC({ totalCount: res.totalCount }))
-	}
-
-export const followUnfollow = async (
-	dispatch: AppDispatch,
-	userId: number,
-	apiMethod: (userId: number) => Promise<ResponseType>,
-	actionCreator: typeof followAC | typeof unFollowAC
-) => {
-	let res = await apiMethod(userId)
-	if (res.resultCode === ResultCodeEnum.Success) {
-		dispatch(actionCreator({ userID: userId }))
-	}
-}
-
-export const followTC = (userId: number) => async (dispatch: AppDispatch) => {
-	let apiMethod = usersAPI.followUser.bind(usersAPI)
-	await followUnfollow(dispatch, userId, apiMethod, followAC)
-}
-
-export const unfollowTC = (userId: number) => async (dispatch: AppDispatch) => {
-	let apiMethod = usersAPI.unfollowUser.bind(usersAPI)
-	await followUnfollow(dispatch, userId, apiMethod, unFollowAC)
-}
-
-//         case "TOGGLE_IS_FOLLOWING": {
-//
-//             return {
-//                 ...state,
-//                 followingInProgress: action.isFollowing
-//                     ? [...state.followingInProgress, action.userId]
-//                     : [...state.followingInProgress.filter(id => id !== action.userId)]
-//             }
-//         }
-// export const toggleIsFollowingAC = (isFollowing: boolean, userId: number) => ({
-//     type: "TOGGLE_IS_FOLLOWING",
-//     userId,
-//     isFollowing,
-// } as const)
-//

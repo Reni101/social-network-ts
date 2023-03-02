@@ -4,13 +4,13 @@ import { Button } from 'antd'
 
 import UserAvatar from '../../../assets/UsersAvatar.jpg'
 
-import { UserType } from '../../../Redux/Types'
+import { UserType } from '../../../Redux/types'
 
 import style from './User.module.css'
 
 type PropsType = {
 	user: UserType
-	followingInProgress: Array<number>
+	followingInProgress: number[]
 	followThunk: (userId: number) => void
 	unfollowThunk: (userId: number) => void
 }
