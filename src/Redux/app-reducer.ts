@@ -1,8 +1,9 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { getAuthUserDataTC } from './auth-reducer'
+export type appStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-export const initializeAppTC = createAsyncThunk(
+export const initializeAppTC = createAsyncThunk<{ value: boolean }, undefined>(
 	'appReducer/InitAppTC',
 	async (_, { dispatch, rejectWithValue }) => {
 		try {
@@ -18,12 +19,22 @@ export const initializeAppTC = createAsyncThunk(
 const slice = createSlice({
 	name: 'appReducer',
 	initialState: {
-		initialized: false
+		initialized: false,
+		error: null as string | null,
+		status: 'idle' as appStatusType
 	},
-	reducers: {},
+	reducers: {
+		setAppError(state, action: PayloadAction<string | null>) {
+			state.error = action.payload
+		},
+		setAppStatus(state, action: PayloadAction<appStatusType>) {
+			state.status = action.payload
+		}
+	},
 	extraReducers: builder =>
 		builder.addCase(initializeAppTC.fulfilled, (state, action) => {
 			state.initialized = action.payload.value
 		})
 })
 export const appReducer = slice.reducer
+export const { setAppError, setAppStatus } = slice.actions

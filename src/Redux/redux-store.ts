@@ -1,4 +1,3 @@
-import thunk from 'redux-thunk'
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { dialogsReducer } from './dialogs-reducer'
@@ -10,14 +9,13 @@ import { chatWSReducer } from './chat-ws-reducer'
 
 export const store = configureStore({
 	reducer: {
-		profilePage: profileReducer,
-		dialogsPage: dialogsReducer,
-		usersPage: usersReducer,
+		profile: profileReducer,
+		dialogs: dialogsReducer,
+		users: usersReducer,
 		auth: authReducer,
 		app: appReducer,
 		chat: chatWSReducer
-	},
-	middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk)
+	}
 })
 
 export type AppRootStateType = ReturnType<typeof store.getState>

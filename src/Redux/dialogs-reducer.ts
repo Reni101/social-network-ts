@@ -31,7 +31,7 @@ export const getMessagesFromUserTC = createAsyncThunk<
 	'dialogsReducer/getMessagesFromUserTC',
 	async (param, { dispatch, getState, rejectWithValue }) => {
 		try {
-			const currentPage = getState().dialogsPage.userMessages.currentPage
+			const currentPage = getState().dialogs.userMessages.currentPage
 			const res = await dialogsAPI.getMessagesFromUser(param.userId, currentPage)
 			dispatch(incrementCurrentPageAC())
 			return res

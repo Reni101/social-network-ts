@@ -15,7 +15,7 @@ type PropsType = {
 }
 
 export const ProfileInfo: React.FC<PropsType> = React.memo(({ profile, isOwner }) => {
-	const statusFromState = useAppSelector<string>(state => state.profilePage.status)
+	const statusFromState = useAppSelector<string>(state => state.profile.status)
 	if (!profile) {
 		return <Preloader />
 	}

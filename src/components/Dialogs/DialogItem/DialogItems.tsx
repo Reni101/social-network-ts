@@ -11,7 +11,7 @@ type PropsType = {
 
 export const DialogItems = memo((props: PropsType) => {
 	const dispatch = useAppDispatch()
-	const dialogsData = useAppSelector(state => state.dialogsPage.dialogsData)
+	const dialogsData = useAppSelector(state => state.dialogs.dialogsData)
 
 	const showMessagesHandler = (userId: number) => {
 		props.showMessagesHandler(userId)

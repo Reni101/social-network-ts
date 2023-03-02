@@ -12,10 +12,10 @@ import styles from './MessagesItem.module.css'
 
 export const MessagesItem = () => {
 	const dispatch = useAppDispatch()
-	const messages = useAppSelector(state => state.dialogsPage.userMessages.items)
+	const messages = useAppSelector(state => state.dialogs.userMessages.items)
 	const ownerId = useAppSelector(state => state.auth.userId)
 	const totalMessagesCount = useAppSelector(
-		state => state.dialogsPage.userMessages.totalCount
+		state => state.dialogs.userMessages.totalCount
 	)
 
 	const [searchParams, setSearchParams] = useSearchParams()

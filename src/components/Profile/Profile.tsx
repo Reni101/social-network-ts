@@ -11,12 +11,11 @@ type ProfilePropsType = {
 }
 
 export const Profile = React.memo((props: ProfilePropsType) => {
-	const profile = useAppSelector<ProfileType>(state => state.profilePage.profile!)
+	const profile = useAppSelector<ProfileType>(state => state.profile.profile!)
 
 	return (
 		<div className={styleP.profileContainer}>
 			<ProfileInfo isOwner={props.isOwner} profile={profile} />
-			{/*{props.isOwner && <MyPosts/>}*/}
 		</div>
 	)
 })

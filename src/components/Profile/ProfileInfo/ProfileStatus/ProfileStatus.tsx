@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../Redux/redux-store'
 
 export const ProfileStatus = () => {
 	const dispatch = useAppDispatch()
-	const statusFromState = useAppSelector<string>(state => state.profilePage.status)
+	const statusFromState = useAppSelector<string>(state => state.profile.status)
 	const [editMode, setEditMode] = useState<boolean>(false)
 	const [status, setStatus] = useState<string>(statusFromState)
 

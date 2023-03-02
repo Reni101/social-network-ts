@@ -11,10 +11,11 @@ import {
 import style from './App.module.css'
 import { HeaderPage } from './components/Header/HeaderPage'
 import { useAppDispatch, useAppSelector } from './Redux/redux-store'
-import { initializeAppTC } from './Redux/app-reducer'
+import { initializeAppTC, setAppError } from './Redux/app-reducer'
 import { Preloader } from './common/Preloader/Preloader'
 import { getItem, MenuItem } from './MenuItemData'
 import { Routers } from './components/Routers/Routes'
+import { ErrorSnackBar } from './common/ErrorSnackBar/ErrorSnackBar'
 
 const { Content, Footer, Sider } = Layout
 
@@ -45,24 +46,28 @@ export const App: React.FC = () => {
 	}
 
 	return (
-		<Layout className={style.app_wrapper}>
-			<Sider
-				collapsible
-				collapsed={collapsed}
-				onCollapse={value => setCollapsed(value)}
-			>
-				<Menu theme='dark' selectable={false} mode='inline' items={items} />
-			</Sider>
-			<Layout className='site-layout'>
-				<HeaderPage />
-				<Content className={style.content}>
-					<Breadcrumb className={style.breadCrumb}></Breadcrumb>
+		<>
+			<ErrorSnackBar />
 
-					<Routers />
-				</Content>
+			<Layout className={style.app_wrapper}>
+				<Sider
+					collapsible
+					collapsed={collapsed}
+					onCollapse={value => setCollapsed(value)}
+				>
+					<Menu theme='dark' selectable={false} mode='inline' items={items} />
+				</Sider>
+				<Layout className='site-layout'>
+					<HeaderPage />
+					<Content className={style.content}>
+						<Breadcrumb className={style.breadCrumb}></Breadcrumb>
 
-				<Footer className={style.footer}>© Created by Maxim Dmitriev</Footer>
+						<Routers />
+					</Content>
+
+					<Footer className={style.footer}>© Created by Maxim Dmitriev</Footer>
+				</Layout>
 			</Layout>
-		</Layout>
+		</>
 	)
 }

@@ -2,20 +2,20 @@ import { createSelector } from 'reselect'
 import { AppRootStateType } from './redux-store'
 
 const getUsers = (state: AppRootStateType) => {
-	return state.usersPage.users
+	return state.users.users
 }
 export const getUsersSelector = createSelector(getUsers, users => {
 	return users
 })
 export const getPageSize = (state: AppRootStateType) => {
-	return state.usersPage.pageSize
+	return state.users.pageSize
 }
 export const getTotalItemsCount = (state: AppRootStateType) => {
-	return state.usersPage.totalItemsCount
+	return state.users.totalItemsCount
 }
 export const getCurrentPage = (state: AppRootStateType) => {
-	return state.usersPage.currentPage
+	return state.users.currentPage
 }
 export const getFollowingInProgress = (state: AppRootStateType) => {
-	return state.usersPage.followingInProgress
+	return state.users.followingInProgress
 }

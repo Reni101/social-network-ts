@@ -1,29 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios, { AxiosError } from 'axios'
 import { authAPI, ResultCodeEnum, securityAPI } from '../api/api'
+import { AppRootStateType } from './redux-store'
+import { setAppError } from './app-reducer'
 
-export const getAuthUserDataTC = createAsyncThunk(
-	'authReducer/getAuthUserDataTC',
-	async (_, { rejectWithValue }) => {
-		try {
-			const res = await authAPI.getAuthMe()
-			if (res.resultCode === ResultCodeEnum.Error) {
-				return rejectWithValue('')
-			}
-			return {
-				userId: res.data.id,
-				email: res.data.email,
-				login: res.data.email,
-				isAuth: true
-			}
-		} catch (e) {
+export const getAuthUserDataTC = createAsyncThunk<
+	{ userId: number; email: string; login: string; isAuth: boolean },
+	undefined
+>('authReducer/getAuthUserDataTC', async (_, { rejectWithValue }) => {
+	try {
+		const res = await authAPI.getAuthMe()
+		if (res.resultCode === ResultCodeEnum.Error) {
 			return rejectWithValue('')
 		}
+		return {
+			userId: res.data.id,
+			email: res.data.email,
+			login: res.data.email,
+			isAuth: true
+		}
+	} catch (e) {
+		return rejectWithValue('')
 	}
-)
+})
 
 export const loginTC = createAsyncThunk<
 	undefined,
-	{ email: string; password: string; rememberMe: boolean; captcha?: string }
+	{ email: string; password: string; rememberMe: boolean; captcha?: string },
+	{ state: AppRootStateType }
 >('authReducer/loginTC', async (param, { dispatch, rejectWithValue }) => {
 	try {
 		const res = await authAPI.login(
@@ -35,12 +39,23 @@ export const loginTC = createAsyncThunk<
 		if (res.resultCode === ResultCodeEnum.Success) {
 			await dispatch(getAuthUserDataTC())
 			return
-		}
-		if (res.resultCode === ResultCodeEnum.CaptchaIsRequired) {
+		} else if (res.resultCode === ResultCodeEnum.CaptchaIsRequired) {
 			await dispatch(getCaptchaURLTC())
 			return
+		} else {
+			dispatch(setAppError(res.messages[0]))
+			return rejectWithValue('')
 		}
 	} catch (e) {
+		const err = e as Error | AxiosError
+		if (axios.isAxiosError(err)) {
+			const error = err.response?.data
+				? (err.response.data as { error: string }).error
+				: err.message
+			dispatch(setAppError(error))
+		} else {
+			dispatch(setAppError(`Native error ${err.message}`))
+		}
 		return rejectWithValue('')
 	}
 })
@@ -57,7 +72,7 @@ export const logoutTC = createAsyncThunk(
 	}
 )
 
-export const getCaptchaURLTC = createAsyncThunk(
+export const getCaptchaURLTC = createAsyncThunk<{ url: string }, undefined>(
 	'authReducer/getCaptchaURLTC',
 	async (_, { rejectWithValue }) => {
 		try {
