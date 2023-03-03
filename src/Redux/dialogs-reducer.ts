@@ -33,17 +33,15 @@ export const sendMessageTC = createAsyncThunk<
 	ResponseType<{ message: addMessageRes }>,
 	{ userId: number; message: string }
 >('dialogsReducer/sendMessageTC', async (param, { dispatch, rejectWithValue }) => {
-	dispatch(setAppStatus('loading'))
 	try {
-		const res = await dialogsAPI.sendMessage(param.userId, param.message)
-		dispatch(setAppStatus('succeeded'))
-		return res
+		return await dialogsAPI.sendMessage(param.userId, param.message)
 	} catch (e) {
 		return handleAsyncServerNetworkError(
 			e as Error | AxiosError,
 			dispatch,
 			rejectWithValue
 		)
+	} finally {
 	}
 })
 

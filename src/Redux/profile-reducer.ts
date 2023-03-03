@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { handleAsyncServerNetworkError } from '../utils/error-utils'
+import { handleAsyncServerNetworkError, handleServerAppError } from '../utils/error-utils'
 import { profileAPI } from '../api/profile-api'
+import { ResultCodeEnum } from '../api/api'
 import { ProfileType } from './types'
 
 export const getProfileTC = createAsyncThunk(
@@ -54,8 +55,12 @@ export const savePhotoTC = createAsyncThunk(
 	'profileReducer/savePhotoTC',
 	async (param: { file: File }, { dispatch, rejectWithValue }) => {
 		try {
-			const response = await profileAPI.savePhoto(param.file)
-			return { photos: response.data.photos }
+			const res = await profileAPI.savePhoto(param.file)
+			if (res.resultCode === ResultCodeEnum.Success) {
+				return { photos: res.data.photos }
+			} else {
+				return handleServerAppError(res.messages, dispatch, rejectWithValue)
+			}
 		} catch (e) {
 			return handleAsyncServerNetworkError(
 				e as Error | AxiosError,
