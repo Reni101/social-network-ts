@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { usersAPI } from '../api/api'
 import { handleAsyncServerNetworkError } from '../utils/error-utils'
+import { usersAPI } from '../api/users-api'
 import { FilterType, UserType } from './types'
 
 export const getUsersTC = createAsyncThunk(

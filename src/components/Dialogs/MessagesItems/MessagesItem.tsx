@@ -13,6 +13,7 @@ import {
 	getMessageTotalCount
 } from '../../../selectors/dialogs-selectors'
 import { getAuthUserId } from '../../../selectors/auth-selectors'
+import { getAppStatus } from '../../../selectors/app-selectors'
 import styles from './MessagesItem.module.css'
 
 export const MessagesItem = () => {
@@ -20,6 +21,7 @@ export const MessagesItem = () => {
 	const messages = useAppSelector(getMessageItems)
 	const ownerId = useAppSelector(getAuthUserId)
 	const totalMessagesCount = useAppSelector(getMessageTotalCount)
+	const status = useAppSelector(getAppStatus)
 
 	const [searchParams, setSearchParams] = useSearchParams()
 	const userId = Number(searchParams.get('userIdChat') || '')
@@ -49,7 +51,7 @@ export const MessagesItem = () => {
 		}
 	}, [dispatch])
 
-	if (!messages.length) {
+	if (status === 'loading') {
 		return <Spin tip='Loading' size='large'></Spin>
 	}
 

@@ -7,6 +7,7 @@ import { UploadPhoto } from '../UploadPhoto/UploadPhoto'
 
 import { useAppSelector } from '../../../Redux/redux-store'
 import { getStatus } from '../../../selectors/profile-slectors'
+import { StartDialog } from '../startDialog/StartDialog'
 import { ProfileStatus } from './ProfileStatus/ProfileStatus'
 import style from './ProfileInfo.module.css'
 
@@ -24,7 +25,7 @@ export const ProfileInfo: React.FC<PropsType> = React.memo(({ profile, isOwner }
 		<div className={style.infoContent}>
 			<div className={style.avatar}>
 				<img src={profile.photos.large || UserAvatar} alt='Avatar' />
-				{isOwner && <UploadPhoto />}
+				{isOwner ? <UploadPhoto /> : <StartDialog userId={profile.userId} />}
 			</div>
 
 			<div className={style.description}>

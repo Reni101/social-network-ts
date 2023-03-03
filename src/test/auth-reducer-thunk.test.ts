@@ -1,5 +1,6 @@
-import { authAPI, AuthResType, LoginType, ResponseType, ResultCodeEnum } from '../api/api'
+import { ResponseType, ResultCodeEnum } from '../api/api'
 import { getAuthUserDataTC, loginTC } from '../Redux/auth-reducer'
+import { authAPI, AuthResType, LoginType } from '../api/auth-api'
 
 jest.mock('../api/api')
 const authAPIMock = authAPI as jest.Mocked<typeof authAPI>

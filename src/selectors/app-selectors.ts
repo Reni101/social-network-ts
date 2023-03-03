@@ -6,3 +6,6 @@ export const getIsInit = (state: AppRootStateType) => {
 export const getError = (state: AppRootStateType) => {
 	return state.app.error
 }
+export const getAppStatus = (state: AppRootStateType) => {
+	return state.app.status
+}

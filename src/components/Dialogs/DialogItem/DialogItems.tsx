@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
 import { Preloader } from '../../../common/Preloader/Preloader'
 import { getDialogsData } from '../../../selectors/dialogs-selectors'
-import styles from './DialogItem.module.css'
+import { getAppStatus } from '../../../selectors/app-selectors'
+import styles from './DialogItems.module.css'
 
 type PropsType = {
 	showMessagesHandler: (userId: number) => void
@@ -13,6 +14,7 @@ type PropsType = {
 export const DialogItems = memo((props: PropsType) => {
 	const dispatch = useAppDispatch()
 	const dialogsData = useAppSelector(getDialogsData)
+	const status = useAppSelector(getAppStatus)
 
 	const showMessagesHandler = (userId: number) => {
 		props.showMessagesHandler(userId)
@@ -22,7 +24,7 @@ export const DialogItems = memo((props: PropsType) => {
 		dispatch(getAllDialogsTC())
 	}, [dispatch])
 
-	if (!dialogsData.length) {
+	if (status === 'loading') {
 		return <Preloader />
 	}
 

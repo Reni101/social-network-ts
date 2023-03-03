@@ -9,6 +9,7 @@ export const handleServerAppError = (
 ) => {
 	if (messages.length) {
 		dispatch(setAppError(messages[0]))
+		dispatch(setAppStatus('failed'))
 		return rejectWithValue(messages[0])
 	} else {
 		dispatch(setAppStatus('failed'))

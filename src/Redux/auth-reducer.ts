@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { authAPI, ResultCodeEnum, securityAPI } from '../api/api'
+import { ResultCodeEnum } from '../api/api'
 import { handleAsyncServerNetworkError, handleServerAppError } from '../utils/error-utils'
+import { authAPI, securityAPI } from '../api/auth-api'
 import { setAppStatus } from './app-reducer'
 
 export const getAuthUserDataTC = createAsyncThunk<

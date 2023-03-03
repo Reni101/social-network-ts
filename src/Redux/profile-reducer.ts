@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { profileAPI } from '../api/api'
 import { handleAsyncServerNetworkError } from '../utils/error-utils'
+import { profileAPI } from '../api/profile-api'
 import { ProfileType } from './types'
 
 export const getProfileTC = createAsyncThunk(

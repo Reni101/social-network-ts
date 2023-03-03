@@ -1,7 +1,8 @@
 import { followTC, getUsersTC } from '../Redux/users-reducer'
-import { getUsersResponseType, ResponseType, usersAPI } from '../api/api'
+import { ResponseType } from '../api/api'
+import { getUsersResponseType, usersAPI } from '../api/users-api'
 
-jest.mock('../api/api')
+jest.mock('../api/users-api"')
 
 const userAPIMock = usersAPI as jest.Mocked<typeof usersAPI>
 

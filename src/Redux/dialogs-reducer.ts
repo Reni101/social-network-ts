@@ -1,13 +1,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { dialogsAPI, messageItems, ResponseMessagesUser, usersDialogs } from '../api/api'
 import { handleAsyncServerNetworkError } from '../utils/error-utils'
+import {
+	addMessageRes,
+	dialogsAPI,
+	messageItems,
+	ResMessagesUser,
+	ResUsersDialogs
+} from '../api/dialogs-api'
+import { ResponseType } from '../api/api'
+import { setAppStatus } from './app-reducer'
 
 export const getAllDialogsTC = createAsyncThunk(
 	'dialogsReducer/getAllDialogsTC',
 	async (_, { dispatch, rejectWithValue }) => {
+		dispatch(setAppStatus('loading'))
 		try {
-			return await dialogsAPI.getAllDialogs()
+			const res = await dialogsAPI.getAllDialogs()
+			dispatch(setAppStatus('succeeded'))
+			return res
 		} catch (e) {
 			return handleAsyncServerNetworkError(
 				e as Error | AxiosError,
@@ -18,23 +29,26 @@ export const getAllDialogsTC = createAsyncThunk(
 	}
 )
 
-export const sendMessageTC = createAsyncThunk(
-	'dialogsReducer/sendMessageTC',
-	async (param: { userId: number; message: string }, { dispatch, rejectWithValue }) => {
-		try {
-			return await dialogsAPI.sendMessage(param.userId, param.message)
-		} catch (e) {
-			return handleAsyncServerNetworkError(
-				e as Error | AxiosError,
-				dispatch,
-				rejectWithValue
-			)
-		}
+export const sendMessageTC = createAsyncThunk<
+	ResponseType<{ message: addMessageRes }>,
+	{ userId: number; message: string }
+>('dialogsReducer/sendMessageTC', async (param, { dispatch, rejectWithValue }) => {
+	dispatch(setAppStatus('loading'))
+	try {
+		const res = await dialogsAPI.sendMessage(param.userId, param.message)
+		dispatch(setAppStatus('succeeded'))
+		return res
+	} catch (e) {
+		return handleAsyncServerNetworkError(
+			e as Error | AxiosError,
+			dispatch,
+			rejectWithValue
+		)
 	}
-)
+})
 
 export const getMessagesFromUserTC = createAsyncThunk<
-	ResponseMessagesUser,
+	ResMessagesUser,
 	{ userId: number },
 	{ state: any }
 >(
@@ -54,11 +68,25 @@ export const getMessagesFromUserTC = createAsyncThunk<
 		}
 	}
 )
+export const startNewDialogs = createAsyncThunk(
+	'dialogsReducer/startNewDialogs',
+	async (param: { userId: number }, { dispatch, rejectWithValue }) => {
+		try {
+			await dialogsAPI.startDialogs(param.userId)
+		} catch (e) {
+			return handleAsyncServerNetworkError(
+				e as Error | AxiosError,
+				dispatch,
+				rejectWithValue
+			)
+		}
+	}
+)
 
 const slice = createSlice({
 	name: 'dialogsReducer',
 	initialState: {
-		dialogsData: [] as usersDialogs[],
+		dialogsData: [] as ResUsersDialogs[],
 		userMessages: {
 			items: [] as messageItems[],
 			totalCount: 0,

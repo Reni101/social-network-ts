@@ -1,4 +1,4 @@
-import { followTC, initialUsersStateType, usersReducer } from '../Redux/users-reducer'
+import { initialUsersStateType } from '../Redux/users-reducer'
 
 let state: initialUsersStateType
 
