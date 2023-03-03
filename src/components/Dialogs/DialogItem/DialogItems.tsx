@@ -3,6 +3,7 @@ import defaultAvatar from '../../../assets/UsersAvatar.jpg'
 import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
 import { Preloader } from '../../../common/Preloader/Preloader'
+import { getDialogsData } from '../../../selectors/dialogs-selectors'
 import styles from './DialogItem.module.css'
 
 type PropsType = {
@@ -11,7 +12,7 @@ type PropsType = {
 
 export const DialogItems = memo((props: PropsType) => {
 	const dispatch = useAppDispatch()
-	const dialogsData = useAppSelector(state => state.dialogs.dialogsData)
+	const dialogsData = useAppSelector(getDialogsData)
 
 	const showMessagesHandler = (userId: number) => {
 		props.showMessagesHandler(userId)

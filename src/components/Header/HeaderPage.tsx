@@ -4,14 +4,15 @@ import { useDispatch } from 'react-redux'
 import { Button, Layout, theme } from 'antd'
 import { logoutTC } from '../../Redux/auth-reducer'
 import { useAppSelector } from '../../Redux/redux-store'
+import { getAuth, getLogin } from '../../selectors/auth-selectors'
 import styleH from './Header.module.css'
-
 const { Header } = Layout
 
 export const HeaderPage = () => {
 	const dispatch = useDispatch()
-	const isAuth = useAppSelector(state => state.auth.isAuth)
-	const login = useAppSelector(state => state.auth.login)
+	const isAuth = useAppSelector(getAuth)
+	const login = useAppSelector(getLogin)
+
 	const logoutHandler = () => {
 		dispatch(logoutTC())
 	}

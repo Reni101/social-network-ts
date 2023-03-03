@@ -8,15 +8,18 @@ import {
 	sendMessageTC
 } from '../../../Redux/dialogs-reducer'
 import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
+import {
+	getMessageItems,
+	getMessageTotalCount
+} from '../../../selectors/dialogs-selectors'
+import { getAuthUserId } from '../../../selectors/auth-selectors'
 import styles from './MessagesItem.module.css'
 
 export const MessagesItem = () => {
 	const dispatch = useAppDispatch()
-	const messages = useAppSelector(state => state.dialogs.userMessages.items)
-	const ownerId = useAppSelector(state => state.auth.userId)
-	const totalMessagesCount = useAppSelector(
-		state => state.dialogs.userMessages.totalCount
-	)
+	const messages = useAppSelector(getMessageItems)
+	const ownerId = useAppSelector(getAuthUserId)
+	const totalMessagesCount = useAppSelector(getMessageTotalCount)
 
 	const [searchParams, setSearchParams] = useSearchParams()
 	const userId = Number(searchParams.get('userIdChat') || '')

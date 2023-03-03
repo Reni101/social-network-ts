@@ -2,17 +2,16 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { followTC, getUsersTC, unfollowTC } from '../../Redux/users-reducer'
 import { Paginator } from '../../common/Paginator/Paginator'
-
 import {
-	getCurrentPage,
+	getUsersCurrentPage,
 	getFollowingInProgress,
-	getPageSize,
-	getTotalItemsCount,
-	getUsersSelector
-} from '../../Redux/users-selectors'
-
+	getUsersPageSize,
+	getUsersTotalItemsCount,
+	getUsers
+} from '../../selectors/users-selectors'
 import { Preloader } from '../../common/Preloader/Preloader'
 import { useAppDispatch, useAppSelector } from '../../Redux/redux-store'
+import { getAuth } from '../../selectors/auth-selectors'
 import { User } from './User/User'
 import style from './Users.module.css'
 
@@ -20,11 +19,11 @@ import { friendType, Search } from './Search/Search'
 
 export const UsersPage = () => {
 	const dispatch = useAppDispatch()
-	const isAuth = useAppSelector(state => state.auth.isAuth)
-	const users = useAppSelector(getUsersSelector)
-	const currentPageSize = useAppSelector(getPageSize)
-	const currentPage = useAppSelector(getCurrentPage)
-	const totalItemsCount = useAppSelector(getTotalItemsCount)
+	const isAuth = useAppSelector(getAuth)
+	const users = useAppSelector(getUsers)
+	const currentPageSize = useAppSelector(getUsersPageSize)
+	const currentPage = useAppSelector(getUsersCurrentPage)
+	const totalItemsCount = useAppSelector(getUsersTotalItemsCount)
 	const followingInProgress = useAppSelector(getFollowingInProgress)
 
 	const [searchParams, setSearchParams] = useSearchParams()

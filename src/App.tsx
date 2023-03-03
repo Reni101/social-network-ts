@@ -15,6 +15,8 @@ import { Preloader } from './common/Preloader/Preloader'
 import { getItem, MenuItem } from './MenuItemData'
 import { Routers } from './components/Routers/Routes'
 import { ErrorSnackBar } from './common/ErrorSnackBar/ErrorSnackBar'
+import { getAuthUserId } from './selectors/auth-selectors'
+import { getIsInit } from './selectors/app-selectors'
 
 const { Content, Footer, Sider } = Layout
 
@@ -22,8 +24,8 @@ export const App: React.FC = () => {
 	const dispatch = useAppDispatch()
 
 	const [collapsed, setCollapsed] = useState(false)
-	const initialized = useAppSelector<boolean>(state => state.app.initialized)
-	const myId = useAppSelector<number | null>(state => state.auth.userId)
+	const initialized = useAppSelector<boolean>(getIsInit)
+	const myId = useAppSelector<number | null>(getAuthUserId)
 
 	const items: MenuItem[] = [
 		getItem(

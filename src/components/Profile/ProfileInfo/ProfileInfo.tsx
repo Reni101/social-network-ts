@@ -6,6 +6,7 @@ import { ProfileType } from '../../../Redux/types'
 import { UploadPhoto } from '../UploadPhoto/UploadPhoto'
 
 import { useAppSelector } from '../../../Redux/redux-store'
+import { getStatus } from '../../../selectors/profile-slectors'
 import { ProfileStatus } from './ProfileStatus/ProfileStatus'
 import style from './ProfileInfo.module.css'
 
@@ -15,7 +16,7 @@ type PropsType = {
 }
 
 export const ProfileInfo: React.FC<PropsType> = React.memo(({ profile, isOwner }) => {
-	const statusFromState = useAppSelector<string>(state => state.profile.status)
+	const statusFromState = useAppSelector<string>(getStatus)
 	if (!profile) {
 		return <Preloader />
 	}

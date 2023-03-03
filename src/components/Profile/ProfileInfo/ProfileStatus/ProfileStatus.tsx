@@ -1,18 +1,15 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-
 import { Input } from 'antd'
 import { updateStatusTC } from '../../../../Redux/profile-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/redux-store'
+import { getStatus } from '../../../../selectors/profile-slectors'
 
 export const ProfileStatus = () => {
 	const dispatch = useAppDispatch()
-	const statusFromState = useAppSelector<string>(state => state.profile.status)
+	const statusFromState = useAppSelector<string>(getStatus)
+
 	const [editMode, setEditMode] = useState<boolean>(false)
 	const [status, setStatus] = useState<string>(statusFromState)
-
-	useEffect(() => {
-		setStatus(statusFromState)
-	}, [statusFromState])
 
 	const activateEditMode = () => {
 		setEditMode(true)
@@ -26,6 +23,10 @@ export const ProfileStatus = () => {
 	const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setStatus(e.currentTarget.value)
 	}
+
+	useEffect(() => {
+		setStatus(statusFromState)
+	}, [statusFromState])
 
 	return (
 		<>

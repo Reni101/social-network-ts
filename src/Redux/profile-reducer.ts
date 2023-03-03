@@ -1,9 +1,8 @@
-import { v1 } from 'uuid'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { profileAPI } from '../api/api'
 import { handleAsyncServerNetworkError } from '../utils/error-utils'
-import { PostsDataType, ProfileType } from './types'
+import { ProfileType } from './types'
 
 export const getProfileTC = createAsyncThunk(
 	'profileReducer/getProfileTC',
@@ -70,12 +69,8 @@ export const savePhotoTC = createAsyncThunk(
 const slice = createSlice({
 	name: 'profileReducer',
 	initialState: {
-		postsData: [
-			{ id: v1(), message: 'In progress...', likeCount: 0 }
-		] as Array<PostsDataType>,
-
 		profile: null as ProfileType | null,
-		status: ''
+		status: '' as string
 	},
 	reducers: {
 		setUserProfileAC(state, action: PayloadAction<{ profile: ProfileType }>) {

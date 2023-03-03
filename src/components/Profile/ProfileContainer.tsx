@@ -5,15 +5,16 @@ import { Navigate, useParams } from 'react-router-dom'
 import { getProfileTC, getStatusTC } from '../../Redux/profile-reducer'
 
 import { useAppSelector } from '../../Redux/redux-store'
+import { getAuth, getAuthUserId } from '../../selectors/auth-selectors'
 import { Profile } from './Profile'
 
 export const ProfileContainer = () => {
 	let { userId } = useParams()
 	const dispatch = useDispatch()
 
-	const authorizedUserID = useAppSelector<number>(state => state.auth.userId!)
+	const authorizedUserID = useAppSelector<number>(getAuthUserId)
 	const isOwner = +userId! === authorizedUserID
-	const isAuth = useAppSelector(state => state.auth.isAuth)
+	const isAuth = useAppSelector(getAuth)
 	const useridForUseEffect = { userid: userId ? userId : authorizedUserID.toString() }
 
 	useEffect(() => {

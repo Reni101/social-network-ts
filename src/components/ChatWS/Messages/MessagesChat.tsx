@@ -5,10 +5,12 @@ import { useAppSelector } from '../../../Redux/redux-store'
 import avatar from '../../../assets/UsersAvatar.jpg'
 import { ChatMessageType } from '../../../Redux/types'
 
+import { getWsMessages } from '../../../selectors/chatWS-selectors'
 import style from './MessageChat.module.css'
 
 export const MessagesChat = React.memo(() => {
-	const messages = useAppSelector<ChatMessageType[]>(state => state.chat.messages)
+	const messages = useAppSelector<ChatMessageType[]>(getWsMessages)
+
 	const messagesAnchorRef = useRef<HTMLDivElement>(null)
 	const [isAutoScroll, setIsAutoScroll] = useState(true)
 
