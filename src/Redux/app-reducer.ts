@@ -10,7 +10,7 @@ export const initializeAppTC = createAsyncThunk<{ value: boolean }, undefined>(
 	'appReducer/InitAppTC',
 	async (_, { dispatch, rejectWithValue }) => {
 		try {
-			let promise = dispatch(getAuthUserDataTC())
+			const promise = dispatch(getAuthUserDataTC())
 			await Promise.all([promise])
 			dispatch(setAppError(null))
 			return { value: true }
