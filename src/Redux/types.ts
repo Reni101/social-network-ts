@@ -1,23 +1,11 @@
-export type PostsType = {
-	id: string
-	message: string
-	likeCount: number
-}
-
-export type PostsDataType = {
-	id: string
-	message: string
-	likeCount: number
-}
-
 export type ProfileType = {
-	userId: number
+	aboutMe: null | string
+	contacts: ContactsType
+	fullName: string
 	lookingForAJob: boolean
 	lookingForAJobDescription: string
-	fullName: string
-	contacts: ContactsType
 	photos: PhotosType
-	aboutMe?: null | string
+	userId: number
 }
 export type ContactsType = {
 	github: string | null

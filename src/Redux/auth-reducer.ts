@@ -15,7 +15,7 @@ export const getAuthUserDataTC = createAsyncThunk<
 			return {
 				userId: res.data.id,
 				email: res.data.email,
-				login: res.data.email,
+				login: res.data.login,
 				isAuth: true
 			}
 		} else {

@@ -13,7 +13,7 @@ export const DialogsContainer = () => {
 
 	return (
 		<>
-			<h2>Dialogs(is progress...)</h2>
+			<h2>Dialogs</h2>
 			<Dialogs />
 		</>
 	)

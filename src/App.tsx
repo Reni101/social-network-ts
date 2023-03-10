@@ -50,13 +50,20 @@ export const App: React.FC = () => {
 		<>
 			<ErrorSnackBar />
 			<Layout className={style.app_wrapper}>
-				<Sider
-					collapsible
-					collapsed={collapsed}
-					onCollapse={value => setCollapsed(value)}
-				>
-					<Menu theme='dark' selectable={false} mode='inline' items={items} />
-				</Sider>
+				{myId && (
+					<Sider
+						collapsible
+						collapsed={collapsed}
+						onCollapse={value => setCollapsed(value)}
+					>
+						<Menu
+							theme='dark'
+							selectable={false}
+							mode='inline'
+							items={items}
+						/>
+					</Sider>
+				)}
 				<Layout className='site-layout'>
 					<HeaderPage />
 					<Content className={style.content}>
