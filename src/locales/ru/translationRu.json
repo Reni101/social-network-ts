@@ -1,6 +1,13 @@
 {
 	"common": {
-		"email": "Почта"
+		"email": "Почта",
+		"logOut": "Выйти"
+	},
+	"menu": {
+		"profile": "Профаил",
+		"messages": "Сообщения",
+		"users": "Пользователи",
+		"chat": "Чат"
 	},
 
 	"login": {

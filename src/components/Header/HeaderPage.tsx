@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Button, Layout, theme } from 'antd'
+import { Button, Layout, Select } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { logoutTC } from '../../Redux/auth-reducer'
 import { useAppSelector } from '../../Redux/redux-store'
@@ -12,6 +12,7 @@ const { Header } = Layout
 
 export const HeaderPage = () => {
 	const dispatch = useDispatch()
+	const { Option } = Select
 	const { t, i18n } = useTranslation()
 	const isAuth = useAppSelector(getAuth)
 	const login = useAppSelector(getLogin)
@@ -20,42 +21,35 @@ export const HeaderPage = () => {
 		dispatch(logoutTC())
 	}
 
-	const changeLanguage = (language: 'en' | 'ru') => {
+	const changeLanguage = (language: string) => {
 		i18n.changeLanguage(language)
 	}
 
-	const {
-		token: { colorBgContainer }
-	} = theme.useToken()
-
 	return (
-		<div className={styleH.header}>
-			<Header style={{ padding: 0, background: colorBgContainer }}>
+		<>
+			<Header style={{ background: 'white' }}>
 				<div className={styleH.loginBlock}>
 					{isAuth ? (
 						<div>
-							{login} - <Button onClick={logoutHandler}>Log out</Button>
+							{login} -{' '}
+							<Button onClick={logoutHandler}>{t('common.logOut')}</Button>
 						</div>
 					) : (
 						<NavLink to='/login'>{t('login.login')} </NavLink>
 					)}
 
-					<button
-						onClick={() => {
-							changeLanguage('en')
-						}}
+					<Select
+						defaultValue={i18n.language.slice(0, 2)}
+						className={styleH.select}
+						onChange={changeLanguage}
 					>
-						en
-					</button>
-					<button
-						onClick={() => {
-							changeLanguage('ru')
-						}}
-					>
-						ru
-					</button>
+						<Option value='ru' className={styleH.menu}>
+							ru
+						</Option>
+						<Option value='en'>en</Option>
+					</Select>
 				</div>
 			</Header>
-		</div>
+		</>
 	)
 }

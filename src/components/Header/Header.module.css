@@ -2,5 +2,16 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	gap: 1rem;
 	margin: 0 30px 0;
+}
+
+.select {
+	width: 120px;
+}
+
+.IMG {
+	margin-right: 5px;
+	padding: 0;
+	width: 20px;
 }

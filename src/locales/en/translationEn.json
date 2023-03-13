@@ -1,8 +1,14 @@
 {
 	"common": {
-		"email": "Email"
+		"email": "Email",
+		"logOut": "Log out"
 	},
-
+	"menu": {
+		"profile": "Profile",
+		"messages": "Messages",
+		"users": "Users",
+		"chat": "Chat"
+	},
 	"login": {
 		"login": "Login",
 		"password": "Password",
