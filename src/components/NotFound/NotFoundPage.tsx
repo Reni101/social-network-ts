@@ -6,7 +6,7 @@ export const NotFoundPage = () => {
 	const navigate = useNavigate()
 
 	const backHandler = () => {
-		navigate('/login')
+		navigate('/')
 	}
 	return (
 		<div>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { getProfileTC, getStatusTC } from '../../Redux/profile-reducer'
 
@@ -22,9 +22,9 @@ export const ProfileContainer = () => {
 		dispatch(getStatusTC(useridForUseEffect))
 	}, [userId])
 
-	if (!isAuth) {
-		return <Navigate to={'/login'} />
-	}
+	// if (!isAuth) {
+	// 	return <Navigate to={'/'} />
+	// }
 
 	return (
 		<div>

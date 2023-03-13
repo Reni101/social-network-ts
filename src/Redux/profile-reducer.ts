@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { handleAsyncServerNetworkError, handleServerAppError } from '../utils/error-utils'
 import { profileAPI } from '../api/profile-api'
-import { ResultCodeEnum } from '../api/api'
+import { ResultCodeEnum } from '../Enums/ResultCode'
 import { ProfileType } from './types'
 
 export const getProfileTC = createAsyncThunk(

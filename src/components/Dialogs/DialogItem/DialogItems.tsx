@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import defaultAvatar from '../../../assets/UsersAvatar.jpg'
+import defaultAvatar from '../../../assets/UsersAvatar.svg'
 import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
 import { Preloader } from '../../../common/Preloader/Preloader'

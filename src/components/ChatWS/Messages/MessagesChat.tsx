@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { useAppSelector } from '../../../Redux/redux-store'
-import avatar from '../../../assets/UsersAvatar.jpg'
+import avatar from '../../../assets/UsersAvatar.svg'
 import { ChatMessageType } from '../../../Redux/types'
 
 import { getWsMessages } from '../../../selectors/chatWS-selectors'

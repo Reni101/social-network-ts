@@ -1,6 +1,6 @@
 import React from 'react'
 
-import UserAvatar from '../../../assets/UsersAvatar.jpg'
+import UserAvatar from '../../../assets/UsersAvatar.svg'
 import { Preloader } from '../../../common/Preloader/Preloader'
 import { ProfileType } from '../../../Redux/types'
 import { UploadPhoto } from '../UploadPhoto/UploadPhoto'

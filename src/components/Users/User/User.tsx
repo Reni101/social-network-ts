@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Button } from 'antd'
 
-import UserAvatar from '../../../assets/UsersAvatar.jpg'
+import UserAvatar from '../../../assets/UsersAvatar.svg'
 
 import { UserType } from '../../../Redux/types'
 
