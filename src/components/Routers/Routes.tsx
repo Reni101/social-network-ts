@@ -1,21 +1,21 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { ProfileContainer } from '../Profile/ProfileContainer'
-import { DialogsContainer } from '../Dialogs/DialogsContainer'
 import { LoginPage } from '../Login/LoginPage'
 import { ChatPage } from '../ChatWS/ChatPage'
 import { NotFoundPage } from '../NotFound/NotFoundPage'
 import { UsersPage } from '../Users/UsersPage'
 import { Path } from '../../Enums/Path'
 import { ProtectedRoute } from '../../common/ProtectedRoute/ProtectedRoute'
+import { Profile } from '../Profile/Profile'
+import { Dialogs } from '../Dialogs/Dialogs'
 import style from './Routers.module.css'
 
 export const Routers = () => {
 	return (
 		<div className={style.routes}>
 			<Routes>
-				<Route path='/' element={<LoginPage />} />
-				<Route path='/notFound' element={<NotFoundPage />} />
+				<Route path={Path.LOGIN} element={<LoginPage />} />
+				<Route path={Path.NOTFOUND} element={<NotFoundPage />} />
 				<Route
 					path='*'
 					element={
@@ -23,11 +23,11 @@ export const Routers = () => {
 							<Routes>
 								<Route
 									path={`${Path.PROFILE}/:userId`}
-									element={<ProfileContainer />}
+									element={<Profile />}
 								/>
-								<Route path='/dialogs' element={<DialogsContainer />} />
-								<Route path='/users' element={<UsersPage />} />
-								<Route path='/chat' element={<ChatPage />} />
+								<Route path={Path.DIALOGS} element={<Dialogs />} />
+								<Route path={Path.USERS} element={<UsersPage />} />
+								<Route path={Path.CHAT} element={<ChatPage />} />
 							</Routes>
 						</ProtectedRoute>
 					}

@@ -37,7 +37,7 @@ export const HeaderPage = () => {
 							{login} - <Button onClick={logoutHandler}>Log out</Button>
 						</div>
 					) : (
-						<NavLink to='/login'>{t('login')} </NavLink>
+						<NavLink to='/login'>{t('login.login')} </NavLink>
 					)}
 
 					<button

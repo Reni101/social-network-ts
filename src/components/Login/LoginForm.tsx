@@ -57,7 +57,7 @@ export const LoginForm = () => {
 	return (
 		<div className={style.containerLogin}>
 			<form onSubmit={formik.handleSubmit}>
-				<h2>{t('login')}</h2>
+				<h2>{t('login.login')}</h2>
 
 				<Input
 					name='login'
@@ -70,7 +70,7 @@ export const LoginForm = () => {
 					<div style={{ color: 'red' }}>{formik.errors.login}</div>
 				)}
 
-				<h2>Password</h2>
+				<h2>{t('login.password')}</h2>
 
 				<Input.Password
 					autoComplete='on'
@@ -89,7 +89,7 @@ export const LoginForm = () => {
 					onChange={formik.handleChange}
 					checked={formik.values.rememberMe}
 				>
-					Remember me
+					{t('login.rememberMe')}
 				</Checkbox>
 
 				{captchaURl && (
@@ -107,22 +107,22 @@ export const LoginForm = () => {
 					/>
 				)}
 				<div>
-					<Button htmlType='submit'>Login</Button>
+					<Button htmlType='submit'>{t('login.signIn')}</Button>
 				</div>
 				<p>
-					To log in get registered
+					{t('login.to login in')}
 					<a
 						href={'https://social-network.samuraijs.com/'}
 						target={'_blank'}
 						rel='noreferrer'
 					>
 						{' '}
-						here
+						{t('login.here')}
 					</a>
 				</p>
-				<p>or use common test account credentials:</p>
-				<p>Email: free@samuraijs.com</p>
-				<p>Password: free</p>
+				<p>{t('login.or use common')}:</p>
+				<p>{t('common.email')}: free@samuraijs.com</p>
+				<p>{t('login.password')}: free</p>
 			</form>
 		</div>
 	)

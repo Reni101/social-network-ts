@@ -1,3 +1,17 @@
 {
- "login": "Login"
+	"common": {
+		"email": "Email"
+	},
+
+	"login": {
+		"login": "Login",
+		"password": "Password",
+		"rememberMe": "Remember me",
+		"signIn": "Sign in",
+		"to login in": "To log in get registered",
+		"here": "here",
+		"or use common": "or use common test account credentials"
+	},
+	"profile": {},
+	"dialogs": {}
 }
