@@ -4,8 +4,8 @@ import { dialogsReducer } from './dialogs-reducer'
 import { authReducer } from './auth-reducer'
 import { profileReducer } from './profile-reducer'
 import { usersReducer } from './users-reducer'
-import { appReducer } from './app-reducer'
 import { chatWSReducer } from './chat-ws-reducer'
+import { appReducer } from './app-reducer'
 
 export const store = configureStore({
 	reducer: {

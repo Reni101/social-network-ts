@@ -1,51 +1,21 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Input } from 'antd'
-import { updateStatusTC } from '../../../../Redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '../../../../Redux/redux-store'
+import React, { FC } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useAppSelector } from '../../../../Redux/redux-store'
 import { getStatus } from '../../../../selectors/profile-slectors'
+import { EditableStatus } from './EditableStatus/EditableStatus'
 
-export const ProfileStatus = () => {
-	const dispatch = useAppDispatch()
-	const statusFromState = useAppSelector<string>(getStatus)
-
-	const [editMode, setEditMode] = useState<boolean>(false)
-	const [status, setStatus] = useState<string>(statusFromState)
-
-	const activateEditMode = () => {
-		setEditMode(true)
-	}
-
-	const deActivateEditMode = () => {
-		setEditMode(false)
-		dispatch(updateStatusTC({ status }))
-	}
-
-	const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setStatus(e.currentTarget.value)
-	}
-
-	useEffect(() => {
-		setStatus(statusFromState)
-	}, [statusFromState])
+type PropsType = {
+	isOwner: boolean
+}
+export const ProfileStatus: FC<PropsType> = ({ isOwner }) => {
+	const { t } = useTranslation()
+	const statusFromState =
+		useAppSelector<string>(getStatus) || t('profile.status not found')
 
 	return (
 		<>
-			{!editMode ? (
-				<div onDoubleClick={activateEditMode}>
-					status: {statusFromState || 'Status not found'}{' '}
-				</div>
-			) : (
-				<div>
-					status:
-					<Input
-						autoFocus
-						style={{ width: '200px', position: 'absolute' }}
-						onBlur={deActivateEditMode}
-						value={status}
-						onChange={onStatusChange}
-					/>
-				</div>
-			)}
+			<span>{t('profile.status')}: </span>
+			{isOwner ? <EditableStatus /> : <div>{statusFromState}</div>}
 		</>
 	)
 }

@@ -18,6 +18,11 @@
 		"here": "here",
 		"or use common": "or use common test account credentials"
 	},
-	"profile": {},
+	"profile": {
+		"status": "Status",
+		"change photo": "Change photo",
+		"write message": "write a message",
+		"status not found": "status not found"
+	},
 	"dialogs": {}
 }

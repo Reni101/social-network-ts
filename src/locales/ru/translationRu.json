@@ -19,6 +19,13 @@
 		"here": "здесь",
 		"or use common": "или используйте общие учетные данные"
 	},
-	"profile": {},
-	"dialogs": {}
+	"profile": {
+		"status": "Статус",
+		"change photo": "Изменить фотографию",
+		"write message" : "написать сообщение",
+		"status not found": "статус не найден"
+	},
+	"dialogs": {
+		"name": "Имя"
+	}
 }
