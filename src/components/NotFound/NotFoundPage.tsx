@@ -1,13 +1,15 @@
 import React from 'react'
 import { Button, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { Path } from '../../Enums/Path'
 
 export const NotFoundPage = () => {
 	const navigate = useNavigate()
 
 	const backHandler = () => {
-		navigate('/')
+		navigate(Path.LOGIN)
 	}
+
 	return (
 		<div>
 			<Result

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
-import { setAppError, setAppStatus } from '../Redux/app-reducer'
+import { setAppError, setAppStatus } from '../redux/app-reducer'
 
 export const handleServerAppError = (
 	messages: string[],
