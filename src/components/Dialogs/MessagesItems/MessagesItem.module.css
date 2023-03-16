@@ -17,3 +17,9 @@
 .userName {
 	color: red;
 }
+.viewed{
+	display: flex;
+}
+.viewed > img {
+	width: 20px;
+}

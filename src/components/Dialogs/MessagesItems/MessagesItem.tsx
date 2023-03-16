@@ -16,6 +16,8 @@ import {
 } from '../../../selectors/dialogs-selectors'
 import { getAuthUserId } from '../../../selectors/auth-selectors'
 import { getAppStatus } from '../../../selectors/app-selectors'
+import check from '../../../assets/mark/check.svg'
+import cansel from '../../../assets/mark/cross-circle.svg'
 import styles from './MessagesItem.module.css'
 
 export const MessagesItem = () => {
@@ -71,7 +73,10 @@ export const MessagesItem = () => {
 							{m.senderName}
 						</div>
 						<b>{m.body}</b>
-						<div>{m.viewed && t('dialogs.viewed')}</div>
+						<div className={styles.viewed}>
+							{t('dialogs.viewed') + ': '}
+							<img src={m.viewed ? check : cansel} alt='mark' />
+						</div>
 						<div>
 							{t('dialogs.sent') +
 								': ' +
