@@ -92,13 +92,13 @@ export const MessagesItem = () => {
 				onChange={onChangeHandler}
 				value={sendMessage}
 			/>
-			<Button onClick={sendMessageHandler}> Send </Button>
-			<Button onClick={goBackHandler}> go back </Button>
+			<Button onClick={sendMessageHandler}> {t('dialogs.send message')} </Button>
+			<Button onClick={goBackHandler}> {t('dialogs.go back')} </Button>
 			<Button
 				onClick={nextPageHandler}
 				disabled={messages.length >= totalMessagesCount}
 			>
-				show more
+				{t('dialogs.show more')}
 			</Button>
 		</div>
 	)

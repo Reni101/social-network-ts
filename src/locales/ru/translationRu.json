@@ -22,12 +22,15 @@
 	"profile": {
 		"status": "Статус",
 		"change photo": "Изменить фотографию",
-		"write message" : "написать сообщение",
+		"write message": "написать сообщение",
 		"status not found": "статус не найден"
 	},
 	"dialogs": {
 		"name": "Имя",
 		"viewed": "Просмотренно",
-		"sent" : "Отправленно"
+		"sent": "Отправленно",
+		"send message": "Отправить сообщение",
+		"go back": "Вернуться",
+		"show more": "Показать"
 	}
 }

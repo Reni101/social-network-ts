@@ -27,6 +27,9 @@
 	"dialogs": {
 		"name": "Name",
 		"viewed": "Viewed",
-		"sent" : "Sent"
+		"sent": "Sent",
+		"send message": "Send message",
+		"go back": "Go back",
+		"show more": "Show more"
 	}
 }

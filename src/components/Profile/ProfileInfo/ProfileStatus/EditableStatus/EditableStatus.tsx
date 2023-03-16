@@ -30,7 +30,7 @@ export const EditableStatus = () => {
 
 	return (
 		<>
-			{!editMode ? (
+			{editMode ? (
 				<span onDoubleClick={activateEditMode}>{statusFromState}</span>
 			) : (
 				<span>

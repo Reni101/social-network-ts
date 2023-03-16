@@ -38,7 +38,7 @@ export const Search = (props: PropsType) => {
 				onKeyUp={pressEnter}
 				autoFocus
 				defaultValue={term}
-				placeholder='Basic usage'
+				placeholder='Find users'
 				onChange={inputHandler}
 				name='term'
 			/>
