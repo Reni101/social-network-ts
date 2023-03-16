@@ -3,6 +3,7 @@ import { Button, Spin } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import TextArea from 'antd/es/input/TextArea'
 import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 import {
 	clearUserMessagesAC,
 	getMessagesFromUserTC,
@@ -67,11 +68,15 @@ export const MessagesItem = () => {
 								ownerId === m.senderId ? styles.owner : styles.userName
 							}
 						>
-							{m.senderName}{' '}
-						</div>{' '}
+							{m.senderName}
+						</div>
 						<b>{m.body}</b>
 						<div>{m.viewed && t('dialogs.viewed')}</div>
-						<div>{t('dialogs.sent') + ': ' + m.addedAt}</div>
+						<div>
+							{t('dialogs.sent') +
+								': ' +
+								dayjs(m.addedAt).format('DD.MM.YYYY')}
+						</div>
 					</div>
 				)
 			})}
