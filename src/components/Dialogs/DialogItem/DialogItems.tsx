@@ -1,4 +1,5 @@
 import React, { memo, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import defaultAvatar from '../../../assets/UsersAvatar.svg'
 import { useAppDispatch, useAppSelector } from '../../../Redux/redux-store'
 import { getAllDialogsTC } from '../../../Redux/dialogs-reducer'
@@ -13,6 +14,7 @@ type PropsType = {
 
 export const DialogItems = memo((props: PropsType) => {
 	const dispatch = useAppDispatch()
+	const { t } = useTranslation()
 	const dialogsData = useAppSelector(getDialogsData)
 	const status = useAppSelector(getAppStatus)
 
@@ -42,7 +44,9 @@ export const DialogItems = memo((props: PropsType) => {
 							src={item.photos.small ? item.photos.small : defaultAvatar}
 							alt='avatar'
 						/>
-						<div>name: {item.userName}</div>
+						<div>
+							{t('dialogs.name')}: {item.userName}
+						</div>
 					</div>
 				)
 			})}

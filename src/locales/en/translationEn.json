@@ -24,5 +24,9 @@
 		"write message": "write a message",
 		"status not found": "status not found"
 	},
-	"dialogs": {}
+	"dialogs": {
+		"name": "Name",
+		"viewed": "Viewed",
+		"sent" : "Sent"
+	}
 }

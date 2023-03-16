@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Spin } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import TextArea from 'antd/es/input/TextArea'
+import { useTranslation } from 'react-i18next'
 import {
 	clearUserMessagesAC,
 	getMessagesFromUserTC,
@@ -18,6 +19,7 @@ import styles from './MessagesItem.module.css'
 
 export const MessagesItem = () => {
 	const dispatch = useAppDispatch()
+	const { t } = useTranslation()
 	const messages = useAppSelector(getMessageItems)
 	const ownerId = useAppSelector(getAuthUserId)
 	const totalMessagesCount = useAppSelector(getMessageTotalCount)
@@ -67,8 +69,9 @@ export const MessagesItem = () => {
 						>
 							{m.senderName}{' '}
 						</div>{' '}
-						<b>{m.body}</b> viewed: {m.viewed ? 'viewed   ' : 'not viewed   '}
-						data:{m.addedAt}
+						<b>{m.body}</b>
+						<div>{m.viewed && t('dialogs.viewed')}</div>
+						<div>{t('dialogs.sent') + ': ' + m.addedAt}</div>
 					</div>
 				)
 			})}
