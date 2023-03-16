@@ -15,7 +15,7 @@ export const ProfileStatus: FC<PropsType> = ({ isOwner }) => {
 	return (
 		<>
 			<span>{t('profile.status')}: </span>
-			{!isOwner ? <EditableStatus /> : <div>{statusFromState}</div>}
+			{isOwner ? <EditableStatus /> : <div>{statusFromState}</div>}
 		</>
 	)
 }

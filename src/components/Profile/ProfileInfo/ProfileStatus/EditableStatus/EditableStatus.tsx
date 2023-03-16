@@ -1,11 +1,13 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Input } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { useAppDispatch, useAppSelector } from '../../../../../Redux/redux-store'
 import { getStatus } from '../../../../../selectors/profile-slectors'
 import { updateStatusTC } from '../../../../../Redux/profile-reducer'
 
 export const EditableStatus = () => {
 	const dispatch = useAppDispatch()
+	const { t } = useTranslation()
 	const statusFromState = useAppSelector<string>(getStatus)
 
 	const [editMode, setEditMode] = useState<boolean>(false)
@@ -30,8 +32,10 @@ export const EditableStatus = () => {
 
 	return (
 		<>
-			{editMode ? (
-				<span onDoubleClick={activateEditMode}>{statusFromState}</span>
+			{!editMode ? (
+				<span onDoubleClick={activateEditMode}>
+					{statusFromState ? statusFromState : t('profile.status not found')}
+				</span>
 			) : (
 				<span>
 					<Input
