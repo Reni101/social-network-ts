@@ -63,7 +63,7 @@ export const UsersPage = () => {
 				friend
 			})
 		)
-	}, [termQuery, friendQuery, dispatch, currentPageSize, friend])
+	}, [termQuery, friendQuery, dispatch])
 
 	if (!isAuth) {
 		return <Navigate to={'/login'} />
