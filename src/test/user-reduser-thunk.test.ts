@@ -50,9 +50,10 @@ test('getUsersThunkCreator working correct', async () => {
 	userAPIMock.getUsers.mockReturnValue(Promise.resolve(result))
 
 	const thunk = getUsersTC({
-		currentPage: 1,
-		pageSize: 5,
-		filter: { term: '', friend: null }
+		page: 1,
+		count: 5,
+		term: '',
+		friend: null
 	})
 
 	const dispatchMock = jest.fn()

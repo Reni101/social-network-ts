@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { followTC, getUsersTC, unfollowTC } from '../../Redux/users-reducer'
 import { Paginator } from '../../common/Paginator/Paginator'
 import {
-	getUsersCurrentPage,
 	getFollowingInProgress,
+	getUsers,
+	getUsersCurrentPage,
 	getUsersPageSize,
-	getUsersTotalItemsCount,
-	getUsers
+	getUsersTotalItemsCount
 } from '../../selectors/users-selectors'
 import { Preloader } from '../../common/Preloader/Preloader'
 import { useAppDispatch, useAppSelector } from '../../Redux/redux-store'
@@ -30,13 +30,7 @@ export const UsersPage = () => {
 
 	const termQuery = searchParams.get('name') || ''
 	const friendQuery = (searchParams.get('friend') || 'all') as friendType
-
-	const filter = useMemo(() => {
-		return {
-			term: termQuery,
-			friend: friendQuery === 'myFriend'
-		}
-	}, [termQuery, friendQuery])
+	const friend = friendQuery === 'myFriend'
 
 	const followHandler = (userId: number) => {
 		dispatch(followTC({ userId }))
@@ -48,14 +42,28 @@ export const UsersPage = () => {
 
 	const onPageChanged = useCallback(
 		(pageNumber: number, pageSize: number) => {
-			dispatch(getUsersTC({ currentPage: pageNumber, pageSize, filter }))
+			dispatch(
+				getUsersTC({
+					page: pageNumber,
+					count: pageSize,
+					term: termQuery,
+					friend
+				})
+			)
 		},
-		[filter, dispatch]
+		[termQuery, friend, dispatch]
 	)
 
 	useEffect(() => {
-		dispatch(getUsersTC({ currentPage: 1, pageSize: currentPageSize, filter }))
-	}, [termQuery, friendQuery])
+		dispatch(
+			getUsersTC({
+				page: 1,
+				count: currentPageSize,
+				term: termQuery,
+				friend
+			})
+		)
+	}, [termQuery, friendQuery, dispatch, currentPageSize, friend])
 
 	if (!isAuth) {
 		return <Navigate to={'/login'} />

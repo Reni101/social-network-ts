@@ -1,27 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { handleAsyncServerNetworkError } from '../utils/error-utils'
-import { usersAPI } from '../api/users-api'
-import { FilterType, UserType } from './types'
+import { usersAPI, usersQueryParams } from '../api/users-api'
+import { UserType } from './types'
 
 export const getUsersTC = createAsyncThunk(
 	'usersReducer/getUsersTC',
-	async (
-		param: { currentPage: number; pageSize: number; filter: FilterType },
-		{ dispatch, rejectWithValue }
-	) => {
+	async (params: usersQueryParams, { dispatch, rejectWithValue }) => {
 		try {
-			if (!param.filter.friend) param.filter.friend = null
-			const res = await usersAPI.getUsers(
-				param.currentPage,
-				param.pageSize,
-				param.filter
-			)
+			if (!params.friend) params.friend = null
+			const res = await usersAPI.getUsers(params)
 
 			return {
 				...res,
-				currentPage: param.currentPage,
-				currentPageSize: param.pageSize
+				currentPage: params.page,
+				currentPageSize: params.count
 			}
 		} catch (e) {
 			return handleAsyncServerNetworkError(
