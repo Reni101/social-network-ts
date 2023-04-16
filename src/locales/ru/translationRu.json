@@ -1,36 +1,35 @@
 {
-	"common": {
-		"email": "Почта",
-		"logOut": "Выйти"
-	},
-	"menu": {
-		"profile": "Профаил",
-		"messages": "Сообщения",
-		"users": "Пользователи",
-		"chat": "Чат"
-	},
-
-	"login": {
-		"login": "Логин",
-		"password": "Пароль",
-		"rememberMe": "Запомнить меня",
-		"signIn": "Войти",
-		"to login in": "Для входа зарегистрируйтесь",
-		"here": "здесь",
-		"or use common": "или используйте общие учетные данные"
-	},
-	"profile": {
-		"status": "Статус",
-		"change photo": "Изменить фотографию",
-		"write message": "написать сообщение",
-		"status not found": "статус не найден"
-	},
-	"dialogs": {
-		"name": "Имя",
-		"viewed": "Просмотренно",
-		"sent": "Отправленно",
-		"send message": "Отправить сообщение",
-		"go back": "Вернуться",
-		"show more": "Показать"
-	}
+  "common": {
+    "email": "Почта",
+    "logOut": "Выйти"
+  },
+  "menu": {
+    "profile": "Профаил",
+    "dialogs": "Диалоги",
+    "users": "Пользователи",
+    "chat": "Чат"
+  },
+  "login": {
+    "login": "Логин",
+    "password": "Пароль",
+    "rememberMe": "Запомнить меня",
+    "signIn": "Войти",
+    "to login in": "Для входа зарегистрируйтесь",
+    "here": "здесь",
+    "or use common": "или используйте общие учетные данные"
+  },
+  "profile": {
+    "status": "Статус",
+    "change photo": "Изменить фотографию",
+    "write message": "написать сообщение",
+    "status not found": "статус не найден"
+  },
+  "dialogs": {
+    "name": "Имя",
+    "viewed": "Просмотренно",
+    "sent": "Отправленно",
+    "send message": "Отправить сообщение",
+    "go back": "Вернуться",
+    "show more": "Показать"
+  }
 }
