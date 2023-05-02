@@ -1,13 +1,14 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { handleAsyncServerNetworkError, handleServerAppError } from '../utils/error-utils'
-import { authAPI, securityAPI } from '../api/auth-api'
-import { ResultCodeEnum } from '../Enums/ResultCode'
+import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
+import { handleAsyncServerNetworkError, handleServerAppError } from 'utils/error-utils'
+import { authAPI, securityAPI } from 'api/auth-api'
+import { ResultCodeEnum } from 'Enums/ResultCode'
 import { setAppStatus } from './app-reducer'
 
-export const getAuthUserDataTC = createAsyncThunk<
+export const getAuthUserDataTC = createAppAsyncThunk<
 	{ userId: number; email: string; login: string; isAuth: boolean },
-	undefined
+	void
 >('authReducer/getAuthUserDataTC', async (_, { dispatch, rejectWithValue }) => {
 	try {
 		const res = await authAPI.getAuthMe()
@@ -30,10 +31,10 @@ export const getAuthUserDataTC = createAsyncThunk<
 	}
 })
 
-export const loginTC = createAsyncThunk<
-	undefined,
+export const loginTC = createAppAsyncThunk<
+	void,
 	{ email: string; password: string; rememberMe: boolean; captcha?: string }
->('authReducer/loginTC', async (param, { dispatch, rejectWithValue }) => {
+>('', async (param, { dispatch, rejectWithValue }) => {
 	try {
 		dispatch(setAppStatus('loading'))
 		const res = await authAPI.login(
@@ -59,8 +60,7 @@ export const loginTC = createAsyncThunk<
 		)
 	}
 })
-
-export const logoutTC = createAsyncThunk(
+export const logoutTC = createAppAsyncThunk(
 	'authReducer/logoutTC',
 	async (_, { dispatch, rejectWithValue }) => {
 		try {
@@ -80,8 +80,7 @@ export const logoutTC = createAsyncThunk(
 		}
 	}
 )
-
-export const getCaptchaURLTC = createAsyncThunk<{ url: string }, undefined>(
+export const getCaptchaURLTC = createAppAsyncThunk<{ url: string }, void>(
 	'authReducer/getCaptchaURLTC',
 	async (_, { dispatch, rejectWithValue }) => {
 		try {
@@ -108,7 +107,7 @@ const slice = createSlice({
 		captchaURl: null as string | null
 	},
 	reducers: {},
-	extraReducers: builder =>
+	extraReducers: builder => {
 		builder
 			.addCase(getAuthUserDataTC.fulfilled, (state, action) => {
 				state.userId = action.payload.userId
@@ -130,6 +129,7 @@ const slice = createSlice({
 			.addCase(getAuthUserDataTC.rejected, state => {
 				state.isAuth = false
 			})
+	}
 })
 
 export const authReducer = slice.reducer

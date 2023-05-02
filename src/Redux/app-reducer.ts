@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { handleAsyncServerNetworkError } from '../utils/error-utils'
+import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
+import { handleAsyncServerNetworkError } from 'utils/error-utils'
 import { getAuthUserDataTC } from './auth-reducer'
 
 export type appStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-export const initializeAppTC = createAsyncThunk<{ value: boolean }, undefined>(
-	'appReducer/InitAppTC',
+export const initializeAppTC = createAppAsyncThunk<{ value: boolean }, void>(
+	'appReducer/initializeAppTC',
 	async (_, { dispatch, rejectWithValue }) => {
 		try {
 			const promise = dispatch(getAuthUserDataTC())
@@ -39,10 +39,11 @@ const slice = createSlice({
 			state.status = action.payload
 		}
 	},
-	extraReducers: builder =>
+	extraReducers: builder => {
 		builder.addCase(initializeAppTC.fulfilled, (state, action) => {
 			state.initialized = action.payload.value
 		})
+	}
 })
 export const appReducer = slice.reducer
 export const { setAppError, setAppStatus } = slice.actions
